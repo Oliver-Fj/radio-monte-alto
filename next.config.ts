@@ -1,21 +1,11 @@
-
 import type { NextConfig } from "next";
 
-type NextConfigWithEslint = NextConfig & {
-  eslint?: {
-    ignoreDuringBuilds?: boolean;
-  };
-};
-
-const nextConfig: NextConfigWithEslint = {
+const nextConfig: NextConfig = {
   output: 'export',
+  basePath: '/radio-monte-alto',
+  assetPrefix: '/radio-monte-alto/',
   images: {
-    unoptimized: true, 
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      { protocol: 'https', hostname: 'images.unsplash.com' },
-      { protocol: 'https', hostname: 'sp.dattavolt.com' },
-    ]
+    unoptimized: true,
   },
   typescript: {
     ignoreBuildErrors: true,
