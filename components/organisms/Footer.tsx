@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { Phone, Mail, MapPin, Heart } from 'lucide-react';
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 // --- ÍCONOS PERSONALIZADOS (Para evitar errores de deprecación de Lucide) ---
 
@@ -74,7 +75,7 @@ export default function Footer() {
               <div className="absolute inset-0 bg-yellow-500/40 blur-[40px] rounded-full" />
 
               <Image
-                src="/images/logo-radio.png"
+                src={`${B}/images/logo-radio.png`}
                 alt="Radio Monte Alto"
                 width={140}
                 height={80}

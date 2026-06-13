@@ -5,6 +5,9 @@ import Image from 'next/image';
 import { ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 import { Slide } from '@/lib/types';
 
+
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 // --- DATOS ---
 const slides: Slide[] = [
   {

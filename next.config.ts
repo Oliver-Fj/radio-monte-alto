@@ -5,8 +5,7 @@ const nextConfig: NextConfig = {
   basePath: '/radio-monte-alto',
   assetPrefix: '/radio-monte-alto/',
   images: {
-    loader: 'custom',
-    loaderFile: './lib/imageLoader.ts',
+    unoptimized: true,  // ← vuelve a esto
   },
   typescript: {
     ignoreBuildErrors: true,
