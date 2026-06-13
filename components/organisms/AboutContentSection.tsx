@@ -6,61 +6,7 @@ export default function WhoWeAreSplitSection() {
   return (
     <section className="relative py-20 md:py-24 bg-slate-50 overflow-hidden">
       
-      {/* --- ESTILOS DE LA ANIMACIÓN INTENSA --- */}
-      <style jsx global>{`
-        @keyframes spin-slow {
-          from { transform: rotate(0deg); }
-          to { transform: rotate(360deg); }
-        }
-
-        /* CONTENEDOR DE LA TARJETA */
-        .premium-card-wrapper {
-          position: relative;
-          border-radius: 3rem; 
-          z-index: 0;
-          overflow: hidden; 
-          box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.3); 
-        }
-
-        /* 1. EL "LÍQUIDO" GIRATORIO (Capa trasera) */
-        .premium-card-wrapper::before {
-          content: '';
-          position: absolute;
-          z-index: -2;
-          left: -100%;
-          top: -100%;
-          width: 300%;
-          height: 300%;
-          background-repeat: no-repeat;
-          background-position: 50% 50%;
-          
-          /* GRADIENTE INTENSO: Oro + Naranja */
-          background-image: conic-gradient(
-            transparent 0deg, 
-            transparent 60deg,
-            #fbbf24 100deg,   
-            #f59e0b 140deg,   
-            #fbbf24 180deg,   
-            transparent 240deg
-          );
-          
-          animation: spin-slow 3s linear infinite; 
-        }
-
-        /* 2. LA MÁSCARA INTERNA */
-        .premium-card-wrapper::after {
-          content: '';
-          position: absolute;
-          z-index: -1;
-          left: 12px; 
-          top: 12px;
-          width: calc(100% - 24px); 
-          height: calc(100% - 24px);
-          background: linear-gradient(to bottom, #172554, #1e3a8a); 
-          border-radius: 2.3rem; 
-          box-shadow: inset 0 0 20px rgba(0,0,0,0.5);
-        }
-      `}</style>
+      
 
       <div className="container mx-auto px-4 relative z-10">
         

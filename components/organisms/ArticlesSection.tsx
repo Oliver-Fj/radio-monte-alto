@@ -1,7 +1,7 @@
-'use client';
-
 import React from 'react';
 import { BookOpen, ArrowRight, Calendar, Clock, Bookmark } from 'lucide-react';
+import Image from 'next/image';
+import Link from 'next/link'; 
 
 // --- DATOS MOCK (Para visualización inmediata) ---
 const articulosDestacados = [
@@ -34,20 +34,22 @@ const articulosDestacados = [
   }
 ];
 
-// --- COMPONENTE DE TARJETA DE LUJO (INTEGRADO) ---
+// --- COMPONENTE DE TARJETA ---
 const LuxuryArticleCard = ({ articulo }: { articulo: typeof articulosDestacados[0] }) => {
   return (
     <article className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-500 hover:-translate-y-2">
-      
+
       {/* IMAGEN HEADER */}
       <div className="relative h-60 overflow-hidden">
         <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10" />
-        <img 
-          src={articulo.imagen} 
-          alt={articulo.titulo} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        <Image
+          src={articulo.imagen}
+          alt={articulo.titulo}
+          fill
+          className="object-cover"
+          sizes="(max-width: 768px) 100vw, 33vw"
         />
-        
+
         {/* Badge Categoría Flotante */}
         <div className="absolute top-4 left-4 z-20">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/95 backdrop-blur text-yellow-700 shadow-md border border-yellow-500/10">
@@ -74,12 +76,12 @@ const LuxuryArticleCard = ({ articulo }: { articulo: typeof articulosDestacados[
           </div>
         </div>
 
-        {/* Título */}
+        {/* Título — ✅ <Link> en vez de <a> */}
         <h3 className="text-xl font-serif font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-900 transition-colors">
-          <a href={`/articulos/${articulo.id}`} className="focus:outline-none">
+          <Link href={`/recursos/${articulo.id}`} className="focus:outline-none">
             <span className="absolute inset-0" aria-hidden="true" />
             {articulo.titulo}
-          </a>
+          </Link>
         </h3>
 
         {/* Extracto */}
@@ -101,31 +103,27 @@ const LuxuryArticleCard = ({ articulo }: { articulo: typeof articulosDestacados[
 
 // --- SECCIÓN PRINCIPAL ---
 export default function ArticlesSection() {
-  
   return (
     <section className="relative py-24 bg-white overflow-hidden font-sans">
-      
-      {/* --- FONDO AMBIENTAL (WHITE ROYAL) --- */}
+
+      {/* --- FONDO AMBIENTAL --- */}
       <div className="absolute inset-0 pointer-events-none">
-         {/* Textura sutil */}
-         <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-multiply" />
-         {/* Luces suaves */}
-         <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
-         <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-yellow-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-yellow-500/5 rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        
+
         {/* --- HEADER --- */}
         <div className="text-center mb-16 space-y-4">
           <div className="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-gray-50 border border-yellow-600/20 shadow-[0_0_20px_rgba(202,138,4,0.15)]">
-             <BookOpen className="w-6 h-6 text-yellow-600" />
+            <BookOpen className="w-6 h-6 text-yellow-600" />
           </div>
-          
+
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 tracking-tight">
             Recursos <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700">Espirituales</span>
           </h2>
-          
+
           <p className="text-slate-600 max-w-2xl mx-auto text-lg font-light leading-relaxed">
             Nutre tu espíritu con mensajes de enseñanza, edificación y crecimiento profundo basados en la Palabra.
           </p>
@@ -138,22 +136,21 @@ export default function ArticlesSection() {
           ))}
         </div>
 
-        {/* --- CTA BUTTON --- */}
+        {/* --- CTA BUTTON — ✅ <Link> en vez de <a> --- */}
         <div className="text-center">
-          <a 
+          <Link
             href="/recursos"
             className="group relative inline-flex items-center gap-3 px-10 py-4 bg-slate-900 overflow-hidden rounded-full shadow-xl hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300"
           >
-            {/* Brillo en hover */}
             <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
             <div className="absolute inset-0 border border-white/10 rounded-full" />
-            
+
             <BookOpen className="w-5 h-5 text-yellow-500 group-hover:scale-110 transition-transform" />
             <span className="relative z-10 text-sm font-bold tracking-[0.15em] text-white uppercase group-hover:text-yellow-50 transition-colors">
               Explorar Biblioteca
             </span>
             <ArrowRight className="w-5 h-5 text-yellow-500 group-hover:translate-x-1 transition-transform" />
-          </a>
+          </Link>
         </div>
 
       </div>

@@ -168,9 +168,9 @@ export default function HeroCarousel() {
     setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
   }, []);
 
-  const goToSlide = (index: number) => {
-    setCurrent(index);
-  };
+  const goToSlide = useCallback((index: number) => { setCurrent(index); }, []);
+
+
 
   useEffect(() => {
     if (isPaused) return;
@@ -264,12 +264,6 @@ export default function HeroCarousel() {
 
       <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-[#0B1120] to-transparent z-30 pointer-events-none" />
 
-      <style jsx global>{`
-        @keyframes progress { 
-          0% { transform: scaleX(0); } 
-          100% { transform: scaleX(1); } 
-        }
-      `}</style>
     </section>
   );
 }

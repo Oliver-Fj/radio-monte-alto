@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useEffect, useState } from 'react';
 import { BookOpen, Calendar, Quote, Share2, Copy, Check, Link as LinkIcon } from 'lucide-react';

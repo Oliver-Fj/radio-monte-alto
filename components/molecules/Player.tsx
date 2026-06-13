@@ -1,23 +1,15 @@
 'use client';
 
-import { Volume2, VolumeX, Radio, Signal, Share2, Info, Wifi } from 'lucide-react';
+import { Volume2, VolumeX, Radio, Signal, Share2, Wifi } from 'lucide-react';
 import { useAudio } from '@/lib/contexts/AudioContext';
-import { usePlayer } from '@/lib/contexts/PlayerContext';
 import { useCurrentProgram } from '@/lib/hooks/useCurrentProgram';
 import { useEffect, useState } from 'react';
 import PlayButton from '@/components/molecules/PlayButton';
 
-const STREAM_URL = 'https://sp.dattavolt.com/8114/stream';
-
 export default function Player() {
   const { volume, isMuted, isPlaying: audioIsPlaying, isLoading, error, changeVolume, toggleMute } = useAudio();
-  const { setIsPlaying } = usePlayer();
   const currentProgram = useCurrentProgram();
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    setIsPlaying(audioIsPlaying);
-  }, [audioIsPlaying, setIsPlaying]);
 
   // Función para copiar el link de la radio
   const handleShare = () => {
@@ -29,18 +21,8 @@ export default function Player() {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out">
       
-      {/* --- ESTILOS DE ANIMACIÓN (Visualizador) --- */}
-      <style jsx global>{`
-        @keyframes music-bar {
-          0%, 100% { height: 20%; opacity: 0.5; }
-          50% { height: 100%; opacity: 1; }
-        }
-        .bar-1 { animation: music-bar 0.8s ease-in-out infinite; }
-        .bar-2 { animation: music-bar 1.2s ease-in-out infinite 0.1s; }
-        .bar-3 { animation: music-bar 0.9s ease-in-out infinite 0.2s; }
-        .bar-4 { animation: music-bar 1.1s ease-in-out infinite 0.3s; }
-      `}</style>
-
+      
+      
       {/* --- CONTENEDOR PRINCIPAL (Glassmorphism + Textura) --- */}
       <div className="bg-slate-900/95 backdrop-blur-xl border-t border-white/10 shadow-[0_-10px_50px_-10px_rgba(0,0,0,0.8)] relative overflow-hidden">
         

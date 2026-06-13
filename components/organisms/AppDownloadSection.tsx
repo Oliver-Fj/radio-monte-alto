@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import { Smartphone, Download, Pause, SkipForward, Wifi, Battery, Signal, Heart } from 'lucide-react';
 
@@ -200,24 +198,7 @@ export default function AppDownloadSection() {
         </div>
       </div>
 
-      {/* Point 3: Estilos Inline para Animaciones (Para que funcione sin config global) */}
-      <style jsx global>{`
-        @keyframes float-slow {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-6px); }
-        }
-        @keyframes float-delayed {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
-        }
-        @keyframes shine {
-          0% { transform: translateX(-100%) skewX(12deg); }
-          100% { transform: translateX(200%) skewX(12deg); }
-        }
-        .animate-float-slow { animation: float-slow 4s ease-in-out infinite; }
-        .animate-float-delayed { animation: float-delayed 5s ease-in-out infinite 1s; }
-        .group:hover .group-hover\:animate-shine { animation: shine 1s; }
-      `}</style>
+      
 
     </section>
   );

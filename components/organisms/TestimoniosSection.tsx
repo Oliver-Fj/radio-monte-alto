@@ -1,4 +1,3 @@
-'use client';
 
 import React from 'react';
 import { Heart, Quote, Star, MapPin } from 'lucide-react';
