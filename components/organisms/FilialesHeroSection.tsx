@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { MapPin, Sparkles, Network, Globe } from 'lucide-react';
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function FilialesHeroSection() {
   return (
@@ -30,7 +31,7 @@ export default function FilialesHeroSection() {
            {/* Contenedor de la Imagen */}
            <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.4)] overflow-hidden border border-white/10">
               <img 
-                src="/images/logo-radio.png" 
+                src={`${B}/images/logo-radio.png`}
                 alt="Radio Monte Alto Logo" 
                 className="w-full h-full object-contain p-2 opacity-95 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" 
               />

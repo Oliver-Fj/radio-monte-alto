@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function WhoWeAreSplitSection() {
   return (
@@ -60,7 +61,7 @@ export default function WhoWeAreSplitSection() {
                   {/* IMAGEN DEL LOGO */}
                   <div className="relative w-64 h-64 md:w-80 md:h-80 hover:scale-105 transition-transform duration-500 ease-out">
                     <Image
-                      src="/images/logo-radio.png" 
+                      src={`${B}/images/logo-radio.png`}
                       alt="Logo Radio Monte Alto"
                       fill
                       className="object-contain drop-shadow-2xl"

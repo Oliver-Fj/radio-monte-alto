@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Church, Calendar, Sparkles, MapPin } from 'lucide-react';
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function CultosHeroSection() {
   return (
@@ -27,7 +28,7 @@ export default function CultosHeroSection() {
            {/* Contenedor de la Imagen */}
            <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(234,179,8,0.4)] overflow-hidden border border-white/10">
               <img 
-                src="/images/logo-radio.png" 
+                src={`${B}/images/logo-radio.png`}
                 alt="Radio Monte Alto Logo" 
                 className="w-full h-full object-contain p-2 opacity-95 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700" 
               />
