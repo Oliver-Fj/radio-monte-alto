@@ -1,10 +1,18 @@
-
 import { notFound } from 'next/navigation';
 import { getArticuloById } from '@/lib/data/articulos';
 import Image from 'next/image';
 import { Calendar, Clock, Tag, Download, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import ShareButtons from '@/components/molecules/ShareButtons';
+
+// ✅ AGREGADO: le dice a Next.js qué páginas generar en el build estático
+export function generateStaticParams() {
+  return [
+    { id: '1' },
+    { id: '2' },
+    { id: '3' },
+  ];
+}
 
 interface ArticuloPageProps {
   params: Promise<{ id: string }>;
@@ -22,7 +30,7 @@ export default async function ArticuloPage({ params }: ArticuloPageProps) {
 
   const renderContent = (content: string) => {
     const sections = content.split('\n\n');
-    
+
     return sections.map((section, index) => {
       if (section.startsWith('## ')) {
         return <h2 key={index} className="text-2xl font-bold text-blue-900 mt-8 mb-4">{section.replace('## ', '')}</h2>;
