@@ -87,7 +87,7 @@ export default function Header() {
             <div className="relative w-10 h-10 md:w-14 md:h-14 flex-shrink-0">
               <div className="absolute inset-0 bg-amber-500/10 blur-xl rounded-full group-hover:bg-amber-400/20 transition-colors duration-500" />
               <Image
-                src="/images/logo.png"
+                src={`${B}/images/logo.png`}
                 alt="Radio Monte Alto"
                 fill
                 className="object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"

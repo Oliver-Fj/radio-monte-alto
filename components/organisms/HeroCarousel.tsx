@@ -12,8 +12,8 @@ const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const slides: Slide[] = [
   {
     id: 1,
-    imagen: '/images/hero-desktop.png',
-    imagenMobile: '/images/hero-mobile2.png',
+    imagen: `${B}/images/hero-desktop.png`,
+    imagenMobile: `${B}/images/hero-mobile2.png`,
     categoria: 'MINISTERIO RADIAL',
     titulo: 'MONTE ALTO',
     subtitulo: 'EL PORTAVOZ DEL REINO DE DIOS',
@@ -23,8 +23,8 @@ const slides: Slide[] = [
   },
   {
     id: 2,
-    imagen: '/images/hero-desktop1.png',
-    imagenMobile: '/images/hero-mobile1.png',
+    imagen: `${B}/images/hero-desktop1.png`,
+    imagenMobile: `${B}/images/hero-mobile1.png`,
     categoria: 'TRANSMISIÓN EN VIVO',
     titulo: '24 HORAS',
     subtitulo: 'PREDICANDO EL EVANGELIO',
@@ -34,8 +34,8 @@ const slides: Slide[] = [
   },
   {
     id: 3,
-    imagen: '/images/hero-desktop2.png',
-    imagenMobile: '/images/hero-mobile3.png',
+    imagen: `${B}/images/hero-desktop2.png`,
+    imagenMobile: `${B}/images/hero-mobile3.png`,
     categoria: 'CRECIMIENTO',
     titulo: 'PALABRA VIVA',
     subtitulo: 'ENSEÑANZA BÍBLICA PROFUNDA',
