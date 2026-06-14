@@ -21,12 +21,13 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://oliver-fj.github.io'),
   title: 'Radio Monte Alto - El Portavoz del Reino de Dios',
   description: 'Radio cristiana transmitiendo la Palabra de Dios las 24 horas. Escúchanos en vivo desde Huancayo, Perú.',
   openGraph: {
     title: 'Radio Monte Alto',
     description: 'Escúchanos en vivo',
-    images: ['/images/og-image.jpg'],
+    images: ['/radio-monte-alto/images/og-image.jpg'],
     type: 'website',
   },
   twitter: {

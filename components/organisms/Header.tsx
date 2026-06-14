@@ -71,7 +71,8 @@ export default function Header() {
   `;
 
   return (
-    <header className="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-amber-500/10 shadow-2xl z-50 transition-all duration-300 font-sans">
+    <header className={`fixed top-0 left-0 right-0 border-b border-amber-500/10 shadow-2xl z-50 transition-all duration-300 font-sans ${mobileMenuOpen ? 'bg-slate-950' : 'bg-slate-900/95 backdrop-blur-xl'
+      }`}>
 
       {/* Línea inferior dorada sutil */}
       <div className="absolute bottom-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-amber-500/50 to-transparent" />
@@ -209,7 +210,8 @@ export default function Header() {
 
       {/* --- MENÚ MÓVIL --- */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-950/98 backdrop-blur-xl border-t border-amber-500/20 shadow-2xl animate-in slide-in-from-top-5 duration-300 max-h-[85vh] overflow-y-auto">
+        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-950 border-t border-amber-500/20 shadow-2xl animate-in slide-in-from-top-5 duration-300 max-h-[85vh] overflow-y-auto"
+        >
           <nav className="container mx-auto px-4 py-6 flex flex-col gap-2">
             {navLinks.map((link) => {
               const isDropdownParentActive = link.submenu && isParentActive(link.submenu);

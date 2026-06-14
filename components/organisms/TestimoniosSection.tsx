@@ -85,7 +85,7 @@ export default function TestimoniosSection() {
       {/* --- FONDO AMBIENTAL (WHITE ROYAL) --- */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Textura sutil */}
-        <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] mix-blend-multiply" />
+        
         
         {/* Luces ambientales */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1200px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />

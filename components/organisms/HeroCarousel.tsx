@@ -124,7 +124,7 @@ const SlideItem = memo(({ slide, isActive, priority }: { slide: Slide; isActive:
             {/* TÍTULO */}
             <h1 className="relative mb-2 mt-6 overflow-visible">
               <span
-                className={`block font-serif font-medium italic text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-wide transition-all duration-700 delay-500 ease-out ${titleColorClass} ${isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
+                className={`block font-serif font-medium italic text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-wide transition-all duration-700 delay-500 ease-out ${titleColorClass} ${isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
                   }`}
                 style={!isSpecialSlide ? { textShadow: '0 10px 40px rgba(0,0,0,0.5)' } : undefined}
               >
@@ -239,7 +239,7 @@ export default function HeroCarousel() {
       </button>
 
       {/* BARRAS DE PROGRESO */}
-      <div className="absolute bottom-12 md:bottom-8 left-0 right-0 z-40 flex justify-center items-center gap-4 px-6">
+      <div className="absolute bottom-20 md:bottom-8 left-0 right-0 z-40 flex justify-center items-center gap-4 px-6">
         {slides.map((slide, index) => {
           const isCurrent = index === current;
           return (

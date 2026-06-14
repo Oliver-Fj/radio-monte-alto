@@ -3,6 +3,8 @@ import { Calendar, ArrowRight, Clock, Radio, Star, Mic2 } from 'lucide-react';
 import Image from 'next/image'; 
 import Link from 'next/link';   
 
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
 // Datos integrados
 const programas = [
   {
@@ -12,7 +14,7 @@ const programas = [
     horario: "06:00 AM - 09:00 AM",
     dias: "Lunes a Viernes",
     categoria: "Matutino",
-    imagen: "/images/hero-desktop.png"
+    imagen: "https://images.unsplash.com/photo-1519834022975-bbe3e6e65b91?q=80&w=800"
   },
   {
     id: 2,
@@ -21,7 +23,7 @@ const programas = [
     horario: "10:00 AM - 12:00 PM",
     dias: "Lunes a Viernes",
     categoria: "Adoración",
-    imagen: "/images/hero-desktop.png"
+    imagen: "https://images.unsplash.com/photo-1507692049790-de58290a4334?q=80&w=800"
   },
   {
     id: 3,
@@ -30,7 +32,7 @@ const programas = [
     horario: "08:00 PM - 10:00 PM",
     dias: "Viernes",
     categoria: "Milagros",
-    imagen: "/images/hero-desktop.png"
+    imagen: "https://images.unsplash.com/photo-1601142634808-38923eb7c560?q=80&w=800"
   }
 ];
 

@@ -1,7 +1,7 @@
-
 'use client';
 
 import { createContext, useContext, useState, useRef, useEffect, ReactNode } from 'react';
+import { STREAM_URL } from '@/lib/config';
 
 interface AudioContextType {
   isPlaying: boolean;
@@ -26,7 +26,7 @@ export function AudioProvider({ children }: { children: ReactNode }) {
   const loadingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    audioRef.current = new Audio('https://sp.dattavolt.com/8114/stream');
+    audioRef.current = new Audio(STREAM_URL);
     audioRef.current.volume = volume;
     audioRef.current.preload = 'none';
 
@@ -51,7 +51,6 @@ export function AudioProvider({ children }: { children: ReactNode }) {
     if (!audioRef.current) return;
 
     if (isPlaying) {
-      // Pausar
       audioRef.current.pause();
       setIsPlaying(false);
       setIsLoading(false);
@@ -59,11 +58,9 @@ export function AudioProvider({ children }: { children: ReactNode }) {
         clearTimeout(loadingTimeoutRef.current);
       }
     } else {
-      // Reproducir
       setIsLoading(true);
       setError(false);
 
-      // Timeout de seguridad: después de 3 segundos, asumir que está reproduciendo
       loadingTimeoutRef.current = setTimeout(() => {
         setIsLoading(false);
         setIsPlaying(true);
@@ -71,7 +68,6 @@ export function AudioProvider({ children }: { children: ReactNode }) {
 
       try {
         await audioRef.current.play();
-        // Si play() se resuelve exitosamente, actualizar inmediatamente
         if (loadingTimeoutRef.current) {
           clearTimeout(loadingTimeoutRef.current);
         }

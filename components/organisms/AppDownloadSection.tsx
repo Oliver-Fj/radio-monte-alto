@@ -31,6 +31,7 @@ const FloatingBadge = ({ icon: Icon, label, value, colorClass, animationClass, p
 
 // --- COMPONENTE PHONE MOCKUP (Extracted for Point 7) ---
 const PhoneMockup = () => {
+  const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
   return (
     // Point 5: Accesibilidad
     <div 
@@ -57,7 +58,7 @@ const PhoneMockup = () => {
           {/* Carátula */}
           <div className="w-32 h-32 rounded-xl bg-gradient-to-br from-slate-800 to-slate-900 shadow-lg border border-white/5 flex items-center justify-center mb-4 group cursor-pointer relative overflow-hidden">
              <img 
-               src="/images/logo-radio.png" 
+               src={`${B}/images/logo-radio.png`}
                alt="Logo de Radio Monte Alto" 
                className="w-24 h-24 object-contain drop-shadow-xl group-hover:scale-110 transition-transform duration-500 z-10"
              />
