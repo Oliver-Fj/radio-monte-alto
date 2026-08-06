@@ -16,7 +16,7 @@ export default function SocialMediaCard({
   color 
 }: SocialMediaCardProps) {
   return (
-    
+    <a
       href={url}
       target="_blank"
       rel="noopener noreferrer"
