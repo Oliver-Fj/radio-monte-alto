@@ -1,264 +1,297 @@
 'use client';
 
-import React from 'react';
-import { Clock, Share2, Calendar, Star, Sparkles } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Clock, Radio, Sun, Music, BookOpen, Globe, Heart, Users, Star, LayoutGrid, CalendarDays } from 'lucide-react';
 
-// --- UTILIDAD CN ---
-function cn(...classes: (string | undefined | null | false)[]) {
-  return classes.filter(Boolean).join(' ');
-}
-
-// --- TIPOS ---
 interface Programa {
   id: string;
   nombre: string;
   descripcion: string;
   horario: string;
+  horaInicio: string; // "05:00"
+  horaFin: string;    // "06:00"
   dias: string[];
   categoria: string;
-  imagen: string;
   publicoObjetivo: string;
 }
 
-// --- DATOS ---
 const programas: Programa[] = [
-  { id: '1', nombre: 'Meravillando el Corazón', descripcion: 'Enseñanza bíblica', horario: '06:00 - 07:00', dias: ['L', 'M', 'X', 'J', 'V', 'S'], categoria: 'Ensenanza', imagen: '/images/programas/corazon.jpg', publicoObjetivo: 'General' },
-  { id: '3', nombre: 'Visión Misionera', descripcion: 'Enfoque misionero', horario: '07:00 - 08:00', dias: ['L', 'M', 'X', 'J', 'V'], categoria: 'Ensenanza', imagen: '/images/programas/misionera.jpg', publicoObjetivo: 'General' },
-  { id: '2', nombre: 'Clínica Celestial', descripcion: 'Sanidad y oración', horario: '08:00 - 09:00', dias: ['L', 'M', 'X', 'J', 'V'], categoria: 'Ensenanza', imagen: '/images/programas/clinica.jpg', publicoObjetivo: 'General' },
-  { id: '6', nombre: 'Estudio Seminal', descripcion: 'Estudio profundo', horario: '08:00 - 09:00', dias: ['S'], categoria: 'Ensenanza', imagen: '/images/programas/seminal.jpg', publicoObjetivo: 'Adultos' },
-  { id: '4', nombre: 'Alegrías de Cristo', descripcion: 'Niños', horario: '09:00 - 10:00', dias: ['S'], categoria: 'Ninos', imagen: '/images/programas/ninos.jpg', publicoObjetivo: 'Niños' },
-  { id: '5', nombre: 'Evangelizando', descripcion: 'Predicación', horario: '10:00 - 11:00', dias: ['L', 'M', 'X', 'J', 'V'], categoria: 'Ensenanza', imagen: '/images/programas/evangelizando.jpg', publicoObjetivo: 'General' },
-  { id: '7', nombre: 'Sana Doctrina', descripcion: 'Doctrinas bíblicas', horario: '14:00 - 15:00', dias: ['L', 'M', 'X', 'J', 'V'], categoria: 'Ensenanza', imagen: '/images/programas/doctrina.jpg', publicoObjetivo: 'General' },
-  { id: '8', nombre: 'Puerta Milagrosa', descripcion: 'Testimonios', horario: '15:00 - 16:00', dias: ['M', 'J'], categoria: 'Milagros', imagen: '/images/programas/milagros.jpg', publicoObjetivo: 'General' },
-  { id: '9', nombre: 'Huellas de Jesús', descripcion: 'Vida diaria', horario: '16:00 - 17:00', dias: ['L', 'M', 'X', 'J', 'V'], categoria: 'Ensenanza', imagen: '/images/programas/huellas.jpg', publicoObjetivo: 'General' },
-  { id: '10', nombre: 'Predestinados', descripcion: 'Jóvenes', horario: '18:00 - 19:00', dias: ['V'], categoria: 'Juventud', imagen: '/images/programas/juvenil.jpg', publicoObjetivo: 'Jóvenes' },
+  { id:'1', nombre:'Manteniendo el Candelero Encendido',             descripcion:'El mejor inicio de tu día con alabanzas y la Palabra de Dios.',                          horario:'05:00 – 06:00 AM', horaInicio:'05:00', horaFin:'06:00', dias:['L','M','X','J','V','S'], categoria:'Alabanzas', publicoObjetivo:'General' },
+  { id:'2', nombre:'La Hora de la Clínica Celestial',                descripcion:'Tiempo de oración ferviente e intercesión por sanidad espiritual y física.',             horario:'06:00 – 07:00 AM', horaInicio:'06:00', horaFin:'07:00', dias:['L','M','X','J','V'],   categoria:'Oracion',   publicoObjetivo:'General' },
+  { id:'3', nombre:'Visión Misionera: Conquistando las Naciones',    descripcion:'El evangelio sin fronteras. Historias y testimonios del campo misionero.',               horario:'07:00 – 08:00 AM', horaInicio:'07:00', horaFin:'08:00', dias:['L','M','X','J','V'],   categoria:'Mision',    publicoObjetivo:'General' },
+  { id:'4', nombre:'Programa de Niños – Joyas de Cristo',            descripcion:'Música, historias bíblicas y enseñanzas para los más pequeños.',                         horario:'03:00 – 04:00 PM', horaInicio:'15:00', horaFin:'16:00', dias:['S'],                   categoria:'Ninos',     publicoObjetivo:'Niños'   },
+  { id:'5', nombre:'Forjándonos para la Vida Eterna',                descripcion:'Predicación ungida del evangelio de salvación para el mundo actual.',                   horario:'04:00 – 05:00 PM', horaInicio:'16:00', horaFin:'17:00', dias:['L','M','X','J','V'],   categoria:'Ensenanza', publicoObjetivo:'General' },
+  { id:'6', nombre:'Proclamando la Sana Doctrina',                   descripcion:'Fundamentos sólidos de la fe cristiana para madurar al creyente en la Palabra.',        horario:'05:00 – 06:00 PM', horaInicio:'17:00', horaFin:'18:00', dias:['L','M','X','J','V'],   categoria:'Ensenanza', publicoObjetivo:'General' },
+  { id:'7', nombre:'Hora de la Pesca Milagrosa',                     descripcion:'Evangelismo y oración de intercesión por las almas perdidas para Cristo.',              horario:'06:00 – 07:00 PM', horaInicio:'18:00', horaFin:'19:00', dias:['L','M','X','J','V'],   categoria:'Oracion',   publicoObjetivo:'General' },
+  { id:'8', nombre:'Tras las Huellas de Jesús',                      descripcion:'Aprendiendo a vivir el evangelio con el ejemplo práctico de Cristo.',                   horario:'06:00 – 07:00 PM', horaInicio:'18:00', horaFin:'19:00', dias:['S'],                   categoria:'Ensenanza', publicoObjetivo:'General' },
+  { id:'9', nombre:'Programa Juvenil – Predestinados para Triunfar', descripcion:'Mensajes de identidad, propósito y victoria en Cristo para la generación joven.',       horario:'07:00 – 08:00 PM', horaInicio:'19:00', horaFin:'20:00', dias:['S'],                   categoria:'Juventud',  publicoObjetivo:'Jóvenes'  },
 ];
 
-// --- CONFIGURACIÓN ---
-const DIAS_COMPLETOS = [
-  { abrev: 'L', nombre: 'Lunes' },
-  { abrev: 'M', nombre: 'Martes' },
-  { abrev: 'X', nombre: 'Miércoles' },
-  { abrev: 'J', nombre: 'Jueves' },
-  { abrev: 'V', nombre: 'Viernes' },
-  { abrev: 'S', nombre: 'Sábado' },
-];
-
-// Colores adaptados para fondo blanco (tonos pastel elegantes + bordes definidos)
-const categoriaColors: Record<string, string> = {
-  Ensenanza: 'bg-blue-50 border-blue-100 text-blue-900 group-hover/card:border-blue-300',
-  Ninos: 'bg-green-50 border-green-100 text-green-900 group-hover/card:border-green-300',
-  Milagros: 'bg-purple-50 border-purple-100 text-purple-900 group-hover/card:border-purple-300',
-  Juventud: 'bg-orange-50 border-orange-100 text-orange-900 group-hover/card:border-orange-300',
+const CATS: Record<string, { label:string; icon:React.ReactNode; badge:string; border:string; cell:string }> = {
+  Alabanzas: { label:'Alabanzas', icon:<Music    className="w-3 h-3"/>, badge:'bg-yellow-500/10 border-yellow-400/25 text-yellow-200', border:'border-l-yellow-400',  cell:'bg-yellow-500/10 border-yellow-400/20 text-yellow-100' },
+  Oracion:   { label:'Oración',   icon:<Heart    className="w-3 h-3"/>, badge:'bg-blue-500/10 border-blue-400/25 text-blue-200',       border:'border-l-blue-400',    cell:'bg-blue-500/10 border-blue-400/20 text-blue-100'       },
+  Mision:    { label:'Misión',    icon:<Globe    className="w-3 h-3"/>, badge:'bg-emerald-500/10 border-emerald-400/25 text-emerald-200', border:'border-l-emerald-400', cell:'bg-emerald-500/10 border-emerald-400/20 text-emerald-100'},
+  Ensenanza: { label:'Enseñanza', icon:<BookOpen className="w-3 h-3"/>, badge:'bg-indigo-500/10 border-indigo-400/25 text-indigo-200',  border:'border-l-indigo-400',  cell:'bg-indigo-500/10 border-indigo-400/20 text-indigo-100'  },
+  Ninos:     { label:'Niños',     icon:<Star     className="w-3 h-3"/>, badge:'bg-pink-500/10 border-pink-400/25 text-pink-200',        border:'border-l-pink-400',    cell:'bg-pink-500/10 border-pink-400/20 text-pink-100'        },
+  Juventud:  { label:'Juventud',  icon:<Users    className="w-3 h-3"/>, badge:'bg-purple-500/10 border-purple-400/25 text-purple-200',  border:'border-l-purple-400',  cell:'bg-purple-500/10 border-purple-400/20 text-purple-100'  },
 };
 
-// Estilo por defecto si falla la categoría (Blanco puro con borde dorado sutil)
-const defaultStyle = 'bg-white border-slate-100 text-slate-700 group-hover/card:border-amber-300';
+const DIAS = [
+  { abrev:'L', label:'Lunes'     },
+  { abrev:'M', label:'Martes'    },
+  { abrev:'X', label:'Miércoles' },
+  { abrev:'J', label:'Jueves'    },
+  { abrev:'V', label:'Viernes'   },
+  { abrev:'S', label:'Sábado'    },
+];
 
-export default function ProgramacionGrid() {
-  // --- LÓGICA (Sin cambios) ---
-  const programasPorHorario = programas.reduce((acc, programa) => {
-    if (!acc[programa.horario]) acc[programa.horario] = {};
-    const rawDias = (programa as any).dias;
-    const dias: string[] = Array.isArray(rawDias)
-      ? rawDias
-      : String(rawDias).includes(',')
-      ? String(rawDias).split(',').map((d) => d.trim())
-      : String(rawDias).split('').map((d) => d.trim());
-    dias.forEach((dia) => { if (dia) acc[programa.horario][dia] = programa; });
-    return acc;
-  }, {} as Record<string, Record<string, Programa>>);
+// Slots de horario para la vista tabla
+const SLOTS = [
+  { id:'0500', label:'5:00 AM',  h:'05:00' },
+  { id:'0600', label:'6:00 AM',  h:'06:00' },
+  { id:'0700', label:'7:00 AM',  h:'07:00' },
+  { id:'1500', label:'3:00 PM',  h:'15:00' },
+  { id:'1600', label:'4:00 PM',  h:'16:00' },
+  { id:'1700', label:'5:00 PM',  h:'17:00' },
+  { id:'1800', label:'6:00 PM',  h:'18:00' },
+  { id:'1900', label:'7:00 PM',  h:'19:00' },
+];
 
-  const horarios = Object.keys(programasPorHorario).sort();
-
-  const handleShare = (programa: Programa, dia: string) => {
-    const text = `${programa.nombre} - ${programa.horario} (${dia})`;
-    if (typeof navigator !== 'undefined' && navigator.share) {
-      navigator.share({ title: programa.nombre, text: text, url: window.location.href });
-    } else {
-      navigator.clipboard.writeText(`${text} - ${window.location.href}`);
-    }
-  };
+/* ─── VISTA TABLA SEMANAL ─── */
+function VistaTabla({ diaActivo }: { diaActivo: string | null }) {
+  const diasMostrar = diaActivo ? DIAS.filter(d => d.abrev === diaActivo) : DIAS;
 
   return (
-    <section className="relative w-full bg-[#FDFDFD] font-sans overflow-hidden min-h-screen">
-      
-      {/* --- FONDO AMBIENTAL LUJOSO (Blanco/Dorado) --- */}
-      <div className="absolute inset-0 pointer-events-none">
-         {/* Gradiente radial central muy sutil dorado */}
-         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80vw] h-[80vw] bg-gradient-to-b from-amber-100/40 via-transparent to-transparent rounded-full blur-[100px] opacity-60" />
-         {/* Textura de ruido sutil para evitar que se vea plano */}
-         <div className="absolute inset-0 opacity-[0.4] bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-multiply" />
-      </div>
-
-      {/* CONTENEDOR PRINCIPAL */}
-      <div className="relative z-10 py-20 md:py-24 w-full px-4 md:px-6 lg:px-8 max-w-7xl mx-auto">
-        
-        {/* --- HEADER --- */}
-        <div className="text-center mb-16">
-            <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white border border-amber-200 shadow-lg shadow-amber-100/50 mb-6 transform transition-transform hover:scale-105">
-                <Sparkles className="w-4 h-4 text-amber-500 fill-amber-500" />
-                <span className="text-xs md:text-sm font-bold tracking-[0.3em] text-amber-700 uppercase font-serif">
-                  Programación Oficial
-                </span>
-            </div>
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif font-medium text-slate-900 tracking-tight mb-4">
-              Nuestra <span className="italic relative inline-block">
-                <span className="relative z-10 text-transparent bg-clip-text bg-gradient-to-r from-amber-500 via-yellow-600 to-amber-700 drop-shadow-sm">
-                  Programación
-                </span>
-                {/* Subrayado decorativo */}
-                <span className="absolute bottom-2 left-0 w-full h-3 bg-amber-100/50 -z-10 skew-x-6 transform rotate-1"></span>
-              </span>
-            </h2>
-            <p className="text-slate-500 max-w-2xl mx-auto text-lg font-light">
-              Conéctate con nuestros horarios y descubre el contenido que edifica tu vida.
-            </p>
-        </div>
-
-        {/* --- TABLA DESKTOP (Premium Style) --- */}
-        <div className="hidden lg:block w-full bg-white rounded-[2rem] shadow-[0_8px_40px_-12px_rgba(0,0,0,0.1)] border border-slate-100 p-8 relative overflow-hidden">
-            {/* Borde superior dorado decorativo */}
-            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-50"></div>
-
-            {/* HEADER DIAS */}
-            <div className="grid grid-cols-7 gap-4 mb-6 border-b border-slate-100 pb-6">
-              <div className="text-center text-slate-400 text-[10px] uppercase tracking-widest flex items-end justify-center pb-1 font-semibold">
-                Horario CST
+    <div className="overflow-x-auto rounded-2xl border border-white/8">
+      <table className="w-full min-w-[600px] border-collapse">
+        <thead>
+          <tr className="bg-slate-900/80">
+            <th className="p-4 text-left w-28">
+              <div className="flex items-center gap-1.5 text-slate-500 text-xs font-bold uppercase tracking-widest">
+                <Clock className="w-3.5 h-3.5" /> Hora
               </div>
-              {DIAS_COMPLETOS.map((dia) => (
-                <div key={dia.abrev} className="text-center group cursor-default">
-                  <span className="text-xl font-serif text-slate-800 block group-hover:text-amber-600 transition-colors">{dia.nombre}</span>
-                  <div className="h-0.5 w-0 group-hover:w-1/2 bg-amber-400 mx-auto transition-all duration-300 mt-2"></div>
+            </th>
+            {diasMostrar.map(d => (
+              <th key={d.abrev} className="p-4 text-center">
+                <span className="text-slate-300 text-xs font-bold tracking-wider">{d.label}</span>
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {SLOTS.map((slot, si) => {
+            // Separador visual entre mañana y tarde
+            const esSeparador = slot.h === '15:00';
+            return (
+              <React.Fragment key={slot.id}>
+                {esSeparador && (
+                  <tr>
+                    <td colSpan={diasMostrar.length + 1} className="px-4 py-2 bg-blue-950/30">
+                      <div className="flex items-center gap-3">
+                        <Radio className="w-3 h-3 text-blue-400" />
+                        <span className="text-blue-300 text-[10px] font-black tracking-[0.3em] uppercase">Turno Tarde</span>
+                        <div className="flex-1 h-px bg-blue-500/20" />
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                {si === 0 && (
+                  <tr>
+                    <td colSpan={diasMostrar.length + 1} className="px-4 py-2 bg-yellow-950/30">
+                      <div className="flex items-center gap-3">
+                        <Sun className="w-3 h-3 text-yellow-400" />
+                        <span className="text-yellow-300 text-[10px] font-black tracking-[0.3em] uppercase">Turno Mañana</span>
+                        <div className="flex-1 h-px bg-yellow-500/20" />
+                      </div>
+                    </td>
+                  </tr>
+                )}
+                <tr className={`border-t border-white/4 ${si % 2 === 0 ? 'bg-slate-900/20' : 'bg-transparent'}`}>
+                  <td className="p-4 text-xs font-mono text-slate-500 whitespace-nowrap">{slot.label}</td>
+                  {diasMostrar.map(d => {
+                    const prog = programas.find(p => p.horaInicio === slot.h && p.dias.includes(d.abrev));
+                    const cat = prog ? (CATS[prog.categoria] ?? CATS['Ensenanza']) : null;
+                    return (
+                      <td key={d.abrev} className="p-2 align-top">
+                        {prog && cat ? (
+                          <div className={`rounded-xl border px-2.5 py-2 text-center transition-all duration-300 hover:scale-[1.02] cursor-default ${cat.cell}`}>
+                            <div className="flex items-center justify-center gap-1 mb-1">
+                              {cat.icon}
+                              <span className="text-[8px] font-bold tracking-wider uppercase opacity-70">{cat.label}</span>
+                            </div>
+                            <p className="text-[10px] font-semibold leading-tight line-clamp-3">{prog.nombre}</p>
+                          </div>
+                        ) : (
+                          <div className="rounded-xl border border-white/3 bg-white/1 h-full min-h-[40px] flex items-center justify-center">
+                            <span className="text-slate-800 text-[10px]">—</span>
+                          </div>
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+/* ─── CARD DE PROGRAMA ─── */
+function ProgramCard({ p, index, visible }: { p:Programa; index:number; visible:boolean }) {
+  const cat = CATS[p.categoria] ?? CATS['Ensenanza'];
+  return (
+    <div className="group relative"
+      style={{ opacity: visible?1:0, transform: visible?'translateY(0)':'translateY(28px)', transition:`all 0.7s cubic-bezier(0.16,1,0.3,1) ${index*70}ms` }}>
+      <div className={`relative bg-slate-900/50 backdrop-blur-sm border border-white/6 group-hover:border-white/14 rounded-2xl overflow-hidden transition-all duration-500 border-l-2 ${cat.border}`}>
+        <div className="p-5">
+          <div className="flex items-start justify-between gap-2 mb-3">
+            <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border text-[10px] font-bold tracking-wide ${cat.badge}`}>
+              {cat.icon}{cat.label}
+            </div>
+          </div>
+          <h4 className="font-serif font-bold text-white leading-snug mb-1.5 group-hover:text-yellow-100 transition-colors"
+            style={{ fontSize: p.nombre.length > 38 ? '0.85rem' : '1rem' }}>
+            {p.nombre}
+          </h4>
+          <p className="text-slate-400 text-xs leading-relaxed mb-4 line-clamp-2 group-hover:text-slate-300 transition-colors">{p.descripcion}</p>
+          <div className="flex items-center justify-between pt-3 border-t border-white/5">
+            <div className="flex items-center gap-1.5 text-xs text-slate-400 group-hover:text-white transition-colors">
+              <Clock className="w-3 h-3 text-yellow-400 flex-shrink-0" />
+              <span className="font-mono font-semibold">{p.horario}</span>
+            </div>
+            <div className="flex gap-1">
+              {DIAS.map(d => (
+                <div key={d.abrev} title={d.label}
+                  className={`w-5 h-5 rounded-full text-[8px] font-bold flex items-center justify-center transition-all ${p.dias.includes(d.abrev) ? cat.badge : 'bg-slate-800/60 text-slate-600'}`}>
+                  {d.abrev}
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+        <div className="h-[2px] w-0 group-hover:w-full transition-all duration-700 rounded-full bg-yellow-400/60" />
+      </div>
+    </div>
+  );
+}
 
-            {/* FILAS */}
-            <div className="space-y-4">
-            {horarios.map((horario) => (
-              <div key={horario} className="grid grid-cols-7 gap-4 group/row transition-colors py-1">
-                
-                {/* Columna Horario */}
-                <div className="flex flex-col items-center justify-center px-1 relative">
-                  <span className="text-sm font-bold text-slate-700 font-mono whitespace-nowrap bg-slate-50 px-3 py-1 rounded-lg border border-slate-200">
-                    {horario.split(' - ')[0]}
-                  </span>
-                  <div className="h-full w-[1px] bg-gradient-to-b from-slate-200 to-transparent absolute top-8 z-0"></div>
+/* ─── COMPONENTE PRINCIPAL ─── */
+export default function ScheduleGrid() {
+  const [visible, setVisible] = useState(false);
+  const [diaActivo, setDiaActivo] = useState<string|null>(null);
+  const [vista, setVista] = useState<'cards'|'tabla'>('cards');
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.05 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  const MANANA = ['1','2','3'];
+  const TARDE  = ['4','5','6','7','8','9'];
+
+  const filtrar = (ids: string[]) => {
+    const ps = programas.filter(p => ids.includes(p.id));
+    return diaActivo ? ps.filter(p => p.dias.includes(diaActivo)) : ps;
+  };
+
+  return (
+    <section ref={ref} className="relative bg-slate-950 overflow-hidden pb-20 md:pb-28">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full blur-[180px]"
+          style={{ background:'rgba(234,179,8,0.025)' }} />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10">
+
+        {/* ── Controles: filtro de día + selector de vista ── */}
+        <div className="flex flex-wrap items-center justify-between gap-4 pb-10 pt-4"
+          style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(16px)', transition:'all 0.7s' }}>
+
+          {/* Filtro días */}
+          <div className="flex flex-wrap gap-2">
+            <button onClick={() => setDiaActivo(null)}
+              className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider transition-all duration-300 ${!diaActivo ? 'bg-yellow-500 text-slate-900 shadow-lg shadow-yellow-500/30 scale-105' : 'bg-white/5 text-slate-400 hover:text-white border border-white/8 hover:border-white/20'}`}>
+              Todos
+            </button>
+            {DIAS.map(d => (
+              <button key={d.abrev} onClick={() => setDiaActivo(p => p === d.abrev ? null : d.abrev)}
+                className={`px-4 py-2 rounded-full text-xs font-bold tracking-wider transition-all duration-300 ${diaActivo === d.abrev ? 'bg-yellow-500 text-slate-900 shadow-lg shadow-yellow-500/30 scale-105' : 'bg-white/5 text-slate-400 hover:text-white border border-white/8 hover:border-white/20'}`}>
+                {d.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Selector de vista */}
+          <div className="flex rounded-full overflow-hidden border border-white/10 bg-white/3">
+            <button onClick={() => setVista('cards')}
+              className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold transition-all duration-300 ${vista==='cards' ? 'bg-yellow-500 text-slate-900' : 'text-slate-400 hover:text-white'}`}>
+              <LayoutGrid className="w-3.5 h-3.5" /> Programas
+            </button>
+            <button onClick={() => setVista('tabla')}
+              className={`flex items-center gap-1.5 px-4 py-2 text-xs font-bold transition-all duration-300 ${vista==='tabla' ? 'bg-yellow-500 text-slate-900' : 'text-slate-400 hover:text-white'}`}>
+              <CalendarDays className="w-3.5 h-3.5" /> Horario
+            </button>
+          </div>
+        </div>
+
+        {/* ── VISTA TABLA ── */}
+        {vista === 'tabla' && (
+          <div style={{ opacity:visible?1:0, transition:'opacity 0.6s' }}>
+            <VistaTabla diaActivo={diaActivo} />
+          </div>
+        )}
+
+        {/* ── VISTA CARDS ── */}
+        {vista === 'cards' && (
+          <>
+            {/* Turno Mañana */}
+            <div className="mb-12" style={{ opacity:visible?1:0, transition:'opacity 0.6s 0.1s' }}>
+              <div className="flex items-center gap-4 mb-7">
+                <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-yellow-500/10 border border-yellow-500/15">
+                  <Sun className="w-4 h-4 text-yellow-400" />
+                  <span className="text-yellow-200 font-bold text-sm">Turno Mañana</span>
+                  <span className="text-yellow-400/50 text-xs font-mono">5:00 – 8:00 AM</span>
                 </div>
+                <div className="flex-1 h-px bg-gradient-to-r from-yellow-500/25 to-transparent" />
+              </div>
+              {filtrar(MANANA).length > 0
+                ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{filtrar(MANANA).map((p,i) => <ProgramCard key={p.id} p={p} index={i} visible={visible} />)}</div>
+                : <p className="text-center py-10 text-slate-500 text-sm">No hay programas de mañana para este día.</p>}
+            </div>
 
-                {/* Celdas */}
-                {DIAS_COMPLETOS.map((dia) => {
-                  const programa = programasPorHorario[horario][dia.abrev];
-                  const categoria = (programa as any)?.categoria as string | undefined;
-                  // Si hay programa aplicamos estilos, si no, estilo base
-                  const activeStyle = programa 
-                    ? (categoria ? categoriaColors[categoria] : defaultStyle) 
-                    : '';
+            {/* Turno Tarde */}
+            <div style={{ opacity:visible?1:0, transition:'opacity 0.6s 0.2s' }}>
+              <div className="flex items-center gap-4 mb-7">
+                <div className="flex items-center gap-3 px-5 py-2.5 rounded-2xl bg-blue-500/10 border border-blue-500/15">
+                  <Radio className="w-4 h-4 text-blue-400" />
+                  <span className="text-blue-200 font-bold text-sm">Turno Tarde</span>
+                  <span className="text-blue-400/50 text-xs font-mono">3:00 – 8:00 PM</span>
+                </div>
+                <div className="flex-1 h-px bg-gradient-to-r from-blue-500/25 to-transparent" />
+              </div>
+              {filtrar(TARDE).length > 0
+                ? <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">{filtrar(TARDE).map((p,i) => <ProgramCard key={p.id} p={p} index={i} visible={visible} />)}</div>
+                : <p className="text-center py-10 text-slate-500 text-sm">No hay programas de tarde para este día.</p>}
+            </div>
+          </>
+        )}
 
-                  return (
-                    <div
-                      key={dia.abrev}
-                      className={cn(
-                        'relative rounded-xl p-3 min-h-[110px] flex flex-col justify-between transition-all duration-300 border',
-                        programa
-                          ? `${activeStyle} shadow-sm hover:shadow-xl hover:shadow-amber-100/50 hover:-translate-y-1 z-10 group/card bg-opacity-60 backdrop-blur-sm`
-                          : 'bg-slate-50/30 border-dashed border-slate-200 opacity-50 hover:opacity-100 hover:bg-slate-50 hover:border-slate-300' // Estilo para celdas vacías
-                      )}
-                    >
-                      {programa ? (
-                        <>
-                          <div>
-                             <div className="flex justify-between items-start mb-2">
-                                <span className={cn(
-                                    "text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full border bg-white",
-                                    categoria === 'Ninos' ? 'text-green-600 border-green-200' : 
-                                    categoria === 'Juventud' ? 'text-orange-600 border-orange-200' :
-                                    categoria === 'Milagros' ? 'text-purple-600 border-purple-200' :
-                                    'text-blue-600 border-blue-200'
-                                )}>
-                                  {categoria === 'Ninos' ? 'Niños' : categoria?.slice(0,8)}
-                                </span>
-                                {programa.id === '1' && <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400 animate-pulse" />}
-                             </div>
-                             
-                             <h4 className="font-serif text-sm leading-tight text-slate-800 font-semibold mb-1 line-clamp-2 group-hover/card:text-black">
-                               {programa.nombre}
-                             </h4>
-                          </div>
-
-                          <button
-                            onClick={() => handleShare(programa, dia.nombre)}
-                            className="mt-2 opacity-0 group-hover/card:opacity-100 transition-all duration-300 flex items-center gap-1 text-[10px] text-slate-400 hover:text-amber-600 font-semibold uppercase tracking-wider translate-y-2 group-hover/card:translate-y-0"
-                          >
-                            <Share2 className="w-3 h-3" /> Compartir
-                          </button>
-                        </>
-                      ) : (
-                         // Espacio vacío elegante
-                          <div className="flex items-center justify-center h-full">
-                            <div className="w-1.5 h-1.5 rounded-full bg-slate-200 group-hover:bg-amber-200 transition-colors" />
-                          </div>
-                      )}
-                    </div>
-                  );
-                })}
+        {/* Leyenda */}
+        <div className="mt-14 pt-8 border-t border-white/5" style={{ opacity:visible?1:0, transition:'opacity 0.6s 0.3s' }}>
+          <p className="text-center text-slate-600 text-[10px] uppercase tracking-[0.3em] mb-4">Categorías</p>
+          <div className="flex flex-wrap justify-center gap-2">
+            {Object.entries(CATS).map(([key,cat]) => (
+              <div key={key} className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border text-[10px] font-bold ${cat.badge}`}>
+                {cat.icon}{cat.label}
               </div>
             ))}
-            </div>
+          </div>
         </div>
-
-        {/* --- VERSION MOBILE/TABLET (ACORDEON PREMIUM) --- */}
-        <div className="lg:hidden space-y-4">
-          {DIAS_COMPLETOS.map((dia) => {
-            const programasDelDia = horarios
-              .map((horario) => ({
-                horario,
-                programa: programasPorHorario[horario][dia.abrev],
-              }))
-              .filter((item) => item.programa);
-
-            if (programasDelDia.length === 0) return null;
-
-            return (
-              <details key={dia.abrev} className="group relative overflow-hidden rounded-2xl bg-white shadow-sm border border-slate-100 open:shadow-lg open:shadow-amber-100/50 open:border-amber-200 transition-all duration-300">
-                <summary className="cursor-pointer p-5 flex justify-between items-center list-none relative z-10 bg-white group-open:bg-amber-50/30 transition-colors">
-                  <div className="flex items-center gap-3">
-                    <div className="w-1 h-6 bg-slate-200 rounded-full group-open:bg-amber-500 transition-colors"></div>
-                    <span className="text-xl font-serif text-slate-800 font-medium group-open:text-amber-700 transition-colors">{dia.nombre}</span>
-                  </div>
-                  <span className="text-slate-300 group-open:text-amber-500 group-open:rotate-180 transition-transform duration-300">
-                    <div className="bg-slate-50 p-2 rounded-full group-open:bg-white shadow-sm">▼</div>
-                  </span>
-                </summary>
-
-                <div className="px-4 pb-6 space-y-3 relative z-10 bg-gradient-to-b from-amber-50/30 to-white pt-2">
-                  {programasDelDia.map(({ horario, programa }) => {
-                    const categoria = (programa as any)?.categoria as string | undefined;
-                     const activeStyle = categoria ? categoriaColors[categoria] : defaultStyle;
-                    
-                    return (
-                      <div key={horario} className={cn('p-4 rounded-xl border shadow-sm bg-white relative overflow-hidden group/item', activeStyle)}>
-                          {/* Decoración lateral */}
-                          <div className="absolute left-0 top-0 bottom-0 w-1 bg-current opacity-20"></div>
-                          
-                          <div className="flex items-center gap-3 mb-2 opacity-60 pl-2">
-                              <Clock className="w-3 h-3" />
-                              <span className="text-xs font-mono font-bold">{horario}</span>
-                          </div>
-                          <h4 className="font-serif text-lg text-slate-900 pl-2 font-medium">{programa.nombre}</h4>
-                          <div className="absolute right-4 top-1/2 -translate-y-1/2 opacity-0 group-hover/item:opacity-100 transition-opacity">
-                             <Share2 className="w-4 h-4 text-amber-500" />
-                          </div>
-                      </div>
-                    );
-                  })}
-                </div>
-              </details>
-            );
-          })}
-        </div>
-
       </div>
     </section>
   );

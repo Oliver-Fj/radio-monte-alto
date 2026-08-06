@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { BookOpen, ArrowRight, Calendar, Clock, Bookmark, Search, Filter } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 // --- DATOS MOCK (Simulando tu base de datos para la vista previa) ---
 const todosLosArticulos = [
@@ -149,9 +150,7 @@ export default function ResourcesGridSection() {
              <BookOpen className="w-6 h-6 text-yellow-600" />
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-serif font-medium text-slate-900 tracking-tight">
-            Biblioteca de <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700">Recursos</span>
-          </h2>
+          <GoldTitle sobre="claro">Biblioteca de Recursos</GoldTitle>
           
           <p className="text-slate-600 max-w-2xl mx-auto text-lg font-light leading-relaxed">
             Explora nuestra colección completa de mensajes, enseñanzas y guías para tu crecimiento espiritual.

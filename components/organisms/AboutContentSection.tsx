@@ -1,11 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import GoldTitle from '@/components/atoms/GoldTitle';
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function WhoWeAreSplitSection() {
   return (
-    <section className="relative py-20 md:py-24 bg-slate-50 overflow-hidden">
+    <section className="fondo-marfil filete-dorado relative py-20 md:py-24 overflow-hidden">
       
       
 
@@ -22,9 +23,7 @@ export default function WhoWeAreSplitSection() {
               <span className="text-blue-900 font-bold uppercase tracking-widest text-sm">Nuestra Identidad</span>
             </div>
 
-            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight mb-8">
-              ¿Quiénes <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-blue-900">Somos?</span>
-            </h2>
+            <GoldTitle sobre="claro">¿Quiénes Somos?</GoldTitle>
 
             {/* Texto expandido para igualar altura */}
             <div className="text-slate-600 text-lg leading-relaxed space-y-6 text-justify">
@@ -61,7 +60,7 @@ export default function WhoWeAreSplitSection() {
                   {/* IMAGEN DEL LOGO */}
                   <div className="relative w-64 h-64 md:w-80 md:h-80 hover:scale-105 transition-transform duration-500 ease-out">
                     <Image
-                      src={`${B}/images/logo-radio.png`}
+                      src={`${B}/images/opt/logo-radio.webp`}
                       alt="Logo Radio Monte Alto"
                       fill
                       className="object-contain drop-shadow-2xl"

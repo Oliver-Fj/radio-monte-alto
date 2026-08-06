@@ -1,5 +1,6 @@
 
 import SectionTitle from '@/components/atoms/SectionTitle';
+import GlassCard3D from '@/components/molecules/GlassCard3D';
 import { Clock, Users, Music, BookOpen, Heart, MessageCircle } from 'lucide-react';
 
 export default function CultosHorarioSection() {
@@ -9,35 +10,35 @@ export default function CultosHorarioSection() {
       actividad: 'Escuela Dominical',
       descripcion: 'Enseñanza bíblica por grupos de edad',
       icon: BookOpen,
-      color: 'from-green-500 to-green-600',
+      theme: 'mint' as const,
     },
     {
       hora: '9:30 AM',
       actividad: 'Adoración y Alabanza',
       descripcion: 'Tiempo de alabanza congregacional',
       icon: Music,
-      color: 'from-blue-500 to-blue-600',
+      theme: 'ocean' as const,
     },
     {
       hora: '10:30 AM',
       actividad: 'Predicación de la Palabra',
       descripcion: 'Mensaje bíblico ungido',
       icon: BookOpen,
-      color: 'from-yellow-500 to-yellow-600',
+      theme: 'solar' as const,
     },
     {
       hora: '12:00 PM',
       actividad: 'Oración',
       descripcion: 'Intercesión y peticiones',
       icon: Heart,
-      color: 'from-red-500 to-red-600',
+      theme: 'flame' as const,
     },
     {
       hora: '1:00 PM',
       actividad: 'Consejería',
       descripcion: 'Atención personalizada y ministerio',
       icon: MessageCircle,
-      color: 'from-purple-500 to-purple-600',
+      theme: 'royal' as const,
     },
   ];
 
@@ -60,27 +61,17 @@ export default function CultosHorarioSection() {
           {/* Itinerario Detallado */}
           <div>
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Itinerario Detallado</h3>
-            <div className="space-y-4">
-              {programa.map((item, index) => {
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 items-stretch">
+              {programa.map((item) => {
                 const Icon = item.icon;
                 return (
-                  <div 
-                    key={index}
-                    className="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-blue-300 hover:shadow-xl transition-all duration-300"
-                  >
-                    <div className="flex items-center gap-6">
-                      <div className={`w-16 h-16 bg-gradient-to-br ${item.color} rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg`}>
-                        <Icon className="w-8 h-8 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2">
-                          <h4 className="text-xl font-bold text-gray-900">{item.actividad}</h4>
-                          <span className="text-lg font-mono font-bold text-blue-900">{item.hora}</span>
-                        </div>
-                        <p className="text-gray-600">{item.descripcion}</p>
-                      </div>
+                  <GlassCard3D key={item.hora} theme={item.theme} icon={<Icon className="w-5 h-5" aria-hidden="true" />}>
+                    <div className="px-7 pb-7 pt-24">
+                      <p className="font-mono font-bold text-sm tracking-widest [color:var(--g3-title)] opacity-80">{item.hora}</p>
+                      <h4 className="mt-1 text-xl font-bold [color:var(--g3-title)]">{item.actividad}</h4>
+                      <p className="mt-2 text-sm leading-relaxed [color:var(--g3-body)]">{item.descripcion}</p>
                     </div>
-                  </div>
+                  </GlassCard3D>
                 );
               })}
             </div>

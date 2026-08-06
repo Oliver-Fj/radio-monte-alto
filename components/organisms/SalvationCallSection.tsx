@@ -2,6 +2,7 @@
 import { Heart, BookOpen, Users } from 'lucide-react';
 import Button from '@/components/atoms/Button';
 import Card from '@/components/atoms/Card';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function SalvationCallSection() {
   return (
@@ -14,9 +15,7 @@ export default function SalvationCallSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center mb-12">
           <Heart className="w-16 h-16 text-orange-600 mx-auto mb-6" />
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-blue-900">
-            Quieres Conocer a Jesus?
-          </h2>
+          <GoldTitle>Quieres Conocer a Jesus?</GoldTitle>
           <p className="text-xl text-gray-700 mb-8">
             Descubre el camino al cielo y la vida eterna. Dios te ama y tiene un plan maravilloso para tu vida.
           </p>

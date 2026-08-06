@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
 import { Calendar, MapPin, Radio, Church } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function CultosCTASection() {
   return (
@@ -12,9 +13,7 @@ export default function CultosCTASection() {
           <Church className="w-10 h-10 text-white" />
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Te Esperamos Este Domingo
-        </h2>
+        <GoldTitle>Te Esperamos Este Domingo</GoldTitle>
         <p className="text-xl text-blue-100 mb-10 max-w-2xl mx-auto">
           Forma parte de nuestra familia en Cristo. Ven y experimenta la presencia de Dios 
           en adoración, Palabra y comunión.

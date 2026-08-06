@@ -2,14 +2,15 @@
 import React from 'react';
 import Image from 'next/image';
 import { Church, Calendar, Sparkles, MapPin } from 'lucide-react';
+import SectionDivider from '@/components/atoms/SectionDivider';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function CultosHeroSection() {
   return (
-    <section className="relative bg-slate-950 overflow-hidden -mt-16">
+    <section data-keep-dark className="relative bg-slate-950 overflow-hidden -mt-16">
       <div className="absolute inset-0 z-0">
-        <Image src={`${B}/images/hero-cultos.png`} alt="" fill priority quality={85} className="object-cover" sizes="100vw" />
+        <Image src={`${B}/images/opt/hero-cultos.webp`} alt="" fill priority quality={85} className="object-cover" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 via-blue-900/65 to-slate-950/95" />
         <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-yellow-500/10 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
       </div>
@@ -19,7 +20,7 @@ export default function CultosHeroSection() {
           <div className="absolute inset-0 border-2 border-yellow-400/60 rounded-full border-t-transparent animate-[spin_4s_linear_infinite]" />
           <div className="absolute -inset-2 border border-blue-400/40 rounded-full border-b-transparent animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(234,179,8,0.4)] overflow-hidden border border-white/10">
-            <img src={`${B}/images/logo-radio.png`} alt="Logo" className="w-full h-full object-contain p-2 opacity-95 group-hover:scale-110 transition-all duration-700" />
+            <img src={`${B}/images/opt/logo-radio.webp`} alt="Logo" className="w-full h-full object-contain p-2 opacity-95 group-hover:scale-110 transition-all duration-700" />
           </div>
           <Sparkles className="absolute -top-2 -right-2 w-6 h-6 text-white animate-pulse" />
         </div>
@@ -32,7 +33,7 @@ export default function CultosHeroSection() {
             <span className="block text-white mb-1">Cultos</span>
             <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-400 to-yellow-500">Dominicales</span>
           </h1>
-          <p className="text-xl md:text-2xl font-serif italic text-blue-200 mb-4">"No dejando de congregarnos, como algunos tienen por costumbre"</p>
+          <p className="text-xl md:text-2xl font-serif italic text-blue-200 mb-4">&ldquo;No dejando de congregarnos, como algunos tienen por costumbre&rdquo;</p>
           <p className="text-base md:text-lg text-slate-300 max-w-3xl mx-auto leading-relaxed font-light">
             Únete a nosotros cada domingo para adorar juntos, recibir la Palabra de Dios y experimentar la presencia del Espíritu Santo en comunidad.
           </p>
@@ -47,11 +48,7 @@ export default function CultosHeroSection() {
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
-        <svg className="relative block w-[calc(100%+1.3px)] h-[35px] md:h-[45px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" transform="scale(1, -1) translate(0, -120)" className="fill-white" />
-        </svg>
-      </div>
+      <SectionDivider fillClass="fill-white" />
     </section>
   );
 }

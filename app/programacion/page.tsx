@@ -1,22 +1,18 @@
+// app/programacion/page.tsx
+import dynamic from 'next/dynamic';
 import ProgramacionHeroSection from '@/components/organisms/ProgramacionHeroSection';
-import ScheduleGrid from '@/components/organisms/ScheduleGrid';
-import ProgramCalendar from '@/components/organisms/ProgramCalendar';
-import { programas } from '@/lib/data/programas';
+import ProgramasGridSection from '@/components/organisms/ProgramasGridSection';
 
-const ScheduleGridAny: any = ScheduleGrid;
-const ProgramCalendarAny: any = ProgramCalendar;
+const ScheduleGrid = dynamic(() => import('@/components/organisms/ScheduleGrid'));
 
 export default function ProgramacionPage() {
   return (
-    <div>
+    <div className="bg-slate-950">
       <ProgramacionHeroSection />
-      
-      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
-        <div className="container mx-auto px-4 space-y-12">
-          <ScheduleGridAny programas={programas} />
-          <ProgramCalendarAny programas={programas} />
-        </div>
-      </section>
+      <ProgramasGridSection />
+      <div id="horario-semanal">
+        <ScheduleGrid />
+      </div>
     </div>
   );
 }

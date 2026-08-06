@@ -19,7 +19,7 @@ export default function Player() {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out">
+    <div id="player" data-keep-dark className="fixed bottom-0 left-0 right-0 z-[100] transition-all duration-500 ease-in-out">
       
       
       
@@ -100,12 +100,17 @@ export default function Player() {
                         currentProgram ? (
                           <>Estás escuchando: <span className="text-yellow-400 font-bold drop-shadow-sm">{currentProgram.nombre}</span></>
                         ) : (
-                          <span className="text-yellow-400 font-medium">"El Portavoz del Reino de Dios"</span>
+                          <>Estás escuchando: <span className="text-yellow-400 font-bold drop-shadow-sm">Música cristiana continua</span></>
                         )
                       ) : (
                         <span className="text-blue-200/50 text-xs uppercase tracking-widest">Dale Play para conectar</span>
                       )}
                     </span>
+                    {audioIsPlaying && currentProgram && (
+                      <span className="text-blue-200/60 text-[11px] font-mono tracking-wide">
+                        {currentProgram.horario} · {currentProgram.categoria}
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -189,7 +194,7 @@ export default function Player() {
                    audioIsPlaying ? (
                      currentProgram ? (
                        <span className="text-yellow-400 font-medium">{currentProgram.nombre}</span>
-                     ) : 'Señal en vivo'
+                     ) : <span className="text-yellow-400 font-medium">Música cristiana continua</span>
                    ) : 'Toca play para escuchar'}
                 </p>
               </div>

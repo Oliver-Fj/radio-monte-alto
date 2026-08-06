@@ -6,10 +6,12 @@ import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
 import PlayButton from '@/components/molecules/PlayButton';
+import ThemeToggle from '@/components/molecules/ThemeToggle';
 
 const navLinks = [
   { name: 'Inicio', href: '/' },
   { name: 'Nosotros', href: '/nosotros' },
+  { name: 'Eventos', href: '/eventos' },
   { name: 'Programacion', href: '/programacion' },
   { name: 'Recursos', href: '/recursos' },
   {
@@ -88,7 +90,7 @@ export default function Header() {
             <div className="relative w-10 h-10 md:w-14 md:h-14 flex-shrink-0">
               <div className="absolute inset-0 bg-amber-500/10 blur-xl rounded-full group-hover:bg-amber-400/20 transition-colors duration-500" />
               <Image
-                src={`${B}/images/logo.png`}
+                src={`${B}/images/opt/logo.webp`}
                 alt="Radio Monte Alto"
                 fill
                 className="object-contain drop-shadow-[0_0_8px_rgba(255,255,255,0.2)]"
@@ -119,9 +121,20 @@ export default function Header() {
                   className="relative px-0.5"
                   onMouseEnter={handleMouseEnter}
                   onMouseLeave={handleMouseLeave}
+                  onFocus={handleMouseEnter}
+                  onBlur={(e) => {
+                    if (!e.currentTarget.contains(e.relatedTarget as Node | null)) {
+                      setDropdownOpen(false);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Escape') setDropdownOpen(false);
+                  }}
                 >
                   <Link
                     href={link.href}
+                    aria-expanded={dropdownOpen}
+                    aria-haspopup="true"
                     className={`
                       relative px-5 py-2.5 rounded-t-lg text-xs font-medium tracking-wide uppercase transition-all duration-300 flex items-center gap-1 group
                       ${(dropdownOpen || isActive)
@@ -142,7 +155,8 @@ export default function Header() {
                   {/* DROPDOWN MENU LUJOSO */}
                   {dropdownOpen && (
                     <div className="absolute top-full left-0 w-60">
-                      <div className="bg-slate-950/98 backdrop-blur-xl border border-amber-500/20 rounded-b-xl rounded-tr-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.8)] overflow-hidden">
+                      {/* Fondo sólido: garantiza legibilidad sobre cualquier contenido */}
+                      <div className="bg-slate-950 border border-amber-500/20 rounded-b-xl rounded-tr-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.9)] overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
 
                         <div className="py-2">
@@ -152,6 +166,7 @@ export default function Header() {
                               <Link
                                 key={sublink.name}
                                 href={sublink.href}
+                                onClick={() => setDropdownOpen(false)}
                                 className={`
                                   block px-6 py-3 text-xs transition-all border-l-2 relative
                                   ${isSubActive
@@ -193,16 +208,20 @@ export default function Header() {
           </nav>
 
           {/* --- ACCIONES --- */}
-          <div className="flex items-center gap-3 md:gap-5">
+          <div className="flex items-center gap-2 md:gap-4">
+            <ThemeToggle />
             <div className="hidden md:block transform hover:scale-105 transition-transform duration-300">
               <PlayButton variant="header" />
             </div>
 
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-slate-300 hover:text-amber-400 hover:bg-white/10 rounded-full transition-all duration-300"
+              aria-expanded={mobileMenuOpen}
+              aria-label={mobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+              className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-300 hover:text-amber-400 hover:bg-white/10 rounded-full transition-all duration-300"
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
             </button>
           </div>
         </div>
@@ -210,7 +229,7 @@ export default function Header() {
 
       {/* --- MENÚ MÓVIL --- */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-950 border-t border-amber-500/20 shadow-2xl animate-in slide-in-from-top-5 duration-300 max-h-[85vh] overflow-y-auto"
+        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-950 border-t border-amber-500/20 shadow-2xl menu-slide-in max-h-[85dvh] overflow-y-auto"
         >
           <nav className="container mx-auto px-4 py-6 flex flex-col gap-2">
             {navLinks.map((link) => {
@@ -228,7 +247,7 @@ export default function Header() {
                         : 'text-slate-300 hover:text-white hover:bg-white/5'
                       }
                     `}
-                    onClick={() => !link.submenu && setMobileMenuOpen(false)}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     {link.name}
                     {(isLinkActive || isDropdownParentActive) && (

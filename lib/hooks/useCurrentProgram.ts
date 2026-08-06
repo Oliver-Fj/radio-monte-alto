@@ -1,65 +1,51 @@
-
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { programas } from '@/lib/data/programas';
+import type { Programa } from '@/lib/types';
 
-interface Programa {
-  nombre: string;
-  horario: string;
+// Día de la semana de JS (0 = domingo) → letra usada en la parrilla
+const LETRA_DIA = ['D', 'L', 'M', 'X', 'J', 'V', 'S'] as const;
+
+function aMinutos(hhmm: string) {
+  const [h, m] = hhmm.trim().split(':').map(Number);
+  return h * 60 + m;
 }
 
-const programas: Programa[] = [
-  { nombre: 'Devocional Matutino', horario: '06:00-08:00' },
-  { nombre: 'Alabanza y Adoracion', horario: '08:00-10:00' },
-  { nombre: 'Estudio Biblico', horario: '10:00-12:00' },
-  { nombre: 'Mensaje del Mediodia', horario: '12:00-14:00' },
-  { nombre: 'Testimonios de Fe', horario: '14:00-16:00' },
-  { nombre: 'Hora Familiar', horario: '16:00-18:00' },
-  { nombre: 'Reflexion Vespertina', horario: '18:00-20:00' },
-  { nombre: 'Alabanza Nocturna', horario: '20:00-22:00' },
-  { nombre: 'Vigilia de Oracion', horario: '22:00-00:00' },
-  { nombre: 'Musica Cristiana', horario: '00:00-06:00' },
-];
+/** Programa que está al aire ahora mismo, según la parrilla real. */
+function programaAhora(ahora: Date): Programa | null {
+  const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+  const diaHoy = LETRA_DIA[ahora.getDay()];
 
-export function useCurrentProgram() {
-  const [currentProgram, setCurrentProgram] = useState<Programa | null>(null);
+  return (
+    programas.find((p) => {
+      if (!p.dias.includes(diaHoy)) return false;
+      const [ini, fin] = p.horario.split('-');
+      if (!ini || !fin) return false;
+      const inicio = aMinutos(ini);
+      const final = aMinutos(fin);
+      // Franja que cruza medianoche
+      if (final <= inicio) return minutosAhora >= inicio || minutosAhora < final;
+      return minutosAhora >= inicio && minutosAhora < final;
+    }) ?? null
+  );
+}
+
+/**
+ * Devuelve el programa al aire según la hora y el día actuales.
+ * Se recalcula cada minuto. Fuera de horario devuelve null para que la
+ * interfaz muestre la programación musical continua.
+ */
+export function useCurrentProgram(): Programa | null {
+  // null en el servidor y en el primer render: evita errores de hidratación.
+  const [actual, setActual] = useState<Programa | null>(null);
 
   useEffect(() => {
-    const updateProgram = () => {
-      const now = new Date();
-      const currentHour = now.getHours();
-      const currentMinute = now.getMinutes();
-      const currentTime = currentHour * 60 + currentMinute;
-
-      const programa = programas.find(p => {
-        const [start, end] = p.horario.split('-');
-        const [startHour, startMin] = start.split(':').map(Number);
-        const [endHour, endMin] = end.split(':').map(Number);
-        
-        const startTime = startHour * 60 + startMin;
-        let endTime = endHour * 60 + endMin;
-        
-        // Manejo de horarios que cruzan medianoche
-        if (endTime < startTime) {
-          endTime += 24 * 60;
-        }
-        
-        let adjustedCurrentTime = currentTime;
-        if (currentTime < startTime && endTime > 24 * 60) {
-          adjustedCurrentTime += 24 * 60;
-        }
-        
-        return adjustedCurrentTime >= startTime && adjustedCurrentTime < endTime;
-      });
-
-      setCurrentProgram(programa || programas[programas.length - 1]);
-    };
-
-    updateProgram();
-    const interval = setInterval(updateProgram, 60000); // Actualiza cada minuto
-
-    return () => clearInterval(interval);
+    const actualizar = () => setActual(programaAhora(new Date()));
+    actualizar();
+    const id = setInterval(actualizar, 60_000);
+    return () => clearInterval(id);
   }, []);
 
-  return currentProgram;
+  return actual;
 }

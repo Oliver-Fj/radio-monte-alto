@@ -1,14 +1,15 @@
 'use client';
 import Image from 'next/image';
 import { MessageCircle, Sparkles, Send } from 'lucide-react';
+import SectionDivider from '@/components/atoms/SectionDivider';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function ContactHeroSection() {
   return (
-    <section className="relative bg-slate-950 overflow-hidden -mt-16">
+    <section data-keep-dark className="relative bg-slate-950 overflow-hidden -mt-16">
       <div className="absolute inset-0 z-0">
-        <Image src={`${B}/images/hero-contactanos.png`} alt="" fill priority quality={85} className="object-cover" sizes="100vw" />
+        <Image src={`${B}/images/opt/hero-contactanos.webp`} alt="" fill priority quality={85} className="object-cover" sizes="100vw" />
         <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 via-blue-900/65 to-slate-950/95" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-blue-600/15 blur-[120px] rounded-full mix-blend-screen pointer-events-none" />
       </div>
@@ -30,18 +31,14 @@ export default function ContactHeroSection() {
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight text-white mb-2 drop-shadow-xl">
             Contáct<span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white">anos</span>
           </h1>
-          <p className="text-xl md:text-2xl font-serif italic text-yellow-400 mb-4">"Estamos aquí para escucharte"</p>
+          <p className="text-xl md:text-2xl font-serif italic text-yellow-400 mb-4">&ldquo;Estamos aquí para escucharte&rdquo;</p>
           <p className="text-blue-100/80 text-sm md:text-lg leading-relaxed max-w-2xl mx-auto font-light">
             Ya sea que tengas una consulta, necesites oración o quieras conocer más sobre nuestro ministerio, nos encantaría saber de ti.
           </p>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-[0] z-20">
-        <svg className="relative block w-[calc(100%+1.3px)] h-[35px] md:h-[45px]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
-          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V0H0V27.35A600.21,600.21,0,0,0,321.39,56.44Z" transform="scale(1, -1) translate(0, -120)" className="fill-slate-50" />
-        </svg>
-      </div>
+      <SectionDivider fillClass="fill-slate-50" />
     </section>
   );
 }

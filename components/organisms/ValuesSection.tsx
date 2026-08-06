@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BookOpen, Heart, Users, Shield, Lightbulb, Globe, Star } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 // --- DATOS ---
 const values = [
@@ -101,9 +102,7 @@ export default function ValuesSection() {
              <span className="text-xs font-bold tracking-[0.2em] text-yellow-500 uppercase">Nuestra Esencia</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-6 tracking-tight">
-            Principios que <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-700">Guían</span>
-          </h2>
+          <GoldTitle>Principios que Guían</GoldTitle>
           
           <p className="text-lg text-slate-400 font-light leading-relaxed">
             Más que reglas, son el corazón de nuestro ministerio. Estos valores fundamentales definen quiénes somos y cómo servimos al Reino.

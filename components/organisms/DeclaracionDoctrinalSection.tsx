@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BookOpen, Scroll, ShieldCheck } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 // Datos actualizados con los nuevos puntos doctrinales
 const doctrinas = [
@@ -89,9 +90,7 @@ export default function DeclaracionDoctrinalSection() {
             <BookOpen className="w-6 h-6 text-yellow-500" />
           </div>
           
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-white mb-6 tracking-tight">
-            Fundamentos <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-700">Doctrinales</span>
-          </h2>
+          <GoldTitle>Fundamentos Doctrinales</GoldTitle>
           
           <p className="text-lg text-slate-400 font-light leading-relaxed">
             Nuestra fe se cimenta en verdades eternas. Estos son los pilares bíblicos que sostienen nuestra visión y ministerio.

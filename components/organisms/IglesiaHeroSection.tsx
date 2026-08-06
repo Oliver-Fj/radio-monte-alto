@@ -1,53 +1,137 @@
+'use client';
 import Image from 'next/image';
+import { Sparkles, Star, ChevronDown } from 'lucide-react';
+
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 export default function IglesiaHeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-blue-900 to-slate-900 text-white overflow-hidden -mt-16">
-      <div className="absolute inset-0 opacity-20">
-        <div className="absolute inset-0 bg-[url('/images/pattern.svg')] bg-repeat opacity-30" />
-        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/20 blur-[120px] rounded-full mix-blend-screen" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-yellow-500/10 blur-[120px] rounded-full mix-blend-screen" />
+    <section data-keep-dark className="relative bg-slate-950 overflow-hidden -mt-16">
+
+      {/* ── Fondo con imagen ── */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={`${B}/images/hero/slide3-desktop-1366.webp`}
+          alt=""
+          fill
+          priority
+          quality={90}
+          className="object-cover scale-105"
+          sizes="100vw"
+        />
+        {/* Capas de gradiente premium */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-900/60 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/40 via-transparent to-slate-950/40" />
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 pt-28 pb-20 md:pt-32 md:pb-28">
-        <div className="max-w-5xl mx-auto text-center">
-          <div className="relative w-32 h-32 md:w-56 md:h-56 mx-auto mb-4 group">
-            <div className="absolute inset-0 bg-yellow-400/20 blur-[60px] rounded-full group-hover:bg-yellow-400/30 transition-all duration-700" />
+      {/* ── Luces ambientales ── */}
+      <div className="absolute inset-0 pointer-events-none z-[1]">
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-yellow-500/10 blur-[180px] rounded-full" />
+        <div className="absolute top-0 left-0 w-[500px] h-[500px] bg-amber-600/5 blur-[160px] rounded-full" />
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-amber-600/5 blur-[160px] rounded-full" />
+        {/* Partículas decorativas */}
+        {[...Array(6)].map((_, i) => (
+          <div key={i}
+            className="absolute w-1 h-1 rounded-full bg-yellow-400/40 animate-pulse"
+            style={{
+              top: `${15 + i * 12}%`,
+              left: `${10 + i * 15}%`,
+              animationDelay: `${i * 0.7}s`,
+              animationDuration: `${2 + i * 0.5}s`,
+            }} />
+        ))}
+        {[...Array(5)].map((_, i) => (
+          <div key={i}
+            className="absolute w-0.5 h-0.5 rounded-full bg-amber-300/50 animate-pulse"
+            style={{
+              top: `${20 + i * 13}%`,
+              right: `${8 + i * 14}%`,
+              animationDelay: `${i * 0.9}s`,
+              animationDuration: `${2.5 + i * 0.4}s`,
+            }} />
+        ))}
+      </div>
+
+      {/* ── Contenido ── */}
+      <div className="container mx-auto px-4 relative z-10 pt-28 pb-24 md:pt-40 md:pb-32 flex flex-col items-center text-center">
+
+        {/* Badge superior */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-900/40 border border-amber-500/30 text-amber-200 text-[10px] md:text-xs font-bold tracking-[0.25em] uppercase mb-10 backdrop-blur-md">
+          <Star className="w-3 h-3 text-yellow-400 fill-yellow-400 animate-pulse" />
+          C.G.I. Monte Alto
+          <Star className="w-3 h-3 text-yellow-400 fill-yellow-400 animate-pulse" style={{ animationDelay:'0.5s' }} />
+        </div>
+
+        {/* ── LOGO ── */}
+        <div className="relative mb-10 group">
+          {/* Anillos decorativos giratorios */}
+          <div className="absolute -inset-6 rounded-full border border-yellow-500/20 border-dashed animate-[spin_20s_linear_infinite]" />
+          <div className="absolute -inset-10 rounded-full border border-amber-400/10 border-dotted animate-[spin_35s_linear_infinite_reverse]" />
+
+          {/* Glow del logo */}
+          <div className="absolute inset-0 bg-yellow-400/20 blur-[60px] rounded-full scale-150 group-hover:bg-yellow-400/30 transition-all duration-700" />
+          <div className="absolute inset-0 bg-amber-500/15 blur-[30px] rounded-full animate-pulse" />
+
+          {/* Logo container */}
+          <div className="relative w-36 h-36 md:w-44 md:h-44 rounded-full flex items-center justify-center
+            bg-slate-950/40 backdrop-blur-xl border border-yellow-500/30 shadow-[0_0_80px_rgba(234,179,8,0.25),inset_0_1px_0_rgba(255,255,255,0.1)]
+            group-hover:border-yellow-400/50 group-hover:shadow-[0_0_120px_rgba(234,179,8,0.35)] transition-all duration-700">
             <Image
-              src="/images/logos-monte.png"
-              alt="Logo Iglesia Monte Alto"
-              fill
-              className="object-contain relative z-10 drop-shadow-2xl transition-transform duration-500 hover:scale-105"
+              src={`${B}./images/opt/logos-monte.webp`}
+              alt="Radio Monte Alto"
+              width={110}
+              height={110}
+              className="object-contain drop-shadow-[0_0_20px_rgba(234,179,8,0.5)] group-hover:drop-shadow-[0_0_35px_rgba(234,179,8,0.7)] transition-all duration-700"
               priority
             />
           </div>
 
-          <h1 className="font-extrabold mb-6 tracking-tight leading-tight">
-            <span className="block text-2xl md:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-200 to-gray-400 mb-2 font-bold">
-              Iglesia Cuartel General
-            </span>
-            <span className="block text-blue-200 text-sm md:text-lg lg:text-xl tracking-[0.2em] font-medium uppercase mb-3">
-              de Jehová de los Ejércitos
-            </span>
-            <span className="block text-yellow-400 text-4xl md:text-6xl lg:text-7xl font-serif italic drop-shadow-lg">
-              "Monte Alto"
+          {/* Destellos en esquinas */}
+          <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-300 animate-pulse" />
+          <Sparkles className="absolute -bottom-1 -left-3 w-4 h-4 text-amber-400 animate-pulse" style={{ animationDelay:'1s' }} />
+        </div>
+
+        {/* Títulos */}
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight text-white leading-none mb-4 drop-shadow-xl">
+            Nuestra{' '}
+            <span className="relative">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-amber-300 to-yellow-400 italic font-serif">
+                Iglesia
+              </span>
+              {/* Subrayado dorado */}
+              <span className="absolute -bottom-2 left-0 w-full h-[3px] bg-gradient-to-r from-yellow-400/0 via-yellow-400 to-yellow-400/0 rounded-full" />
             </span>
           </h1>
 
-          <div className="flex items-center justify-center gap-4 text-blue-200 mb-8 text-xs md:text-lg font-light tracking-widest uppercase">
-            <span>Sanidad</span>
-            <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full" />
-            <span>Santidad</span>
-            <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full" />
-            <span>Poder</span>
+          {/* Divisor con cruz */}
+          <div className="flex items-center justify-center gap-4 my-6">
+            <div className="h-px w-24 bg-gradient-to-r from-transparent to-yellow-500/40" />
+            <span className="text-yellow-500/60 text-lg">✝</span>
+            <div className="h-px w-24 bg-gradient-to-l from-transparent to-yellow-500/40" />
           </div>
 
-          <p className="text-base md:text-lg text-gray-300 max-w-3xl mx-auto leading-relaxed border-t border-white/10 pt-6">
-            Una iglesia comprometida con la predicación del Evangelio puro,
-            la sanidad divina y el poder transformador del Espíritu Santo.
+          <p className="text-xl md:text-2xl font-serif italic text-yellow-300 mb-5 drop-shadow-md">
+            "Edificados sobre el fundamento de los apóstoles y profetas"
+          </p>
+          <p className="text-slate-300 text-slate-400 text-[11px] font-bold tracking-[0.3em] uppercase mb-8">
+            Efesios 2:20
+          </p>
+
+          <p className="text-slate-300 text-base md:text-lg max-w-xl mx-auto leading-relaxed font-light">
+            Una comunidad de fe arraigada en la Palabra de Dios, comprometida con el evangelio de Jesucristo y la transformación de las naciones.
           </p>
         </div>
+
+        {/* Scroll indicator */}
+        <div className="mt-14 flex flex-col items-center gap-2 opacity-50 animate-bounce">
+          <span className="text-slate-400 text-[10px] tracking-[0.3em] uppercase">Descubre más</span>
+          <ChevronDown className="w-4 h-4 text-yellow-400" />
+        </div>
       </div>
+
+      {/* Fade inferior */}
+      <div className="absolute bottom-0 left-0 w-full h-40 bg-gradient-to-t from-slate-950 via-slate-950/80 to-transparent z-10 pointer-events-none" />
     </section>
   );
 }

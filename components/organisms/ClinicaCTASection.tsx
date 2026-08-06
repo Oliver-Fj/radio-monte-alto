@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
 import { Phone, MapPin, Radio, Heart } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function ClinicaCTASection() {
   return (
@@ -13,9 +14,7 @@ export default function ClinicaCTASection() {
           <Heart className="w-10 h-10 text-white animate-pulse" />
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          ¿Necesitas Sanidad?
-        </h2>
+        <GoldTitle>¿Necesitas Sanidad?</GoldTitle>
         <p className="text-xl text-red-100 mb-10 max-w-2xl mx-auto">
           No estás solo. Jesús vino a sanar a los quebrantados de corazón y a liberar a los cautivos. 
           Ven a la Clínica Celestial y experimenta el poder sanador de Dios.

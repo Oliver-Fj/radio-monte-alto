@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { Mail, Bell, ArrowRight, Star, Send } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function ResourcesSubscribeSection() {
   return (
@@ -38,9 +39,7 @@ export default function ResourcesSubscribeSection() {
                    <Bell className="w-8 h-8 text-yellow-500 relative z-10" />
                 </div>
                 
-                <h2 className="text-3xl md:text-4xl font-serif font-medium text-slate-900 mb-4 tracking-tight">
-                  Recibe Nuevos <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700">Recursos</span>
-                </h2>
+                <GoldTitle sobre="claro">Recibe Nuevos Recursos</GoldTitle>
                 
                 <p className="text-slate-500 text-lg font-light leading-relaxed">
                   Únete a nuestra lista exclusiva. Recibe enseñanzas profundas, artículos y noticias del ministerio directamente en tu bandeja de entrada.

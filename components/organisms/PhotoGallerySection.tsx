@@ -1,166 +1,189 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Camera, Maximize2, Aperture, ArrowUpRight } from 'lucide-react';
+import { useState } from 'react';
+import { Camera, Aperture, ArrowUpRight, Mic2, Radio, Settings2, Users, Building2, Music4 } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
-// --- DATOS ---
-// He añadido URLs de Unsplash como respaldo visual para que veas el diseño inmediatamente,
-// pero el código prioriza tus rutas locales si existen.
-const fotos = [
+const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
+
+/**
+ * Galería visual por áreas. Cada área tiene descripción propia y su tira de
+ * fotografías. Para cambiar una foto, sustituye el archivo en
+ * public/images/opt/ o apunta `src` a tu propia imagen.
+ */
+interface Foto {
+  src: string;
+  alt: string;
+  pie: string;
+}
+
+interface Area {
+  id: string;
+  titulo: string;
+  icon: LucideIcon;
+  intro: string;
+  detalle: string;
+  fotos: Foto[];
+}
+
+const AREAS: Area[] = [
   {
-    id: 1,
-    src: '/images/galeria/radio-1.jpg',
-    fallback: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Estudio de radio',
-    caption: 'Nuestro estudio de transmisión',
-    category: 'Instalaciones'
+    id: 'cabina',
+    titulo: 'Cabina de grabación',
+    icon: Mic2,
+    intro: 'El corazón silencioso donde nace cada programa.',
+    detalle:
+      'Aquí se graban las prédicas, los devocionales y las cuñas que después salen al aire. La cabina está acondicionada acústicamente para que la voz llegue limpia a cada hogar: paneles absorbentes, micrófonos de condensador y una mesa de mezcla que permite registrar varias voces a la vez. Es también el lugar donde los pastores preparan las series de enseñanza que se emiten durante la semana.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-4.webp`, alt: 'Cabina de grabación de Radio Monte Alto', pie: 'Cabina principal de grabación' },
+      { src: `${B}/images/opt/galeria-radio-1.webp`, alt: 'Micrófono en la cabina', pie: 'Registro de prédicas y devocionales' },
+    ],
   },
   {
-    id: 2,
-    src: '/images/galeria/radio-2.jpg',
-    fallback: 'https://images.unsplash.com/photo-1516280440614-6697288d5d38?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Equipo de locutores',
-    caption: 'El equipo de Radio Monte Alto',
-    category: 'Equipo'
+    id: 'tecnico',
+    titulo: 'Equipo técnico',
+    icon: Settings2,
+    intro: 'Los que sostienen la señal las 24 horas.',
+    detalle:
+      'Detrás de cada transmisión hay un equipo que rara vez se escucha pero sin el cual nada saldría al aire: operadores de consola, encargados del transmisor y del enlace satelital, y quienes vigilan que la señal en línea no se caiga de madrugada. Ellos preparan la continuidad musical, sincronizan los bloques de programación y resuelven cualquier incidencia técnica en minutos.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-6.webp`, alt: 'Equipo técnico de la radio', pie: 'Operación de consola y transmisor' },
+      { src: `${B}/images/opt/galeria-radio-3.webp`, alt: 'Sala técnica', pie: 'Monitoreo permanente de la señal' },
+    ],
   },
   {
-    id: 3,
-    src: '/images/galeria/radio-3.jpg',
-    fallback: 'https://images.unsplash.com/photo-1478737270239-2f02b77ac6d5?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Transmisión en vivo',
-    caption: 'Transmitiendo la Palabra',
-    category: 'En Vivo'
+    id: 'locutores',
+    titulo: 'Equipo de locutores',
+    icon: Users,
+    intro: 'Las voces que acompañan tu día.',
+    detalle:
+      'Nuestros locutores no son presentadores de oficio: son hermanos formados en la Palabra que ponen su voz al servicio del evangelio. Cada uno conduce los programas que le fueron encomendados, prepara su contenido con anticipación y responde los mensajes que llegan de los oyentes. Muchos de ellos llevan años acompañando a familias que los reconocen solo por el timbre de su voz.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-2.webp`, alt: 'Equipo de locutores de Radio Monte Alto', pie: 'El equipo de locución' },
+      { src: `${B}/images/opt/galeria-radio-5.webp`, alt: 'Locutor al aire', pie: 'Conduciendo el programa del día' },
+    ],
   },
   {
-    id: 4,
-    src: '/images/galeria/radio-4.jpg',
-    fallback: 'https://images.unsplash.com/photo-1590602847861-f357a9332bbc?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Cabina de grabación',
-    caption: 'Produciendo contenido de calidad',
-    category: 'Producción'
+    id: 'estudio',
+    titulo: 'Estudio de transmisión',
+    icon: Radio,
+    intro: 'Desde aquí sale la señal a todo el Perú.',
+    detalle:
+      'El estudio está al aire los siete días de la semana. Es el punto donde convergen la programación en vivo, las llamadas de los oyentes y la música que enlaza cada bloque. Cuenta con doble puesto de locución para las entrevistas y una ventana hacia la sala técnica que permite coordinar sin interrumpir la emisión.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-1.webp`, alt: 'Estudio de transmisión', pie: 'Estudio principal, al aire 24/7' },
+      { src: `${B}/images/opt/galeria-radio-3.webp`, alt: 'Transmisión en vivo', pie: 'Programa en vivo' },
+    ],
   },
   {
-    id: 5,
-    src: '/images/galeria/radio-5.jpg',
-    fallback: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Evento especial',
-    caption: 'Eventos y actividades especiales',
-    category: 'Eventos'
+    id: 'instalaciones',
+    titulo: 'Nuestras instalaciones',
+    icon: Building2,
+    intro: 'Una casa abierta para el ministerio.',
+    detalle:
+      'Además de los estudios, la sede alberga la oficina de atención al oyente, la sala donde se reúne el equipo de intercesión antes de cada jornada y el espacio de archivo donde se conservan las grabaciones históricas del ministerio. Las puertas están abiertas para quien quiera conocer de cerca cómo trabajamos.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-5.webp`, alt: 'Instalaciones de la radio', pie: 'Sede de Radio Monte Alto, Huancayo' },
+      { src: `${B}/images/opt/galeria-radio-6.webp`, alt: 'Sala de reuniones', pie: 'Sala de intercesión y coordinación' },
+    ],
   },
   {
-    id: 6,
-    src: '/images/galeria/radio-6.jpg',
-    fallback: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1000&auto=format&fit=crop',
-    alt: 'Equipo técnico',
-    caption: 'Tecnología al servicio del Evangelio',
-    category: 'Técnica'
+    id: 'produccion',
+    titulo: 'Producción musical',
+    icon: Music4,
+    intro: 'La alabanza que enlaza cada programa.',
+    detalle:
+      'Seleccionamos y editamos la música que acompaña la programación, cuidando que cada pieza sea coherente con la sana doctrina que predicamos. También se producen aquí las cortinas musicales, las identificaciones de la emisora y las grabaciones del ministerio de alabanza de la congregación.',
+    fotos: [
+      { src: `${B}/images/opt/galeria-radio-4.webp`, alt: 'Producción musical', pie: 'Edición y selección musical' },
+      { src: `${B}/images/opt/galeria-radio-2.webp`, alt: 'Ministerio de alabanza', pie: 'Grabación del ministerio de alabanza' },
+    ],
   },
 ];
 
-// --- COMPONENTE DE TARJETA INDIVIDUAL ---
-const GalleryCard = ({ foto }: { foto: typeof fotos[0] }) => {
-  const [imgSrc, setImgSrc] = useState(foto.src);
-  const [isHovered, setIsHovered] = useState(false);
-
+function FotoCard({ foto }: { foto: Foto }) {
+  const [src, setSrc] = useState(foto.src);
   return (
-    <div 
-      className="group relative aspect-[4/5] md:aspect-[3/4] overflow-hidden rounded-2xl cursor-pointer"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Marco Dorado Sutil (Borde) */}
+    <figure className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
       <div className="absolute inset-0 border border-white/10 group-hover:border-yellow-500/50 z-20 rounded-2xl transition-colors duration-500 pointer-events-none" />
-
-      {/* Imagen con Zoom */}
-      <img 
-        src={imgSrc} 
+      <img
+        src={src}
         alt={foto.alt}
-        onError={() => setImgSrc(foto.fallback)}
+        loading="lazy"
+        decoding="async"
+        onError={() => setSrc(`${B}/images/opt/galeria-radio-1.webp`)}
         className="h-full w-full object-cover transition-transform duration-1000 ease-out group-hover:scale-110"
       />
-
-      {/* Overlay Gradiente (Siempre visible abajo, más fuerte en hover) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-500" />
-      
-      {/* Overlay Color Tint en Hover */}
-      <div className="absolute inset-0 bg-blue-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 mixture-blend-overlay" />
-
-      {/* Contenido Flotante */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-between z-10">
-        
-        {/* Top: Categoría y Icono Expandir */}
-        <div className="flex justify-between items-start opacity-0 group-hover:opacity-100 transform -translate-y-4 group-hover:translate-y-0 transition-all duration-500">
-           <span className="inline-block px-2 py-1 text-[10px] font-bold tracking-widest uppercase text-yellow-500 bg-black/50 backdrop-blur-md rounded border border-yellow-500/20">
-             {foto.category}
-           </span>
-           <div className="p-2 bg-white/10 backdrop-blur-md rounded-full text-white hover:bg-yellow-500 hover:text-black transition-colors">
-             <Maximize2 className="w-4 h-4" />
-           </div>
-        </div>
-
-        {/* Bottom: Texto */}
-        <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-          <h3 className="font-serif text-xl text-white mb-1 leading-tight drop-shadow-lg">
-            {foto.alt}
-          </h3>
-          <div className="h-0 group-hover:h-auto overflow-hidden transition-all duration-500">
-             <p className="text-sm text-slate-300 font-light opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100">
-               {foto.caption}
-             </p>
-             <div className="w-12 h-[1px] bg-yellow-500 mt-4 mb-1 origin-left transform scale-x-0 group-hover:scale-x-100 transition-transform duration-700 delay-200" />
-          </div>
-        </div>
-      </div>
-    </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-[#0B1120] via-transparent to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-500" />
+      <figcaption className="absolute bottom-0 inset-x-0 p-4 z-10">
+        <p className="text-sm text-slate-200 font-light">{foto.pie}</p>
+        <div className="w-10 h-px bg-yellow-500 mt-2 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+      </figcaption>
+    </figure>
   );
-};
+}
 
-// --- COMPONENTE PRINCIPAL ---
 export default function PhotoGallerySection() {
   return (
     <section className="relative py-24 bg-[#0B1120] overflow-hidden font-sans">
-      
-      {/* --- FONDO DE LUJO --- */}
       <div className="absolute inset-0 pointer-events-none">
-         {/* Patrón de ruido */}
-         <div className="absolute inset-0 opacity-[0.03] bg-[url('https://www.transparenttextures.com/patterns/stardust.png')]" />
-         {/* Luces */}
-         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-900/10 rounded-full blur-[120px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-900/10 rounded-full blur-[120px]" />
       </div>
 
       <div className="container mx-auto px-4 relative z-10">
-        
-        {/* --- HEADER --- */}
+        {/* Encabezado */}
         <div className="text-center mb-16">
           <div className="inline-flex items-center justify-center p-4 mb-6 rounded-full bg-white/5 border border-yellow-500/20 shadow-[0_0_30px_rgba(234,179,8,0.1)] group">
-            <Aperture className="w-8 h-8 text-yellow-500 group-hover:rotate-45 transition-transform duration-700" />
+            <Aperture className="w-8 h-8 text-yellow-500 group-hover:rotate-45 transition-transform duration-700" aria-hidden="true" />
           </div>
-          
-          <h2 className="text-4xl md:text-6xl font-serif font-medium text-white mb-4 tracking-tight">
-            Galería <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-200 via-yellow-500 to-yellow-700">Visual</span>
-          </h2>
-          
+          <GoldTitle>Galería Visual</GoldTitle>
           <p className="text-lg text-slate-400 font-light max-w-2xl mx-auto leading-relaxed">
-            Momentos capturados que cuentan la historia de nuestro ministerio, las personas y la pasión detrás de cada transmisión.
+            Un recorrido por cada área del ministerio: quiénes trabajan, dónde y con qué.
           </p>
         </div>
 
-        {/* --- GRID DE FOTOS --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-12">
-          {fotos.map((foto) => (
-            <GalleryCard key={foto.id} foto={foto} />
+        {/* Áreas desarrolladas */}
+        <div className="space-y-20 max-w-6xl mx-auto">
+          {AREAS.map(({ id, titulo, icon: Icon, intro, detalle, fotos }, i) => (
+            <article key={id} className="grid lg:grid-cols-12 gap-8 items-start">
+              {/* Texto */}
+              <div className={`lg:col-span-5 ${i % 2 === 1 ? 'lg:order-2' : ''}`}>
+                <div className="inline-flex items-center gap-3 mb-4">
+                  <span className="w-11 h-11 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+                    <Icon className="w-5 h-5 text-yellow-400" aria-hidden="true" />
+                  </span>
+                  <span className="text-[11px] font-bold tracking-[0.25em] uppercase text-yellow-500">
+                    {String(i + 1).padStart(2, '0')} · Área
+                  </span>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold text-white mb-2">{titulo}</h3>
+                <p className="text-yellow-200/80 italic mb-4">{intro}</p>
+                <p className="text-slate-400 leading-relaxed">{detalle}</p>
+              </div>
+
+              {/* Fotos */}
+              <div className={`lg:col-span-7 grid sm:grid-cols-2 gap-5 ${i % 2 === 1 ? 'lg:order-1' : ''}`}>
+                {fotos.map((f) => (
+                  <FotoCard key={f.pie} foto={f} />
+                ))}
+              </div>
+            </article>
           ))}
         </div>
 
-        {/* --- FOOTER / CTA --- */}
-        <div className="text-center mt-12 pt-8 border-t border-white/5">
-           <a href="#" className="inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase text-slate-400 hover:text-yellow-500 transition-colors group">
-             <Camera className="w-4 h-4" />
-             <span>Ver Archivo Completo en Instagram</span>
-             <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-           </a>
+        <div className="text-center mt-20 pt-8 border-t border-white/5">
+          <a
+            href="https://www.instagram.com/radiomontealto7"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-sm font-bold tracking-widest uppercase text-slate-400 hover:text-yellow-500 transition-colors group"
+          >
+            <Camera className="w-4 h-4" aria-hidden="true" />
+            <span>Ver archivo completo en Instagram</span>
+            <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" aria-hidden="true" />
+          </a>
         </div>
-
       </div>
     </section>
   );

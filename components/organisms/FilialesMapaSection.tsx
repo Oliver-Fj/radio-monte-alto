@@ -1,9 +1,37 @@
+'use client';
 
+import dynamic from 'next/dynamic';
 import SectionTitle from '@/components/atoms/SectionTitle';
-import { MapPin } from 'lucide-react';
+import { MapPin, Landmark, Church } from 'lucide-react';
 import { filiales } from '@/lib/data/filiales';
 
+// MapLibre solo funciona en el navegador: carga diferida sin SSR,
+// con un esqueleto que reserva la altura (sin saltos de diseño).
+const FilialesMapa = dynamic(() => import('@/components/organisms/FilialesMapa'), {
+  ssr: false,
+  loading: () => (
+    <div
+      className="h-[500px] md:h-[620px] rounded-2xl bg-gradient-to-br from-blue-50 to-green-50 border-2 border-gray-100 flex items-center justify-center"
+      role="status"
+      aria-label="Cargando mapa de filiales"
+    >
+      <div className="text-center">
+        <MapPin className="w-12 h-12 text-emerald-500 mx-auto mb-3 motion-safe:animate-bounce" aria-hidden="true" />
+        <p className="text-gray-500 font-semibold">Cargando mapa del Perú…</p>
+      </div>
+    </div>
+  ),
+});
+
 export default function FilialesMapaSection() {
+  const departamentos = new Set(filiales.map((f) => f.region)).size;
+
+  const stats = [
+    { icon: Church, valor: filiales.length, etiqueta: 'Filiales en el Perú', color: 'from-emerald-500 to-green-600' },
+    { icon: Landmark, valor: departamentos, etiqueta: 'Departamentos', color: 'from-blue-500 to-indigo-600' },
+    { icon: MapPin, valor: 1, etiqueta: 'Sede Central — Huancayo', color: 'from-amber-400 to-yellow-600' },
+  ];
+
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4">
@@ -12,45 +40,25 @@ export default function FilialesMapaSection() {
             Mapa de Filiales
           </SectionTitle>
 
-          <div className="mt-12 bg-white rounded-2xl shadow-2xl p-8 border-2 border-gray-100">
-            {/* Placeholder para mapa - Puedes integrar Google Maps o Leaflet después */}
-            <div className="aspect-[16/10] bg-gradient-to-br from-blue-100 to-green-100 rounded-xl flex items-center justify-center relative overflow-hidden">
-              <div className="absolute inset-0 bg-[url('/images/peru-map.svg')] bg-center bg-contain bg-no-repeat opacity-20" />
-              
-              <div className="relative z-10 text-center">
-                <MapPin className="w-16 h-16 text-green-600 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                  {filiales.length} Filiales en Perú
-                </h3>
-                <p className="text-gray-600">
-                  Mapa interactivo próximamente
-                </p>
+          {/* Estadísticas */}
+          <div className="mt-10 mb-10 grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {stats.map(({ icon: Icon, valor, etiqueta, color }) => (
+              <div
+                key={etiqueta}
+                className="flex items-center gap-4 bg-white rounded-2xl border-2 border-gray-100 shadow-lg px-6 py-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              >
+                <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${color} shadow-md flex items-center justify-center`}>
+                  <Icon className="w-6 h-6 text-white" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-3xl font-black text-gray-900 leading-none">{valor}</p>
+                  <p className="text-xs font-semibold text-gray-500 mt-1 uppercase tracking-wide">{etiqueta}</p>
+                </div>
               </div>
-
-              {/* Pines decorativos */}
-              <div className="absolute top-1/4 left-1/3 animate-pulse">
-                <MapPin className="w-8 h-8 text-green-600" />
-              </div>
-              <div className="absolute top-1/2 left-1/2 animate-pulse delay-100">
-                <MapPin className="w-10 h-10 text-blue-600" />
-              </div>
-              <div className="absolute top-3/4 right-1/3 animate-pulse delay-200">
-                <MapPin className="w-8 h-8 text-green-600" />
-              </div>
-            </div>
-
-            {/* Leyenda */}
-            <div className="mt-6 flex items-center justify-center gap-8">
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-blue-600 rounded-full" />
-                <span className="text-sm text-gray-600">Sede Central</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="w-4 h-4 bg-green-600 rounded-full" />
-                <span className="text-sm text-gray-600">Filiales</span>
-              </div>
-            </div>
+            ))}
           </div>
+
+          <FilialesMapa />
         </div>
       </div>
     </section>

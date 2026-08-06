@@ -2,10 +2,11 @@
 
 import React from 'react';
 import { Users, Church, MapPin, HeartHandshake, ArrowRight, Calendar } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function TeamSection() {
   return (
-    <section className="relative py-24 bg-white overflow-hidden font-sans">
+    <section className="fondo-marfil filete-dorado relative py-24 overflow-hidden font-sans">
       
       {/* --- FONDO AMBIENTAL (VERSIÓN WHITE) --- */}
       <div className="absolute inset-0 pointer-events-none">
@@ -26,9 +27,7 @@ export default function TeamSection() {
               <Users className="w-8 h-8 text-yellow-600 group-hover:scale-110 transition-transform duration-500" />
             </div>
             
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 mb-6 tracking-tight">
-              Nuestro <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700">Equipo</span>
-            </h2>
+            <GoldTitle sobre="claro">Nuestro Equipo</GoldTitle>
             
             <p className="text-lg text-slate-600 font-light max-w-2xl mx-auto leading-relaxed">
               Un equipo comprometido con la difusión del Evangelio, trabajando unidos para ser instrumentos en las manos de Dios para rescatar almas con el mensaje de salvación.

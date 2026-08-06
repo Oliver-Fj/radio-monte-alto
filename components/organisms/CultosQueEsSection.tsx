@@ -1,6 +1,28 @@
 
 import SectionTitle from '@/components/atoms/SectionTitle';
-import { Users, Heart, BookOpen } from 'lucide-react';
+import GlassCard3D, { type Glass3DTheme } from '@/components/molecules/GlassCard3D';
+import { Users, Heart, BookOpen, type LucideIcon } from 'lucide-react';
+
+const PILARES: { titulo: string; texto: string; theme: Glass3DTheme; icon: LucideIcon }[] = [
+  {
+    titulo: 'Comunión',
+    texto: 'Nos fortalecemos juntos, compartiendo la vida en Cristo y edificándonos mutuamente.',
+    theme: 'ocean',
+    icon: Users,
+  },
+  {
+    titulo: 'Adoración',
+    texto: 'Elevamos nuestras voces en alabanza y adoración al único Dios verdadero.',
+    theme: 'solar',
+    icon: Heart,
+  },
+  {
+    titulo: 'Palabra',
+    texto: 'Recibimos enseñanza bíblica sólida que transforma nuestras vidas y renueva nuestras mentes.',
+    theme: 'mint',
+    icon: BookOpen,
+  },
+];
 
 export default function CultosQueEsSection() {
   return (
@@ -15,8 +37,8 @@ export default function CultosQueEsSection() {
             <div className="space-y-6">
               <div className="bg-blue-50 border-l-4 border-blue-900 p-6 rounded-r-lg">
                 <p className="text-blue-900 font-medium italic text-lg">
-                  "No dejando de congregarnos, como algunos tienen por costumbre, sino exhortándonos; 
-                  y tanto más, cuanto veis que aquel día se acerca."
+                  &ldquo;No dejando de congregarnos, como algunos tienen por costumbre, sino exhortándonos; 
+                  y tanto más, cuanto veis que aquel día se acerca.&rdquo;
                   <span className="block text-sm mt-2 text-blue-700">- Hebreos 10:25</span>
                 </p>
               </div>
@@ -34,46 +56,19 @@ export default function CultosQueEsSection() {
 
               <p className="text-gray-700 leading-relaxed text-lg">
                 En tiempos donde muchos han dejado de congregarse, nosotros permanecemos firmes, 
-                sabiendo que <em>"tanto más, cuanto veis que aquel día se acerca"</em>.
+                sabiendo que <em>&ldquo;tanto más, cuanto veis que aquel día se acerca&rdquo;</em>.
               </p>
             </div>
 
-            <div className="space-y-6">
-              <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg border-2 border-blue-200">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 bg-blue-900 rounded-full flex items-center justify-center">
-                    <Users className="w-7 h-7 text-yellow-400" />
+            <div className="space-y-8">
+              {PILARES.map(({ titulo, texto, theme, icon: Icon }) => (
+                <GlassCard3D key={titulo} theme={theme} icon={<Icon className="w-5 h-5" aria-hidden="true" />}>
+                  <div className="px-7 pb-7 pt-24">
+                    <h3 className="text-2xl font-bold [color:var(--g3-title)]">{titulo}</h3>
+                    <p className="mt-2 leading-relaxed [color:var(--g3-body)]">{texto}</p>
                   </div>
-                  <h3 className="text-2xl font-bold text-blue-900">Comunión</h3>
-                </div>
-                <p className="text-gray-700">
-                  Nos fortalecemos juntos, compartiendo la vida en Cristo y edificándonos mutuamente.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-xl shadow-lg border-2 border-yellow-200">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 bg-yellow-600 rounded-full flex items-center justify-center">
-                    <Heart className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-yellow-900">Adoración</h3>
-                </div>
-                <p className="text-gray-700">
-                  Elevamos nuestras voces en alabanza y adoración al único Dios verdadero.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-lg border-2 border-green-200">
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="w-14 h-14 bg-green-600 rounded-full flex items-center justify-center">
-                    <BookOpen className="w-7 h-7 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-green-900">Palabra</h3>
-                </div>
-                <p className="text-gray-700">
-                  Recibimos enseñanza bíblica sólida que transforma nuestras vidas y renueva nuestras mentes.
-                </p>
-              </div>
+                </GlassCard3D>
+              ))}
             </div>
           </div>
         </div>

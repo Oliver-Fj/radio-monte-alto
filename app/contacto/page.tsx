@@ -1,8 +1,9 @@
-
+import dynamic from 'next/dynamic';
 import ContactHeroSection from '@/components/organisms/ContactHeroSection';
-import ContactInfoSection from '@/components/organisms/ContactInfoSection';
-import ContactFormSection from '@/components/organisms/ContactFormSection';
-import SocialMediaSection from '@/components/organisms/SocialMediaSection';
+
+const ContactInfoSection = dynamic(() => import('@/components/organisms/ContactInfoSection'));
+const ContactFormSection = dynamic(() => import('@/components/organisms/ContactFormSection'));
+const SocialMediaSection = dynamic(() => import('@/components/organisms/SocialMediaSection'));
 
 export default function ContactoPage() {
   return (

@@ -1,156 +1,147 @@
-import React from 'react';
-import { BookOpen, ArrowRight, Calendar, Clock, Bookmark } from 'lucide-react';
-import Image from 'next/image';
-import Link from 'next/link'; 
+'use client';
 
-// --- DATOS MOCK (Para visualización inmediata) ---
-const articulosDestacados = [
-  {
-    id: '1',
-    titulo: "El Poder de la Oración en Tiempos de Crisis",
-    extracto: "Descubre cómo la oración ferviente puede transformar no solo tus circunstancias, sino tu corazón en medio de la tormenta...",
-    fecha: "22 Nov, 2025",
-    categoria: "Vida Espiritual",
-    tiempoLectura: "5 min",
-    imagen: "https://images.unsplash.com/photo-1491841550275-ad7854e35ca6?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: '2',
-    titulo: "Caminando en Integridad",
-    extracto: "Un análisis profundo sobre el carácter cristiano y la importancia de mantener nuestros valores inquebrantables en un mundo cambiante...",
-    fecha: "18 Nov, 2025",
-    categoria: "Estudio Bíblico",
-    tiempoLectura: "8 min",
-    imagen: "https://images.unsplash.com/photo-1507434965515-61970f2bd7c6?q=80&w=1000&auto=format&fit=crop"
-  },
-  {
-    id: '3',
-    titulo: "La Promesa del Consolador",
-    extracto: "Entendiendo el rol vital del Espíritu Santo en nuestra vida diaria como guía, maestro y fuente inagotable de poder...",
-    fecha: "10 Nov, 2025",
-    categoria: "Teología",
-    tiempoLectura: "6 min",
-    imagen: "https://images.unsplash.com/photo-1470115636492-6d2b56f9146d?q=80&w=1000&auto=format&fit=crop"
-  }
+import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Clock, ArrowRight, BookOpen, Tag } from 'lucide-react';
+import articulos from '@/lib/data/articulos';
+import GoldTitle from '@/components/atoms/GoldTitle';
+
+// Fallback si la imagen del artículo no existe todavía
+// next/image maneja el basePath automáticamente
+const FALLBACKS = [
+  '/images/hero/slide1-desktop-1366.webp',
+  '/images/hero/slide2-desktop-1366.webp',
+  '/images/hero/slide3-desktop-1366.webp',
 ];
 
-// --- COMPONENTE DE TARJETA ---
-const LuxuryArticleCard = ({ articulo }: { articulo: typeof articulosDestacados[0] }) => {
+function ArticuloCard({ a, index, visible }: { a: typeof articulos[0]; index: number; visible: boolean }) {
+  const [imgError, setImgError] = useState(false);
+  const fallback = FALLBACKS[index % FALLBACKS.length];
+
   return (
-    <article className="group relative flex flex-col h-full bg-white rounded-2xl overflow-hidden border border-gray-100 shadow-lg hover:shadow-2xl hover:shadow-yellow-500/10 transition-all duration-500 hover:-translate-y-2">
+    <Link
+      href={`/recursos/${a.slug}`}
+      className="group block"
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(32px)',
+        transition: `all 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 90}ms`,
+      }}
+    >
+      {/* Glow exterior */}
+      <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse, rgba(234,179,8,0.18) 0%, transparent 70%)' }} />
 
-      {/* IMAGEN HEADER */}
-      <div className="relative h-60 overflow-hidden">
-        <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10" />
-        <Image
-          src={articulo.imagen}
-          alt={articulo.titulo}
-          fill
-          className="object-cover"
-          sizes="(max-width: 768px) 100vw, 33vw"
-        />
+      <article className="relative h-full flex flex-col rounded-3xl overflow-hidden border border-white/7 group-hover:border-yellow-500/25 bg-slate-900/50 backdrop-blur-sm transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
 
-        {/* Badge Categoría Flotante */}
-        <div className="absolute top-4 left-4 z-20">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-white/95 backdrop-blur text-yellow-700 shadow-md border border-yellow-500/10">
-            {articulo.categoria}
-          </span>
-        </div>
-      </div>
+        {/* Imagen */}
+        <div className="relative h-52 flex-shrink-0 overflow-hidden">
+          <Image
+            src={imgError ? fallback : a.imagen}
+            alt={a.imagenAlt}
+            fill
+            className="object-cover transition-transform duration-[1200ms] group-hover:scale-108"
+            sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw"
+            onError={() => setImgError(true)}
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent" />
 
-      {/* CONTENIDO CARD */}
-      <div className="flex-1 p-8 flex flex-col relative">
-        {/* Decoración sutil */}
-        <div className="absolute top-0 right-8 w-12 h-1 bg-yellow-500 rounded-b-md shadow-sm opacity-50 group-hover:h-2 group-hover:opacity-100 transition-all duration-300" />
-
-        {/* Metadatos */}
-        <div className="flex items-center gap-4 text-xs font-medium text-slate-400 mb-4">
-          <div className="flex items-center gap-1.5">
-            <Calendar className="w-3.5 h-3.5 text-yellow-500" />
-            <span>{articulo.fecha}</span>
-          </div>
-          <div className="w-1 h-1 rounded-full bg-gray-300" />
-          <div className="flex items-center gap-1.5">
-            <Clock className="w-3.5 h-3.5 text-yellow-500" />
-            <span>{articulo.tiempoLectura}</span>
-          </div>
-        </div>
-
-        {/* Título — ✅ <Link> en vez de <a> */}
-        <h3 className="text-xl font-serif font-bold text-slate-900 mb-3 leading-snug group-hover:text-blue-900 transition-colors">
-          <Link href={`/recursos/${articulo.id}`} className="focus:outline-none">
-            <span className="absolute inset-0" aria-hidden="true" />
-            {articulo.titulo}
-          </Link>
-        </h3>
-
-        {/* Extracto */}
-        <p className="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-3 font-light">
-          {articulo.extracto}
-        </p>
-
-        {/* Footer Card */}
-        <div className="mt-auto flex items-center justify-between pt-6 border-t border-gray-100 group-hover:border-yellow-500/20 transition-colors">
-          <span className="text-xs font-bold uppercase tracking-widest text-slate-400 group-hover:text-yellow-600 transition-colors flex items-center gap-2">
-            Leer Artículo <ArrowRight className="w-3 h-3 transition-transform group-hover:translate-x-1" />
-          </span>
-          <Bookmark className="w-4 h-4 text-slate-300 group-hover:text-yellow-500 transition-colors" />
-        </div>
-      </div>
-    </article>
-  );
-};
-
-// --- SECCIÓN PRINCIPAL ---
-export default function ArticlesSection() {
-  return (
-    <section className="relative py-24 bg-white overflow-hidden font-sans">
-
-      {/* --- FONDO AMBIENTAL --- */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
-        <div className="absolute bottom-0 right-0 w-[800px] h-[800px] bg-yellow-500/5 rounded-full blur-[120px]" />
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-
-        {/* --- HEADER --- */}
-        <div className="text-center mb-16 space-y-4">
-          <div className="inline-flex items-center justify-center p-3 mb-4 rounded-full bg-gray-50 border border-yellow-600/20 shadow-[0_0_20px_rgba(202,138,4,0.15)]">
-            <BookOpen className="w-6 h-6 text-yellow-600" />
+          {/* Badge categoría */}
+          <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${a.categoriaColor} text-white text-[10px] font-black tracking-wider uppercase shadow-lg`}>
+            <Tag className="w-3 h-3" />
+            {a.categoria}
           </div>
 
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif font-medium text-slate-900 tracking-tight">
-            Recursos <span className="italic text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 via-yellow-500 to-yellow-700">Espirituales</span>
-          </h2>
+          {/* Tiempo de lectura */}
+          <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/10 backdrop-blur-sm text-slate-300 text-[10px] font-medium">
+            <Clock className="w-3 h-3 text-yellow-400" />
+            {a.tiempoLectura}
+          </div>
+        </div>
 
-          <p className="text-slate-600 max-w-2xl mx-auto text-lg font-light leading-relaxed">
-            Nutre tu espíritu con mensajes de enseñanza, edificación y crecimiento profundo basados en la Palabra.
+        {/* Contenido */}
+        <div className="flex-1 flex flex-col p-6">
+          <p className="text-slate-500 text-[11px] uppercase tracking-widest mb-3">{a.fecha}</p>
+
+          <h3 className="text-white font-serif font-bold text-xl leading-snug mb-2 group-hover:text-yellow-50 transition-colors duration-300 line-clamp-2">
+            {a.titulo}
+          </h3>
+
+          <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
+            {a.resumen}
           </p>
-        </div>
 
-        {/* --- GRID DE ARTÍCULOS --- */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {articulosDestacados.map((articulo) => (
-            <LuxuryArticleCard key={articulo.id} articulo={articulo} />
-          ))}
-        </div>
+          {/* Tags */}
+          <div className="flex flex-wrap gap-1.5 mb-5">
+            {a.tags.slice(0, 3).map(tag => (
+              <span key={tag} className="px-2 py-0.5 rounded-full bg-white/4 border border-white/8 text-slate-400 text-[10px]">
+                {tag}
+              </span>
+            ))}
+          </div>
 
-        {/* --- CTA BUTTON — ✅ <Link> en vez de <a> --- */}
-        <div className="text-center">
-          <Link
-            href="/recursos"
-            className="group relative inline-flex items-center gap-3 px-10 py-4 bg-slate-900 overflow-hidden rounded-full shadow-xl hover:shadow-2xl hover:shadow-yellow-500/20 transition-all duration-300"
-          >
-            <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity" />
-            <div className="absolute inset-0 border border-white/10 rounded-full" />
-
-            <BookOpen className="w-5 h-5 text-yellow-500 group-hover:scale-110 transition-transform" />
-            <span className="relative z-10 text-sm font-bold tracking-[0.15em] text-white uppercase group-hover:text-yellow-50 transition-colors">
-              Explorar Biblioteca
+          {/* CTA */}
+          <div className="flex items-center justify-between pt-4 border-t border-white/6">
+            <div className="flex items-center gap-2 text-xs text-slate-500">
+              <BookOpen className="w-3.5 h-3.5 text-yellow-400/60" />
+              {a.autor}
+            </div>
+            <span className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-400 group-hover:text-yellow-300 transition-colors">
+              Leer artículo
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
             </span>
-            <ArrowRight className="w-5 h-5 text-yellow-500 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          </div>
+        </div>
+      </article>
+    </Link>
+  );
+}
+
+export default function ArticlesSection() {
+  const [visible, setVisible] = useState(false);
+  const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) setVisible(true); }, { threshold: 0.05 });
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, []);
+
+  return (
+    <section ref={ref} className="relative bg-slate-950 pb-20 md:pb-28 overflow-hidden">
+
+      {/* Luz ambiental */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] rounded-full blur-[200px]"
+          style={{ background: 'rgba(234,179,8,0.025)' }} />
+      </div>
+
+      <div className="container mx-auto px-4 relative z-10 pt-4">
+
+        {/* Encabezado */}
+        <header className="text-center mb-14">
+          <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 px-4 py-1.5">
+            <BookOpen className="h-3.5 w-3.5 text-yellow-400" aria-hidden />
+            <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-300">
+              Para tu edificación
+            </span>
+          </div>
+
+          <GoldTitle pie="Enseñanza · Devocionales · Reflexiones">Artículos y Recursos</GoldTitle>
+
+          <p className="mx-auto mt-6 max-w-2xl leading-relaxed text-slate-400">
+            Lecturas breves para acompañar tu caminar con Dios durante la semana.
+          </p>
+        </header>
+
+        {/* Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {articulos.map((a, i) => (
+            <div key={a.id} className="relative">
+              <ArticuloCard a={a} index={i} visible={visible} />
+            </div>
+          ))}
         </div>
 
       </div>

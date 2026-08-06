@@ -121,3 +121,390 @@
         .animate-float-delayed { animation: float-delayed 5s ease-in-out infinite 1s; }
         .group:hover .group-hover\:animate-shine { animation: shine 1s; }
       
+/* --- HeroCarousel: altura estable ---
+   90vh/85vh como base y svh cuando el navegador lo soporta,
+   para evitar saltos con las barras dinámicas de navegadores móviles. */
+.hero-viewport {
+  height: 90vh;
+}
+@supports (height: 90svh) {
+  .hero-viewport { height: 90svh; }
+}
+@media (min-width: 768px) {
+  .hero-viewport { height: 85vh; }
+  @supports (height: 85svh) {
+    .hero-viewport { height: 85svh; }
+  }
+}
+
+/* --- Tokens de color para components/ui/map.tsx (mapcn) --- */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 222.2 84% 4.9%;
+  --border: 214.3 31.8% 91.4%;
+  --ring: 222.2 84% 4.9%;
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 222.2 84% 4.9%;
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222.2 47.4% 11.1%;
+}
+
+/* --- Overrides de popups de MapLibre requeridos por mapcn --- */
+.maplibregl-popup-content {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+.maplibregl-popup-tip {
+  display: none !important;
+}
+
+/* --- Animación del menú móvil del header --- */
+@keyframes menu-slide-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.menu-slide-in {
+  animation: menu-slide-in 0.25s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .menu-slide-in { animation: none; }
+}
+
+/* ============================================================
+   MODO CLARO (html.light)
+   El tema por defecto es oscuro. Estas reglas remapean las
+   utilidades oscuras más comunes. Los bloques con [data-keep-dark]
+   (heros con fotografía, carrusel, reproductor) conservan su
+   diseño oscuro porque sus imágenes lo requieren.
+   ============================================================ */
+html.light .bg-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #f3f5f9; }
+html.light .bg-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #ffffff; }
+html.light .bg-slate-900\/95:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(255,255,255,0.94); }
+html.light .bg-black\/40:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.05); }
+html.light .bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.05); }
+html.light .bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.08); }
+
+/* text-white solo se oscurece cuando el elemento NO tiene fondo propio
+   (botones, pines y chips con fondo de color conservan su texto blanco) */
+html.light .text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *) { color: #0f172a; }
+html.light .text-slate-300:not([data-keep-dark]):not([data-keep-dark] *) { color: #334155; }
+html.light .text-slate-400:not([data-keep-dark]):not([data-keep-dark] *) { color: #475569; }
+html.light .text-blue-200:not([data-keep-dark]):not([data-keep-dark] *) { color: #1e40af; }
+html.light .text-blue-100:not([data-keep-dark]):not([data-keep-dark] *) { color: #1e3a8a; }
+
+html.light .border-white\/5:not([data-keep-dark]):not([data-keep-dark] *),
+html.light .border-white\/10:not([data-keep-dark]):not([data-keep-dark] *) { border-color: rgba(15,23,42,0.12); }
+
+html.light .from-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #f3f5f9 var(--tw-gradient-from-position); --tw-gradient-to: rgb(243 245 249 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.light .from-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #ffffff var(--tw-gradient-from-position); --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.light .via-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #f8fafc var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light .via-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #f3f5f9 var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light .to-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-to: #f3f5f9 var(--tw-gradient-to-position); }
+html.light .to-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-to: #ffffff var(--tw-gradient-to-position); }
+html.light .from-\[\#0B1120\]:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #f3f5f9 var(--tw-gradient-from-position); --tw-gradient-to: rgb(243 245 249 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+
+/* --- Modo claro: dorados del header y estados activos --- */
+html.light .text-amber-300:not([data-keep-dark]):not([data-keep-dark] *) { color: #92400e; }
+html.light .hover\:text-amber-200:not([data-keep-dark]):not([data-keep-dark] *):hover { color: #92400e; }
+html.light .hover\:text-amber-300:not([data-keep-dark]):not([data-keep-dark] *):hover { color: #92400e; }
+html.light header .from-amber-200 { --tw-gradient-from: #b45309 var(--tw-gradient-from-position); --tw-gradient-to: rgb(180 83 9 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.light header .via-yellow-400 { --tw-gradient-stops: var(--tw-gradient-from), #a16207 var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light header .to-amber-600 { --tw-gradient-to: #78350f var(--tw-gradient-to-position); }
+html.light .from-amber-900\/30:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: rgba(245,158,11,0.18) var(--tw-gradient-from-position); --tw-gradient-to: rgba(245,158,11,0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.light .text-slate-500:not([data-keep-dark]):not([data-keep-dark] *) { color: #52606f; }
+html.light .text-slate-600:not([data-keep-dark]):not([data-keep-dark] *) { color: #46505c; }
+
+/* Modo claro: estados hover que apuntaban a blanco */
+html.light .hover\:text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *):hover { color: #0f172a; }
+html.light .group:hover .group-hover\:text-white:not([class*="bg-"]):not([data-keep-dark] *) { color: #0f172a; }
+html.light .hover\:bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.05); }
+html.light .hover\:bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.08); }
+html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.10); }
+
+/* ============================================================
+   Tarjetas 3D de cristal (adaptado de DepthFold / Uiverse)
+   Inclinación al hover con perspectiva, lámina de cristal y
+   órbitas apiladas. Sin JavaScript; respeta reduced-motion.
+   ============================================================ */
+.g3-parent {
+  perspective: 1000px;
+  perspective-origin: 50% 50%;
+}
+.g3-card {
+  position: relative;
+  height: 100%;
+  min-height: 260px;
+  border-radius: 40px;
+  background: var(--g3-grad);
+  transform-style: preserve-3d;
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.55s ease;
+  box-shadow: rgba(2, 6, 23, 0.25) 0 22px 24px -6px;
+}
+.g3-parent:hover .g3-card {
+  transform: rotate3d(1, 1, 0, 16deg);
+  box-shadow: rgba(2, 6, 23, 0.35) 24px 42px 26px -34px, rgba(2, 6, 23, 0.14) 0 24px 32px 0;
+}
+.g3-glass {
+  position: absolute;
+  inset: 8px;
+  border-radius: 32px;
+  border-top-right-radius: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.88) 100%);
+  transform: translate3d(0, 0, 25px);
+  transform-style: preserve-3d;
+  border-left: 1px solid rgba(255, 255, 255, 0.85);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+  pointer-events: none;
+}
+.g3-orbit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  z-index: 2;
+}
+.g3-circle {
+  position: absolute;
+  top: 0;
+  right: 0;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--g3-orbit);
+  box-shadow: rgba(100, 100, 111, 0.25) -10px 10px 24px 0;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  transition: transform 0.5s ease-in-out, background 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+.g3-circle:nth-child(1) { width: 118px; transform: translate3d(0, 0, 20px); top: 8px;  right: 8px; }
+.g3-circle:nth-child(2) { width: 92px;  transform: translate3d(0, 0, 40px); top: 13px; right: 13px; transition-delay: 0.05s; }
+.g3-circle:nth-child(3) { width: 66px;  transform: translate3d(0, 0, 60px); top: 19px; right: 19px; transition-delay: 0.1s; }
+.g3-circle:nth-child(4) {
+  width: 44px;
+  transform: translate3d(0, 0, 80px);
+  top: 26px;
+  right: 26px;
+  display: grid;
+  place-content: center;
+  color: #fff;
+  transition-delay: 0.15s;
+}
+.g3-parent:hover .g3-circle:nth-child(2) { transform: translate3d(0, 0, 58px); }
+.g3-parent:hover .g3-circle:nth-child(3) { transform: translate3d(0, 0, 78px); }
+.g3-parent:hover .g3-circle:nth-child(4) {
+  transform: translate3d(0, 0, 98px);
+  background: #ffffff;
+  color: var(--g3-title);
+  box-shadow: rgba(2, 6, 23, 0.3) -8px 16px 20px 0;
+}
+.g3-content {
+  position: relative;
+  z-index: 3;
+  transform: translate3d(0, 0, 26px);
+  transform-style: preserve-3d;
+}
+
+
+/* ============================================================
+   Magic Card (programas) — borde de gradiente giratorio con aura
+   (adaptado del CodePen de Mythrill). Colores por tarjeta vía
+   --mk-c1/--mk-c2/--mk-c3.
+   ============================================================ */
+@property --mk-rotate {
+  syntax: "<angle>";
+  initial-value: 132deg;
+  inherits: false;
+}
+.mk-card {
+  position: relative;
+  isolation: isolate;
+  border-radius: 12px;
+  padding: 3px;
+  height: 100%;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.mk-card:hover {
+  transform: translateY(-10px) scale(1.02);
+}
+.mk-card::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  z-index: -1;
+  border-radius: 14px;
+  background-image: linear-gradient(var(--mk-rotate), var(--mk-c1), var(--mk-c2) 43%, var(--mk-c3));
+  animation: mk-spin 2.5s linear infinite;
+}
+.mk-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: 16%;
+  z-index: -2;
+  transform: scale(0.85);
+  filter: blur(38px);
+  background-image: linear-gradient(var(--mk-rotate), var(--mk-c1), var(--mk-c2) 43%, var(--mk-c3));
+  opacity: 0.75;
+  transition: opacity 0.5s;
+  animation: mk-spin 2.5s linear infinite;
+}
+.mk-card:hover::after {
+  opacity: 1;
+}
+.mk-inner {
+  background:
+    linear-gradient(to top, color-mix(in srgb, var(--mk-c3) 30%, #0d1020) 0%, #10131f 62%);
+  border-radius: 10px;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+@keyframes mk-spin {
+  0% { --mk-rotate: 0deg; }
+  100% { --mk-rotate: 360deg; }
+}
+
+/* ============================================================
+   Comillas geométricas de la cita diaria (estilo CodePen Kevin
+   Johansen): dos escuadras construidas con conic-gradient.
+   ============================================================ */
+.vq-open,
+.vq-close {
+  display: grid;
+  gap: 2vmin;
+  color: rgb(251 191 36 / 0.85);
+  filter: drop-shadow(0.8vmin 0.8vmin 0 rgb(255 255 255 / 0.12));
+}
+.vq-open::before,
+.vq-open::after,
+.vq-close::before,
+.vq-close::after {
+  content: "";
+  aspect-ratio: 1 / 1;
+  width: clamp(24px, 5vmin, 52px);
+}
+.vq-open {
+  grid-template-columns: clamp(24px, 5vmin, 52px) clamp(24px, 5vmin, 52px) 1fr;
+}
+.vq-open::before,
+.vq-open::after {
+  background: conic-gradient(from 135deg at 100% 0, transparent 0 90deg, currentcolor 90deg);
+}
+.vq-close {
+  grid-template-columns: 1fr clamp(24px, 5vmin, 52px) clamp(24px, 5vmin, 52px);
+}
+.vq-close::before,
+.vq-close::after {
+  background: conic-gradient(from -45deg at 0% 100%, transparent 0 90deg, currentcolor 90deg);
+}
+.vq-close::before {
+  grid-column: 2;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Títulos de sección con relleno dorado animado
+   Usado por components/atoms/GoldTitle.tsx
+   ───────────────────────────────────────────────────────────── */
+@keyframes relleno-dorado {
+  0%   { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.texto-dorado {
+  /* Degradado repetido: al desplazarlo el brillo recorre el texto sin cortes */
+  background-image: repeating-linear-gradient(
+    108deg,
+    #7a5c12 0%,
+    #b8912a 6%,
+    #edd489 12%,
+    #fffdf0 16%,
+    #edd489 20%,
+    #b8912a 26%,
+    #7a5c12 34%
+  );
+  background-size: 200% auto;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* Acelera la animación por GPU y evita parpadeos al repintar */
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  animation: relleno-dorado 5s linear infinite;
+  will-change: background-position;
+}
+
+/* Variante para secciones de fondo claro: oros más profundos, sin brillos
+   casi blancos que se perderían contra el papel. */
+.texto-dorado-claro {
+  background-image: repeating-linear-gradient(
+    108deg,
+    #6b4d0c 0%,
+    #9a7318 6%,
+    #caa02c 12%,
+    #e8c766 16%,
+    #caa02c 20%,
+    #9a7318 26%,
+    #6b4d0c 34%
+  );
+}
+
+/* Resplandor detrás del texto, sin ensuciar el recorte del degradado */
+.texto-dorado-halo {
+  text-shadow: 0 0 60px rgba(212, 175, 55, 0.35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .texto-dorado { animation: none; }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Papel de pergamino (tarjeta del carrusel de eventos e himnos)
+   ───────────────────────────────────────────────────────────── */
+.papel-pergamino {
+  background-color: #f6ecd8;
+  background-image:
+    radial-gradient(ellipse at 12% 8%, rgba(255, 255, 255, 0.9) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 92%, rgba(196, 154, 63, 0.18) 0%, transparent 60%),
+    linear-gradient(160deg, #fdf7ea 0%, #f4e8d0 45%, #ead9ba 100%);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Fondo marfil con luces doradas — secciones claras (Nosotros)
+   Sustituye los bloques planos en blanco sin tocar el color del texto.
+   ───────────────────────────────────────────────────────────── */
+.fondo-marfil {
+  background-color: #f8f5ef;
+  background-image:
+    radial-gradient(ellipse 60% 45% at 12% 0%, rgba(234, 179, 8, 0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 88% 100%, rgba(30, 64, 175, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.85) 0%, transparent 75%),
+    linear-gradient(165deg, #fdfbf6 0%, #f5f0e6 55%, #ece5d8 100%);
+}
+
+/* Filete dorado para separar las secciones claras de las oscuras */
+.filete-dorado::before,
+.filete-dorado::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(202, 138, 4, 0.35) 25%,
+    rgba(234, 179, 8, 0.6) 50%,
+    rgba(202, 138, 4, 0.35) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+.filete-dorado::before { top: 0; }
+.filete-dorado::after { bottom: 0; }

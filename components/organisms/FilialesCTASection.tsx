@@ -1,6 +1,7 @@
 
 import Link from 'next/link';
 import { MapPin, Phone, Church, Network } from 'lucide-react';
+import GoldTitle from '@/components/atoms/GoldTitle';
 
 export default function FilialesCTASection() {
   return (
@@ -13,9 +14,7 @@ export default function FilialesCTASection() {
           <Network className="w-10 h-10 text-white" />
         </div>
 
-        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-          Únete a una Filial Cercana
-        </h2>
+        <GoldTitle>Únete a una Filial Cercana</GoldTitle>
         <p className="text-xl text-green-100 mb-10 max-w-2xl mx-auto">
           Encuentra la iglesia más cercana a ti y sé parte de la familia Monte Alto. 
           Juntos estamos expandiendo el Reino de Dios en todo el Perú.
