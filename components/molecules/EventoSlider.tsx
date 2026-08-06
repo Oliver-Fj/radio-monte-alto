@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type { ColorEvento, SlideEvento } from '@/lib/data/eventos';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
 import { cn } from '@/lib/utils/cn';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface EventoSliderProps {
   slides: SlideEvento[];
@@ -130,7 +131,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
                 )}
               >
                 <Image
-                  src={slide.imagen}
+                  src={publicPath(slide.imagen)}
                   alt={slide.alt}
                   fill
                   sizes="(max-width: 1024px) 90vw, 430px"

@@ -3,6 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Calendar, Tag, ArrowRight, Clock } from 'lucide-react';
 import Card from '@/components/atoms/Card';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface ArticleCardProps {
   id: string;
@@ -30,7 +31,7 @@ export default function ArticleCard({
         {imagen ? (
           <>
             <Image
-              src={imagen}
+              src={publicPath(imagen)}
               alt={titulo}
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-110"

@@ -2,6 +2,7 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface PhotoGalleryItemProps {
   src: string;
@@ -16,7 +17,7 @@ export default function PhotoGalleryItem({ src, alt, caption }: PhotoGalleryItem
     <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 border-gray-200 hover:border-blue-400">
       <div className="relative aspect-[4/3] bg-gray-200">
         <Image
-          src={src}
+          src={publicPath(src)}
           alt={alt}
           fill
           className={`object-cover transition-all duration-500 ${

@@ -5,6 +5,7 @@ import React from 'react';
 import Image from 'next/image';
 import { Clock, Calendar, Users, Radio, ChevronRight } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface ProgramCardProps {
   nombre: string;
@@ -22,7 +23,7 @@ export default function ProgramCard({
   horario,
   dias,
   categoria,
-  imagen = '/images/programas/default.jpg',
+  imagen = '/images/opt/programacion.webp',
   publicoObjetivo = 'Público general',
 }: ProgramCardProps) {
   return (
@@ -32,7 +33,7 @@ export default function ProgramCard({
       <div className="relative h-52 w-full overflow-hidden">
         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
           <Image 
-            src={imagen} 
+            src={publicPath(imagen)} 
             alt={nombre} 
             fill
             className="object-cover"

@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { BookMarked } from 'lucide-react';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -79,7 +80,7 @@ function HitoRow({ h, i, visible }: { h: typeof HITOS[0]; i: number; visible: bo
       {/* ── IMAGEN (orden según paridad) ── */}
       <div className={`relative w-full md:w-[45%] min-h-[260px] md:min-h-[340px] flex-shrink-0 overflow-hidden ${esDerecha ? 'md:order-2' : 'md:order-1'}`}>
         <Image
-          src={h.imagen}
+          src={publicPath(h.imagen)}
           alt={h.titulo}
           fill
           className="object-cover transition-transform duration-[2s] group-hover:scale-105"

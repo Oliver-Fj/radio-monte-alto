@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import SectionTitle from '@/components/atoms/SectionTitle';
 import { programas } from '@/lib/data/programas';
 import { Clock, CalendarDays } from 'lucide-react';
+import { publicPath } from '@/lib/utils/publicPath';
 
 /**
  * Todos los programas como Magic Cards con borde de gradiente giratorio y
@@ -56,7 +57,7 @@ export default function ProgramasGridSection() {
               >
                 <div className="mk-inner">
                   <img
-                    src={p.imagen}
+                    src={publicPath(p.imagen ?? '/images/opt/programacion.webp')}
                     alt={`Carátula del programa ${p.nombre}`}
                     loading="lazy"
                     decoding="async"

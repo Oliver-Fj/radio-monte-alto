@@ -7,6 +7,7 @@ import type { EventoEspecial } from '@/lib/data/eventos';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
 import EventoIcono from '@/components/atoms/EventoIcono';
 import { cn } from '@/lib/utils/cn';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface EventoCardProps {
   evento: EventoEspecial;
@@ -44,7 +45,7 @@ export default function EventoCard({
       {/* Afiche completo, sobre un telón del color del evento */}
       <div className={cn('relative aspect-[4/5] w-full overflow-hidden bg-gradient-to-br', theme.telon)}>
         <Image
-          src={evento.portada}
+          src={publicPath(evento.portada)}
           alt={evento.portadaAlt}
           fill
           sizes="(max-width: 640px) 90vw, (max-width: 1024px) 45vw, 30vw"

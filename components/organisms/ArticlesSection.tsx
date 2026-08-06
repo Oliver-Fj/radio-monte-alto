@@ -6,9 +6,10 @@ import Link from 'next/link';
 import { Clock, ArrowRight, BookOpen, Tag } from 'lucide-react';
 import articulos from '@/lib/data/articulos';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 // Fallback si la imagen del artículo no existe todavía
-// next/image maneja el basePath automáticamente
+// Las rutas se pasan por publicPath(): next/image NO añade el basePath
 const FALLBACKS = [
   '/images/hero/slide1-desktop-1366.webp',
   '/images/hero/slide2-desktop-1366.webp',
@@ -38,7 +39,7 @@ function ArticuloCard({ a, index, visible }: { a: typeof articulos[0]; index: nu
         {/* Imagen */}
         <div className="relative h-52 flex-shrink-0 overflow-hidden">
           <Image
-            src={imgError ? fallback : a.imagen}
+            src={publicPath(imgError ? fallback : a.imagen)}
             alt={a.imagenAlt}
             fill
             className="object-cover transition-transform duration-[1200ms] group-hover:scale-108"

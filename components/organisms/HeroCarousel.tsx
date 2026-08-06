@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef, useSyncExternalStore, memo } from 'react';
 import { ChevronLeft, ChevronRight, Sparkles, Pause, Play } from 'lucide-react';
 import { Slide } from '@/lib/types';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -125,7 +126,7 @@ const SlideItem = memo(
                   </>
                 )}
                 <img
-                  src={imgError === 0 ? slide.imagen : `${B}/images/hero-desktop${slide.id === 1 ? '' : slide.id - 1}.png`}
+                  src={publicPath(imgError === 0 ? slide.imagen : `${B}/images/hero-desktop${slide.id === 1 ? '' : slide.id - 1}.png`)}
                   alt=""
                   width={1366}
                   height={768}

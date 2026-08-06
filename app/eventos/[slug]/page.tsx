@@ -8,6 +8,7 @@ import EventoSlider from '@/components/molecules/EventoSlider';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
 import EventoIcono from '@/components/atoms/EventoIcono';
 import { cn } from '@/lib/utils/cn';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -32,7 +33,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${evento.titulo} · ${evento.fechaTexto}`,
       description: evento.resumen,
-      images: [evento.portada],
+      // Con basePath, la miniatura para redes también necesita el prefijo.
+      images: [publicPath(evento.portada)],
       type: 'article',
     },
   };
@@ -54,7 +56,7 @@ export default async function EventoPage({ params }: PageProps) {
       <header className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src={evento.portada}
+            src={publicPath(evento.portada)}
             alt=""
             aria-hidden
             fill
@@ -78,7 +80,7 @@ export default async function EventoPage({ params }: PageProps) {
             {/* Afiche */}
             <div className="relative mx-auto aspect-[3/4] w-full max-w-[320px] overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
               <Image
-                src={evento.portada}
+                src={publicPath(evento.portada)}
                 alt={evento.portadaAlt}
                 fill
                 priority

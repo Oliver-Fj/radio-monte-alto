@@ -1,6 +1,7 @@
 // lib/data/articulos.ts
 // Imágenes en public/images/ — nombres exactos indicados en cada artículo
-// NOTA: NO uses el prefijo B aquí. next/image agrega el basePath automáticamente.
+// NOTA: escribe las rutas desde la raíz (/images/...). El prefijo de GitHub
+// Pages lo añade publicPath() en el componente que pinta la imagen.
 
 export interface Articulo {
   id: number;

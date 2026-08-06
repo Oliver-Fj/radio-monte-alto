@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Heart, Calendar, MapPin, Radio, Users, BookOpen, ArrowRight, Sparkles } from 'lucide-react';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -97,7 +98,7 @@ function MinisterioCard({ m, i, visible }: { m: typeof MINISTERIOS[0]; i: number
       <div className="relative h-full rounded-3xl overflow-hidden border border-white/7 group-hover:border-white/15 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
         {/* Imagen */}
         <div className="relative h-44 overflow-hidden">
-          <Image src={m.imagen} alt={m.titulo} fill className="object-cover transition-transform duration-[1200ms] group-hover:scale-110" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
+          <Image src={publicPath(m.imagen)} alt={m.titulo} fill className="object-cover transition-transform duration-[1200ms] group-hover:scale-110" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
           <div className={`absolute inset-0 bg-gradient-to-t ${m.acento}`} />
           <div className="absolute top-4 left-4">
             <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full border backdrop-blur-sm text-[10px] font-black uppercase tracking-wider ${m.badge}`}>

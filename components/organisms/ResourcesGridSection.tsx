@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { BookOpen, ArrowRight, Calendar, Clock, Bookmark, Search, Filter } from 'lucide-react';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 // --- DATOS MOCK (Simulando tu base de datos para la vista previa) ---
 const todosLosArticulos = [
@@ -71,7 +72,7 @@ const LuxuryArticleCard = ({ articulo }: { articulo: typeof todosLosArticulos[0]
       <div className="relative h-56 overflow-hidden">
         <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition-colors z-10" />
         <img 
-          src={articulo.imagen} 
+          src={publicPath(articulo.imagen)} 
           alt={articulo.titulo} 
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
         />

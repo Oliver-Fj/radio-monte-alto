@@ -5,6 +5,7 @@ import { ArrowRight, Clock, Radio, Sparkles, Signal, Mic2, BookOpen, Heart, Glob
 import Image from 'next/image';
 import Link from 'next/link';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -106,7 +107,7 @@ function Card({ p, index, visible }: { p: typeof programas[0]; index: number; vi
 
         {/* Imagen */}
         <div className="absolute inset-0">
-          <Image src={p.imagen} alt={p.nombre} fill
+          <Image src={publicPath(p.imagen)} alt={p.nombre} fill
             className="object-cover transition-transform duration-[1400ms] group-hover:scale-110"
             sizes="(max-width:768px) 100vw, 33vw" />
           <div className={`absolute inset-0 bg-gradient-to-t ${p.acento} opacity-95`} />

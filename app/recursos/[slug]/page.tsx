@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { BookOpen, Clock, ArrowLeft, ArrowRight, Tag, Quote, CheckCircle2, List } from 'lucide-react';
 import articulos, { getArticuloPorSlug, type Articulo } from '@/lib/data/articulos';
 import ArticleToc, { type TocItem } from '@/components/molecules/ArticleToc';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -106,7 +107,7 @@ export default async function ArticuloPage({ params }: { params: Promise<{ slug:
       {/* ── Hero del artículo ── */}
       <div className="relative h-[55vh] md:h-[65vh] overflow-hidden">
         <Image
-          src={articulo.imagen}
+          src={publicPath(articulo.imagen)}
           alt={articulo.imagenAlt}
           fill
           priority
@@ -251,7 +252,7 @@ export default async function ArticuloPage({ params }: { params: Promise<{ slug:
                 <Link key={otro.id} href={`/recursos/${otro.slug}`}
                   className="group flex flex-col rounded-2xl overflow-hidden border border-white/7 hover:border-yellow-500/25 bg-slate-900/40 transition-all duration-400 hover:-translate-y-1">
                   <div className="relative h-36 overflow-hidden">
-                    <Image src={otro.imagen} alt={otro.imagenAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="300px" />
+                    <Image src={publicPath(otro.imagen)} alt={otro.imagenAlt} fill className="object-cover group-hover:scale-105 transition-transform duration-700" sizes="300px" />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent" />
                     <div className={`absolute top-3 left-3 px-2.5 py-1 rounded-full bg-gradient-to-r ${otro.categoriaColor} text-white text-[9px] font-black uppercase tracking-wide`}>
                       {otro.categoria}

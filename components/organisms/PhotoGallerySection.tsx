@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Camera, Aperture, ArrowUpRight, Mic2, Radio, Settings2, Users, Building2, Music4 } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import GoldTitle from '@/components/atoms/GoldTitle';
+import { publicPath } from '@/lib/utils/publicPath';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -108,7 +109,7 @@ function FotoCard({ foto }: { foto: Foto }) {
     <figure className="group relative aspect-[4/3] overflow-hidden rounded-2xl">
       <div className="absolute inset-0 border border-white/10 group-hover:border-yellow-500/50 z-20 rounded-2xl transition-colors duration-500 pointer-events-none" />
       <img
-        src={src}
+        src={publicPath(src)}
         alt={foto.alt}
         loading="lazy"
         decoding="async"

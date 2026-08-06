@@ -1,6 +1,7 @@
 import Card from '@/components/atoms/Card';
 import { Quote } from 'lucide-react';
 import Image from 'next/image';
+import { publicPath } from '@/lib/utils/publicPath';
 
 interface TestimonioCardProps {
   nombre: string;
@@ -31,7 +32,7 @@ export default function TestimonioCard({
           {foto ? (
             <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200">
               <Image
-                src={foto}
+                src={publicPath(foto)}
                 alt={nombre}
                 fill
                 className="object-cover"
