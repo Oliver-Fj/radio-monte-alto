@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import { MapPin, Sparkles, Network, Globe } from 'lucide-react';
+import { MapPin, Network, Globe } from 'lucide-react';
 import SectionDivider from '@/components/atoms/SectionDivider';
 import { filiales } from '@/lib/data/filiales';
 
@@ -18,12 +18,9 @@ export default function FilialesHeroSection() {
 
       <div className="container mx-auto px-4 relative z-10 pt-24 pb-10 md:pt-32 md:pb-12 text-center">
         <div className="relative mx-auto w-24 h-24 md:w-32 md:h-32 mb-6 group cursor-default">
-          <div className="absolute inset-0 border-2 border-yellow-400/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-emerald-500/40 rounded-full border-b-transparent motion-safe:animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_50px_rgba(16,185,129,0.4)] overflow-hidden border border-white/10">
             <img src={`${B}/images/opt/logo-radio.webp`} alt="Radio Monte Alto" width={160} height={160} fetchPriority="high" decoding="async" className="w-full h-full object-contain p-2 opacity-95 group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-transform duration-700" />
           </div>
-          <Sparkles className="absolute -top-3 -right-3 w-7 h-7 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
         </div>
 
         <div className="max-w-5xl mx-auto">

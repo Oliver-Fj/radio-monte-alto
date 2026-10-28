@@ -27,6 +27,7 @@ const PALETAS: Record<string, [string, string, string]> = {
   '7': ['#67e8f9', '#06b6d4', '#155e75'], // Pesca Milagrosa — cian
   '8': ['#fdba74', '#f97316', '#c2410c'], // Huellas de Jesús — naranja
   '9': ['#c4b5fd', '#8b5cf6', '#5b21b6'], // Predestinados — violeta
+  '10': ['#fca5a5', '#ef4444', '#991b1b'], // Quechua — rojo
 };
 const PALETA_DEFECTO: [string, string, string] = ['#fde68a', '#f59e0b', '#b45309'];
 

@@ -57,7 +57,9 @@
   border-radius: 0 50px 0 0;
   width: 60px;
   height: 60px;
-  bottom: -60px;
+  /* -58px y no -60px: así su borde superior cae justo sobre el borde
+     inferior del marco (2 px) y la línea sigue sin escalón */
+  bottom: -58px;
   left: 50px;
   border-bottom: none;
   border-left: none;

@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { MessageCircle, Sparkles, Send } from 'lucide-react';
+import { MessageCircle, Send } from 'lucide-react';
 import SectionDivider from '@/components/atoms/SectionDivider';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
@@ -16,11 +16,8 @@ export default function ContactHeroSection() {
 
       <div className="container mx-auto px-4 relative z-10 pt-24 pb-10 md:pt-32 md:pb-12 text-center">
         <div className="relative mx-auto w-20 h-20 md:w-24 md:h-24 mb-5 group cursor-default">
-          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-blue-400/30 rounded-full border-b-transparent motion-safe:animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(59,130,246,0.4)]">
             <MessageCircle className="w-8 h-8 md:w-10 md:h-10 text-white drop-shadow-md" aria-hidden="true" />
-            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
           </div>
         </div>
 

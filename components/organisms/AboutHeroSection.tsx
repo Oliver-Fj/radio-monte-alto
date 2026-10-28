@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Radio, MapPin, Sparkles, Signal, TowerControl as Tower } from 'lucide-react';
+import { Radio, MapPin, Signal, TowerControl as Tower } from 'lucide-react';
 import SectionDivider from '@/components/atoms/SectionDivider';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
@@ -19,8 +19,6 @@ export default function AboutHeroSection() {
 
       <div className="container mx-auto px-4 relative z-10 pt-24 pb-10 md:pt-32 md:pb-12 text-center">
         <div className="relative mx-auto w-24 h-24 md:w-32 md:h-32 mb-8 group cursor-default">
-          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-blue-400/30 rounded-full border-b-transparent motion-safe:animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.5)] overflow-hidden border border-white/10">
             {!logoError ? (
               <img src={`${B}/images/opt/logo-radio.webp`} alt="Radio Monte Alto" width={160} height={160} fetchPriority="high" decoding="async" className="w-full h-full object-contain p-1.5 opacity-95 group-hover:scale-110 motion-reduce:group-hover:scale-100 transition-transform duration-700" onError={() => setLogoError(true)} />
@@ -28,7 +26,6 @@ export default function AboutHeroSection() {
               <div className="flex items-center justify-center w-full h-full bg-blue-950/50 text-yellow-400"><Tower className="w-12 h-12 motion-safe:animate-pulse" aria-hidden="true" /></div>
             )}
           </div>
-          <Sparkles className="absolute -top-2 -right-2 w-6 h-6 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
         </div>
 
         <div className="max-w-4xl mx-auto">

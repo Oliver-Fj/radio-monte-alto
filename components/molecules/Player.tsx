@@ -1,6 +1,8 @@
 'use client';
 
 import { Volume2, VolumeX, Signal, Share2, Wifi } from 'lucide-react';
+import ArcoirisCarga from '@/components/atoms/ArcoirisCarga';
+import OndaSonido from '@/components/atoms/OndaSonido';
 import { useAudio } from '@/lib/contexts/AudioContext';
 import { useCurrentProgram } from '@/lib/hooks/useCurrentProgram';
 import { useEffect, useState } from 'react';
@@ -106,14 +108,7 @@ export default function Player() {
               
               {/* Si está sonando, mostramos el visualizador */}
               {audioIsPlaying && !error && (
-                <div className="flex items-end justify-center gap-1 h-4 mb-1.5 opacity-80" aria-hidden="true">
-                  <div className="w-1 bg-yellow-400 rounded-full bar-1" />
-                  <div className="w-1 bg-yellow-400 rounded-full bar-2" />
-                  <div className="w-1 bg-yellow-400 rounded-full bar-3" />
-                  <div className="w-1 bg-yellow-400 rounded-full bar-4" />
-                  <div className="w-1 bg-yellow-400 rounded-full bar-2" />
-                  <div className="w-1 bg-yellow-400 rounded-full bar-1" />
-                </div>
+                <OndaSonido alto={18} grosor={3} espacio={3} className="mb-1.5" />
               )}
 
               <div className="max-w-[400px] min-w-0 truncate">
@@ -122,7 +117,10 @@ export default function Player() {
                     <Signal className="w-4 h-4" aria-hidden="true" /> Sin conexión al servidor
                   </span>
                 ) : isLoading ? (
-                  <span className="text-blue-300 text-sm motion-safe:animate-pulse">Conectando señal satelital…</span>
+                  <span className="flex items-center justify-center gap-2.5 text-blue-300 text-sm">
+                    <ArcoirisCarga tamano={3} />
+                    Conectando…
+                  </span>
                 ) : (
                   <div className="flex flex-col items-center">
                     <span className="text-blue-100 font-medium text-sm tracking-wide">
@@ -218,13 +216,7 @@ export default function Player() {
                   <p className="font-bold text-white text-sm">Radio Monte Alto</p>
                   
                   {/* Mini Visualizador */}
-                  {audioIsPlaying && !error && (
-                    <div className="flex items-end gap-0.5 h-3" aria-hidden="true">
-                      <div className="w-0.5 bg-yellow-400 rounded-full bar-1" />
-                      <div className="w-0.5 bg-yellow-400 rounded-full bar-3" />
-                      <div className="w-0.5 bg-yellow-400 rounded-full bar-2" />
-                    </div>
-                  )}
+                  {audioIsPlaying && !error && <OndaSonido alto={14} grosor={2} espacio={2} />}
                 </div>
                 
                 <p className="text-xs text-blue-200/80 truncate mt-0.5">

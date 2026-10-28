@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, CalendarDays, MapPin, Phone, Users2 } from 'luci
 import eventos, { getEventoPorSlug } from '@/lib/data/eventos';
 import EventoSlider from '@/components/molecules/EventoSlider';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
-import EventoIcono from '@/components/atoms/EventoIcono';
+import FechaCalendario from '@/components/atoms/FechaCalendario';
 import { cn } from '@/lib/utils/cn';
 import { publicPath } from '@/lib/utils/publicPath';
 
@@ -92,14 +92,7 @@ export default async function EventoPage({ params }: PageProps) {
             {/* Datos */}
             <div>
               <div className="mb-5 flex flex-wrap items-center gap-3">
-                <span
-                  className={cn(
-                    'inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg',
-                    theme.gradiente,
-                  )}
-                >
-                  <EventoIcono nombre={evento.icono} className="h-6 w-6 text-white" />
-                </span>
+                <FechaCalendario fechaISO={evento.fechaISO} grande />
                 <span
                   className={cn(
                     'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em]',

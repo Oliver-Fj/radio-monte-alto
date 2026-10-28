@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ArrowUpRight, CalendarDays, MapPin } from 'lucide-react';
 import type { EventoEspecial } from '@/lib/data/eventos';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
-import EventoIcono from '@/components/atoms/EventoIcono';
+import FechaCalendario from '@/components/atoms/FechaCalendario';
 import { cn } from '@/lib/utils/cn';
 import { publicPath } from '@/lib/utils/publicPath';
 import { useGlowCard } from '@/lib/hooks/useGlowCard';
@@ -87,14 +87,7 @@ export default function EventoCard({
         />
 
         <div className="relative flex items-start gap-3">
-          <span
-            className={cn(
-              'flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6',
-              theme.gradiente,
-            )}
-          >
-            <EventoIcono nombre={evento.icono} className="h-5 w-5 text-white" />
-          </span>
+          <FechaCalendario fechaISO={evento.fechaISO} />
           <div className="min-w-0">
             <h3 className="font-serif text-lg font-bold leading-tight text-white md:text-xl">
               {evento.titulo}

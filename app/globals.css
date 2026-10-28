@@ -937,3 +937,6 @@ footer .text-white:not([class*="bg-"]) { color: #FFFFFF !important; }
 
 /* Índice del artículo: la sección activa legible también en el tema claro */
 html.light .toc-activo { color: #92400E; background-color: rgba(245, 179, 1, 0.16); }
+
+/* Ficha de programa: el celeste claro de los rótulos no se lee sobre el papel claro */
+html.light .ficha-programa .text-sky-300 { color: #0369a1; }

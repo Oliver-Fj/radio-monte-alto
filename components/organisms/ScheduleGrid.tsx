@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { Clock, Radio, Sun, Music, BookOpen, Globe, Heart, Users, Star, LayoutGrid, CalendarDays } from 'lucide-react';
+import { Clock, Radio, Sun, Music, BookOpen, Globe, Heart, Users, Star, LayoutGrid, CalendarDays, Languages } from 'lucide-react';
 
 interface Programa {
   id: string;
@@ -21,10 +21,11 @@ const programas: Programa[] = [
   { id:'3', nombre:'Visión Misionera: Conquistando las Naciones',    descripcion:'El evangelio sin fronteras. Historias y testimonios del campo misionero.',               horario:'07:00 – 08:00 AM', horaInicio:'07:00', horaFin:'08:00', dias:['L','M','X','J','V'],   categoria:'Mision',    publicoObjetivo:'General' },
   { id:'4', nombre:'Programa de Niños – Joyas de Cristo',            descripcion:'Música, historias bíblicas y enseñanzas para los más pequeños.',                         horario:'03:00 – 04:00 PM', horaInicio:'15:00', horaFin:'16:00', dias:['S'],                   categoria:'Ninos',     publicoObjetivo:'Niños'   },
   { id:'5', nombre:'Forjándonos para la Vida Eterna',                descripcion:'Predicación ungida del evangelio de salvación para el mundo actual.',                   horario:'04:00 – 05:00 PM', horaInicio:'16:00', horaFin:'17:00', dias:['L','M','X','J','V'],   categoria:'Ensenanza', publicoObjetivo:'General' },
-  { id:'6', nombre:'Proclamando la Sana Doctrina',                   descripcion:'Fundamentos sólidos de la fe cristiana para madurar al creyente en la Palabra.',        horario:'05:00 – 06:00 PM', horaInicio:'17:00', horaFin:'18:00', dias:['L','M','X','J','V'],   categoria:'Ensenanza', publicoObjetivo:'General' },
+  { id:'6', nombre:'Proclamando la Sana Doctrina',                   descripcion:'Fundamentos sólidos de la fe cristiana para madurar al creyente en la Palabra.',        horario:'05:00 – 06:00 PM', horaInicio:'17:00', horaFin:'18:00', dias:['M','X','J','V'],   categoria:'Ensenanza', publicoObjetivo:'General' },
   { id:'7', nombre:'Hora de la Pesca Milagrosa',                     descripcion:'Evangelismo y oración de intercesión por las almas perdidas para Cristo.',              horario:'06:00 – 07:00 PM', horaInicio:'18:00', horaFin:'19:00', dias:['L','M','X','J','V'],   categoria:'Oracion',   publicoObjetivo:'General' },
   { id:'8', nombre:'Tras las Huellas de Jesús',                      descripcion:'Aprendiendo a vivir el evangelio con el ejemplo práctico de Cristo.',                   horario:'06:00 – 07:00 PM', horaInicio:'18:00', horaFin:'19:00', dias:['S'],                   categoria:'Ensenanza', publicoObjetivo:'General' },
   { id:'9', nombre:'Programa Juvenil – Predestinados para Triunfar', descripcion:'Mensajes de identidad, propósito y victoria en Cristo para la generación joven.',       horario:'07:00 – 08:00 PM', horaInicio:'19:00', horaFin:'20:00', dias:['S'],                   categoria:'Juventud',  publicoObjetivo:'Jóvenes'  },
+  { id:'10', nombre:'Diospa Qayakunin Kay Pachapaq',                  descripcion:'El programa en quechua: Palabra de Dios y alabanzas en nuestra lengua materna.',        horario:'05:00 – 06:00 PM', horaInicio:'17:00', horaFin:'18:00', dias:['L'],          categoria:'Quechua',   publicoObjetivo:'Quechuahablantes' },
 ];
 
 const CATS: Record<string, { label:string; icon:React.ReactNode; badge:string; border:string; cell:string }> = {
@@ -34,6 +35,7 @@ const CATS: Record<string, { label:string; icon:React.ReactNode; badge:string; b
   Ensenanza: { label:'Enseñanza', icon:<BookOpen className="w-3 h-3" aria-hidden="true"/>, badge:'bg-indigo-500/10 border-indigo-400/25 text-indigo-200',  border:'border-l-indigo-400',  cell:'bg-indigo-500/10 border-indigo-400/20 text-indigo-100'  },
   Ninos:     { label:'Niños',     icon:<Star     className="w-3 h-3" aria-hidden="true"/>, badge:'bg-pink-500/10 border-pink-400/25 text-pink-200',        border:'border-l-pink-400',    cell:'bg-pink-500/10 border-pink-400/20 text-pink-100'        },
   Juventud:  { label:'Juventud',  icon:<Users    className="w-3 h-3" aria-hidden="true"/>, badge:'bg-purple-500/10 border-purple-400/25 text-purple-200',  border:'border-l-purple-400',  cell:'bg-purple-500/10 border-purple-400/20 text-purple-100'  },
+  Quechua:   { label:'Quechua',   icon:<Languages className="w-3 h-3" aria-hidden="true"/>, badge:'bg-red-500/10 border-red-400/25 text-red-200',          border:'border-l-red-400',     cell:'bg-red-500/10 border-red-400/20 text-red-100'          },
 };
 
 const DIAS = [

@@ -4,7 +4,7 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import IconoHamburguesa from '@/components/atoms/IconoHamburguesa';
 import PlayButton from '@/components/molecules/PlayButton';
 import ThemeToggle from '@/components/molecules/ThemeToggle';
@@ -107,8 +107,8 @@ export default function Header() {
           {/* --- LOGO --- */}
           <Link href="/" aria-label="Radio Monte Alto, ir al inicio" className={`group flex items-center gap-3 rounded-xl transition-transform duration-300 hover:scale-[1.02] motion-reduce:hover:scale-100 ${F}`}>
 
-            {/* Logo más pequeño proporcionalmente */}
-            <div className="relative w-10 h-10 md:w-14 md:h-14 flex-shrink-0">
+            {/* Logo de la radio */}
+            <div className="relative w-12 h-12 md:w-[68px] md:h-[68px] flex-shrink-0">
               <div className="absolute inset-0 bg-amber-500/10 blur-xl rounded-full group-hover:bg-amber-400/20 transition-colors duration-500" />
               <Image
                 src={`${B}/images/opt/logo.webp`}
@@ -125,7 +125,6 @@ export default function Header() {
               </div>
               <div className="text-[10px] md:text-xs text-slate-400 font-serif italic tracking-wide flex items-center gap-1 opacity-80">
                 El Portavoz del Reino
-                <Sparkles className="w-2.5 h-2.5 text-amber-400 motion-safe:animate-pulse" aria-hidden="true" />
               </div>
             </div>
           </Link>
@@ -199,7 +198,6 @@ export default function Header() {
                                 `}
                               >
                                 {sublink.name}
-                                {isSubActive && <Sparkles aria-hidden="true" className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-amber-400" />}
                               </Link>
                             );
                           })}

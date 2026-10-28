@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { Calendar, Clock, Sparkles, Signal, Radio } from 'lucide-react';
+import { Calendar, Clock, Signal, Radio } from 'lucide-react';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -32,11 +32,8 @@ export default function ProgramacionHeroSection() {
 
         {/* Ícono animado */}
         <div className="relative mx-auto w-20 h-20 md:w-24 md:h-24 mb-7 group">
-          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-blue-400/30 rounded-full border-b-transparent motion-safe:animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.4)]">
             <Calendar className="w-8 h-8 md:w-10 md:h-10 text-white" aria-hidden="true" />
-            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
           </div>
         </div>
 

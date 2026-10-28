@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import { Sparkles, Star, ChevronDown } from 'lucide-react';
+import { Star, ChevronDown } from 'lucide-react';
 
 const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
@@ -65,8 +65,6 @@ export default function IglesiaHeroSection() {
         {/* ── LOGO ── */}
         <div className="relative mb-10 group">
           {/* Anillos decorativos giratorios */}
-          <div className="absolute -inset-6 rounded-full border border-yellow-500/20 border-dashed motion-safe:animate-[spin_20s_linear_infinite]" />
-          <div className="absolute -inset-10 rounded-full border border-amber-400/10 border-dotted motion-safe:animate-[spin_35s_linear_infinite_reverse]" />
 
           {/* Glow del logo */}
           <div className="absolute inset-0 bg-yellow-400/20 blur-[60px] rounded-full scale-150 group-hover:bg-yellow-400/30 transition duration-700" />
@@ -87,8 +85,7 @@ export default function IglesiaHeroSection() {
           </div>
 
           {/* Destellos en esquinas */}
-          <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-300 motion-safe:animate-pulse" aria-hidden="true" />
-          <Sparkles className="absolute -bottom-1 -left-3 w-4 h-4 text-amber-400 motion-safe:animate-pulse" style={{ animationDelay:'1s' }} aria-hidden="true" />
+          
         </div>
 
         {/* Títulos */}

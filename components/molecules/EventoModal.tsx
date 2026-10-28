@@ -6,7 +6,7 @@ import Link from 'next/link';
 import { ArrowRight, CalendarDays, MapPin, Users2, X } from 'lucide-react';
 import type { EventoEspecial } from '@/lib/data/eventos';
 import { getEventoTheme } from '@/lib/utils/eventoTheme';
-import EventoIcono from '@/components/atoms/EventoIcono';
+import FechaCalendario from '@/components/atoms/FechaCalendario';
 import { cn } from '@/lib/utils/cn';
 import EventoSlider from './EventoSlider';
 
@@ -113,14 +113,7 @@ export default function EventoModal({ evento, onCerrar }: EventoModalProps) {
         {/* Encabezado */}
         <header className="mb-7 pr-12">
           <div className="mb-4 flex flex-wrap items-center gap-3">
-            <span
-              className={cn(
-                'inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br shadow-lg',
-                theme.gradiente,
-              )}
-            >
-              <EventoIcono nombre={evento.icono} className="h-6 w-6 text-white" />
-            </span>
+            <FechaCalendario fechaISO={evento.fechaISO} grande />
             <span
               className={cn(
                 'inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em]',

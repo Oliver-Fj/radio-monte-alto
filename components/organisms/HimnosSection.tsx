@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Music, Copy, Check, Download, Sparkles, FileText } from 'lucide-react';
+import { Music, Copy, Check, Download, FileText } from 'lucide-react';
 import himnos, { type Himno } from '@/lib/data/himnos';
 import GoldTitle from '@/components/atoms/GoldTitle';
 import { cn } from '@/lib/utils/cn';
@@ -183,7 +183,6 @@ export default function HimnosSection() {
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-300">
               Himnos
             </span>
-            <Sparkles className="h-3.5 w-3.5 text-yellow-400" aria-hidden />
           </div>
 
           <GoldTitle pie="Cánticos de la congregación">Himnos de la Iglesia</GoldTitle>

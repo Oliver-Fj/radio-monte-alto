@@ -9,8 +9,14 @@
 //   3. La ruta se escribe desde la raíz: '/audio/candelero/2026-08-01.mp3'
 //      (el prefijo de GitHub Pages lo añade publicPath en el componente).
 //
-// Si un programa todavía no tiene grabaciones, deja el arreglo vacío: la página
-// lo indica con un aviso en lugar de mostrar un reproductor roto.
+// PARA PUBLICAR UN ESTUDIO (bosquejo, guía o lección en PDF):
+//   1. Coloca el PDF en  public/pdfs/estudios/<slug-del-programa>/
+//   2. Agrega una entrada en `estudios` con su título, pasaje y resumen.
+//
+// Si un programa todavía no tiene grabaciones o estudios, deja el arreglo
+// vacío: la página lo indica con un aviso en lugar de mostrar algo roto.
+// `bloques` (la secuencia de cada emisión) es opcional: si está vacío, esa
+// parte no se muestra hasta que el equipo del programa la confirme.
 // -----------------------------------------------------------------------------
 
 /** Un tramo del programa, con el minuto en que empieza. */
@@ -32,6 +38,18 @@ export interface Grabacion {
   resumen: string;
 }
 
+/** Material de estudio que acompaña al programa (bosquejo, guía, lección). */
+export interface Estudio {
+  id: string;
+  titulo: string;
+  /** Pasaje bíblico base, p. ej. «Romanos 8:1-11». */
+  pasaje?: string;
+  fecha?: string;
+  resumen: string;
+  /** Ruta al PDF dentro de /public. Vacío = solo se muestra la ficha. */
+  pdf?: string;
+}
+
 export interface DetalleProgama {
   slug: string;
   /** Id del programa en lib/data/programas.ts */
@@ -41,10 +59,14 @@ export interface DetalleProgama {
   presentacion: string;
   versiculo?: { texto: string; referencia: string };
   duracion: string;
-  desde: string;
+  /** Desde cuándo está al aire. Déjalo vacío si no se sabe con certeza. */
+  desde?: string;
   idioma: string;
+  /** Nombre tal como figura en la parrilla (lib/data/programacion.ts), para listar a quienes lo conducen. */
+  nombreParrilla: string;
   bloques: BloqueProgama[];
   grabaciones: Grabacion[];
+  estudios: Estudio[];
 }
 
 const BLOQUES_BASE: BloqueProgama[] = [
@@ -83,6 +105,7 @@ const BLOQUES_BASE: BloqueProgama[] = [
 export const DETALLES: DetalleProgama[] = [
   {
     slug: 'manteniendo-el-candelero-encendido',
+    nombreParrilla: 'Manteniendo el Candelero Encendido',
     programaId: '1',
     lema: 'El primer encuentro del día',
     presentacion:
@@ -96,9 +119,11 @@ export const DETALLES: DetalleProgama[] = [
     idioma: 'Español',
     bloques: BLOQUES_BASE,
     grabaciones: [],
+    estudios: [],
   },
   {
     slug: 'la-hora-de-la-clinica-celestial',
+    nombreParrilla: 'La Hora de la Clinica Celestial',
     programaId: '2',
     lema: 'Una hora de intercesión',
     presentacion:
@@ -118,9 +143,11 @@ export const DETALLES: DetalleProgama[] = [
       { minuto: '52:00', titulo: 'Oración de cierre', detalle: 'Bendición final sobre los que escuchan.' },
     ],
     grabaciones: [],
+    estudios: [],
   },
   {
     slug: 'proclamando-la-sana-doctrina',
+    nombreParrilla: 'Proclamando la Sana Doctrina',
     programaId: '6',
     lema: 'Fundamentos que sostienen',
     presentacion:
@@ -140,9 +167,11 @@ export const DETALLES: DetalleProgama[] = [
       { minuto: '52:00', titulo: 'Resumen y tarea', detalle: 'Puntos clave y el pasaje a leer para la próxima clase.' },
     ],
     grabaciones: [],
+    estudios: [],
   },
   {
     slug: 'programa-juvenil-predestinados-para-triunfar',
+    nombreParrilla: 'Programa Juvenil - Predestinados para Triunfar',
     programaId: '9',
     lema: 'La hora de los jóvenes',
     presentacion:
@@ -162,6 +191,111 @@ export const DETALLES: DetalleProgama[] = [
       { minuto: '55:00', titulo: 'Agenda juvenil', detalle: 'Anuncios de retiros, ensayos y salidas de servicio.' },
     ],
     grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'vision-misionera-conquistando-las-naciones',
+    programaId: '3',
+    nombreParrilla: 'Vision Misionera - Conquistando las Naciones para Cristo',
+    lema: 'El evangelio sin fronteras',
+    presentacion:
+      'Noticias, testimonios y oración por la obra misionera: las filiales, los pueblos donde se predica por primera vez y los hermanos que salen a servir. Un programa para conocer el campo misionero y orar por él.',
+    versiculo: {
+      texto: 'Id por todo el mundo y predicad el evangelio a toda criatura.',
+      referencia: 'Marcos 16:15',
+    },
+    duracion: '60 minutos',
+    idioma: 'Español',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'joyas-de-cristo',
+    programaId: '4',
+    nombreParrilla: 'Programa de Ninos - Joyas de Cristo',
+    lema: 'La hora de los niños',
+    presentacion:
+      'Historias bíblicas, coros y enseñanzas sencillas para que los más pequeños conozcan y amen a Jesús. Lo prepara la Escuela Dominical, pensado para escucharlo en familia los sábados por la tarde.',
+    versiculo: {
+      texto: 'Dejad a los niños venir a mí, y no se lo impidáis; porque de los tales es el reino de Dios.',
+      referencia: 'Marcos 10:14',
+    },
+    duracion: '60 minutos',
+    idioma: 'Español',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'forjandonos-para-la-vida-eterna',
+    programaId: '5',
+    nombreParrilla: 'Forjandonos para la Vida Eterna',
+    lema: 'Predicación del evangelio de salvación',
+    presentacion:
+      'Predicación y formación espiritual por la tarde. Un mensaje claro del evangelio y su aplicación a la vida diaria, para el que todavía no conoce a Cristo y para el creyente que quiere crecer.',
+    versiculo: {
+      texto:
+        'Porque de tal manera amó Dios al mundo, que ha dado a su Hijo unigénito, para que todo aquel que en él cree, no se pierda, mas tenga vida eterna.',
+      referencia: 'Juan 3:16',
+    },
+    duracion: '60 minutos',
+    idioma: 'Español',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'la-hora-de-la-pesca-milagrosa',
+    programaId: '7',
+    nombreParrilla: 'Hora de la Pesca Milagrosa',
+    lema: 'Pescadores de hombres',
+    presentacion:
+      'Evangelismo al aire y oración por las almas. Se presenta el mensaje de salvación de forma directa y se ora por los oyentes que quieren entregar su vida a Cristo o volver a Él.',
+    versiculo: {
+      texto: 'Venid en pos de mí, y os haré pescadores de hombres.',
+      referencia: 'Mateo 4:19',
+    },
+    duracion: '60 minutos',
+    idioma: 'Español',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'tras-las-huellas-de-jesus',
+    programaId: '8',
+    nombreParrilla: 'Tras las Huellas de Jesus',
+    lema: 'Vivir como Él vivió',
+    presentacion:
+      'Un recorrido por la vida y las enseñanzas de Jesús para aprender a seguir su ejemplo en lo práctico: en la casa, en el trabajo y en la iglesia. Cada sábado, un pasaje de los evangelios.',
+    versiculo: {
+      texto:
+        'Pues para esto fuisteis llamados; porque también Cristo padeció por nosotros, dejándonos ejemplo, para que sigáis sus pisadas.',
+      referencia: '1 Pedro 2:21',
+    },
+    duracion: '60 minutos',
+    idioma: 'Español',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
+  },
+  {
+    slug: 'diospa-qayakunin-kay-pachapaq',
+    programaId: '10',
+    nombreParrilla: 'Diospa Qayakunin Kay Pachapaq',
+    lema: 'La Palabra de Dios en nuestra lengua',
+    presentacion:
+      'El programa en quechua de Radio Monte Alto. Lectura de la Biblia, alabanzas y saludos en la lengua materna de muchos hermanos de las comunidades del valle y de las alturas, para que nadie se quede sin escuchar el evangelio.',
+    versiculo: {
+      texto: '¿Cómo, pues, les oímos nosotros hablar cada uno en nuestra lengua en la que hemos nacido?',
+      referencia: 'Hechos 2:8',
+    },
+    duracion: '60 minutos',
+    idioma: 'Quechua',
+    bloques: [],
+    grabaciones: [],
+    estudios: [],
   },
 ];
 

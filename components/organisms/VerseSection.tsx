@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, useSyncExternalStore } from 'react';
-import { BookOpen, Share2, Copy, Check, Sparkles } from 'lucide-react';
+import { BookOpen, Share2, Copy, Check } from 'lucide-react';
 import { horaLima, fechaLargaLima } from '@/lib/utils/horaLima';
 import { VERSICULOS, partirVersiculo } from '@/lib/data/versiculos';
 import { cn } from '@/lib/utils/cn';
@@ -92,7 +92,6 @@ export default function VerseSection() {
         <div className="flex items-center gap-2 mb-8">
           <div className="h-px w-12 bg-gradient-to-r from-transparent to-yellow-500/60" />
           <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Alimento Diario</span>
             <BookOpen className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
           </div>

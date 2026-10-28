@@ -307,15 +307,13 @@ export const programas: Programa[] = [
   // 5:00 - 6:00 PM
   {
     id: '25',
-    nombre: 'Proclamando la Sana Doctrina',
-    descripcion: 'Ensenanza de doctrina biblica solida y fundamentos de la fe',
+    nombre: 'Diospa Qayakunin Kay Pachapaq',
+    descripcion: 'Programa en quechua: Palabra de Dios y alabanzas en nuestra lengua materna',
     horario: '17:00 - 18:00',
     dias: ['L'],
-    categoria: 'Ensenanza',
-    locutor: 'Daniel Mendoza',
-    operador: 'Taylor Solar',
-    imagen: '/images/programas/sana-doctrina.webp',
-    publicoObjetivo: 'Estudiantes de la Biblia',
+    categoria: 'Quechua',
+    imagen: '/images/programas/quechua.webp',
+    publicoObjetivo: 'Quechuahablantes',
   },
   {
     id: '26',

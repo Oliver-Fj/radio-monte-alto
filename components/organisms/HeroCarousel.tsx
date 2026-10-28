@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback, useRef, useSyncExternalStore, memo } from 'react';
-import { ChevronLeft, ChevronRight, Sparkles, Pause, Play } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
 import { Slide } from '@/lib/types';
 import { publicPath } from '@/lib/utils/publicPath';
 
@@ -184,7 +184,6 @@ const SlideItem = memo(
               {/* DESCRIPCIÓN */}
               <div className={`transition motion-reduce:transition-none duration-700 delay-1000 ease-out ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <p className={`relative text-lg sm:text-2xl md:text-3xl font-black italic tracking-wide uppercase max-w-3xl mx-auto ${isSpecialSlide ? 'md:mr-0 md:ml-auto' : 'md:ml-0'} leading-tight text-transparent bg-clip-text bg-gradient-to-r ${slide.accent} ${slide.textGlow}`}>
-                  <Sparkles aria-hidden="true" className="inline-block w-5 h-5 md:w-6 md:h-6 mr-2 -mt-1 text-white fill-white motion-safe:animate-pulse" />
                   {slide.descripcion}
                 </p>
               </div>

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Heart, Calendar, MapPin, Radio, Users, BookOpen, ArrowRight, Sparkles } from 'lucide-react';
+import { Heart, Calendar, MapPin, Radio, Users, BookOpen, ArrowRight } from 'lucide-react';
 import GoldTitle from '@/components/atoms/GoldTitle';
 import { publicPath } from '@/lib/utils/publicPath';
 
@@ -144,7 +144,6 @@ export default function MinisteriosGridSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-14" style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(24px)', transition: 'opacity 0.7s, transform 0.7s' }}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-5">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Ministerios</span>
           </div>
           <GoldTitle>Áreas de Servicio</GoldTitle>

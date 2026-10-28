@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { BookOpen, Heart, Globe, Users, Music, Shield, Sparkles, type LucideIcon } from 'lucide-react';
+import { BookOpen, Heart, Globe, Users, Music, Shield, type LucideIcon } from 'lucide-react';
 import GlassCard3D, { type Glass3DTheme } from '@/components/molecules/GlassCard3D';
 import GoldTitle from '@/components/atoms/GoldTitle';
 
@@ -30,7 +30,6 @@ export default function IglesiaPilaresSection() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-14" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.7s, transform 0.7s' }}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-5">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Pilares de Fe</span>
           </div>
           <GoldTitle>Sobre qué estamos edificados</GoldTitle>
