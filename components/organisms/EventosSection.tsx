@@ -73,6 +73,8 @@ function FotoEvento({ src, alt }: { src: string; alt: string }) {
       <img
         src={actual}
         alt={alt}
+        width={800}
+        height={600}
         loading="lazy"
         decoding="async"
         onError={() => setActual(`${B}/images/opt/galeria-radio-1.webp`)}

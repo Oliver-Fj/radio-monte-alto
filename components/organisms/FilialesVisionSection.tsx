@@ -46,7 +46,7 @@ export default function FilialesVisionSection() {
               <div className="bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-xl shadow-lg border-2 border-green-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-green-600 rounded-full flex items-center justify-center">
-                    <Target className="w-7 h-7 text-white" />
+                    <Target className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-green-900">Estructura Unida</h3>
                 </div>
@@ -59,7 +59,7 @@ export default function FilialesVisionSection() {
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg border-2 border-blue-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-7 h-7 text-white" />
+                    <TrendingUp className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-blue-900">Crecimiento Continuo</h3>
                 </div>
@@ -72,7 +72,7 @@ export default function FilialesVisionSection() {
               <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-xl shadow-lg border-2 border-yellow-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-yellow-600 rounded-full flex items-center justify-center">
-                    <Globe className="w-7 h-7 text-white" />
+                    <Globe className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-yellow-900">Alcance Nacional</h3>
                 </div>

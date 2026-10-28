@@ -52,7 +52,7 @@ export default function CultosHorarioSection() {
 
           {/* Horario General */}
           <div className="mt-12 bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl p-8 md:p-12 text-center shadow-2xl mb-12">
-            <Clock className="w-16 h-16 mx-auto mb-4 text-yellow-400" />
+            <Clock className="w-16 h-16 mx-auto mb-4 text-yellow-400" aria-hidden="true" />
             <h3 className="text-3xl md:text-4xl font-bold mb-4">Domingos</h3>
             <p className="text-5xl md:text-6xl font-black text-yellow-400 mb-2">8:00 AM - 3:15 PM</p>
             <p className="text-xl text-blue-200">Un día completo en la presencia de Dios</p>
@@ -80,7 +80,7 @@ export default function CultosHorarioSection() {
           {/* Nota Final */}
           <div className="mt-12 bg-yellow-50 border-l-4 border-yellow-600 p-6 rounded-r-xl">
             <div className="flex items-start gap-4">
-              <Users className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" />
+              <Users className="w-6 h-6 text-yellow-600 flex-shrink-0 mt-1" aria-hidden="true" />
               <div>
                 <h4 className="text-lg font-bold text-yellow-900 mb-2">Para Toda la Familia</h4>
                 <p className="text-gray-700">

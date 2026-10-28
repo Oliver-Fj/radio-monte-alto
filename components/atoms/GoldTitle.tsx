@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils/cn';
 interface GoldTitleProps {
   /** Línea pequeña en versalitas sobre el título. */
   antetitulo?: ReactNode;
-  /** El texto grande con el relleno dorado animado. */
+  /** El texto grande con el relleno esmeralda animado. */
   children: ReactNode;
   /** Línea de cierre debajo del título. */
   pie?: ReactNode;
@@ -13,7 +13,7 @@ interface GoldTitleProps {
   /** Marco de doble filete arriba y abajo, como el original. */
   conMarco?: boolean;
   /**
-   * Fondo sobre el que se apoya el título. En 'claro' se usan oros más
+   * Fondo sobre el que se apoya el título. En 'claro' se usan verdes más
    * profundos para que el texto no se pierda contra el papel.
    */
   sobre?: 'oscuro' | 'claro';
@@ -21,12 +21,13 @@ interface GoldTitleProps {
 }
 
 /**
- * Título de sección con relleno dorado animado.
+ * Título de sección con relleno verde esmeralda animado (colores del logo).
  *
  * El degradado se recorta contra el texto (`background-clip: text`) y se
  * desplaza en bucle; las reglas viven en globals.css bajo `.texto-dorado`
+ * (nombre heredado; hoy pinta los verdes de la marca)
  * porque `background-clip` animado no se expresa bien en utilidades.
- * Si el visitante pide menos movimiento, la animación se detiene y el dorado
+ * Si el visitante pide menos movimiento, la animación se detiene y el verde
  * queda fijo.
  */
 export default function GoldTitle({
@@ -45,7 +46,7 @@ export default function GoldTitle({
       className={cn(
         'mx-auto mb-4 inline-block max-w-3xl px-4 text-center',
         conMarco && 'border-y-[3px] border-double py-6',
-        conMarco && (esClaro ? 'border-amber-700/30' : 'border-amber-400/25'),
+        conMarco && (esClaro ? 'border-emerald-700/30' : 'border-emerald-600/30'),
         className,
       )}
     >
@@ -53,7 +54,7 @@ export default function GoldTitle({
         <p
           className={cn(
             'mb-3 text-[11px] font-semibold uppercase tracking-[0.45em]',
-            esClaro ? 'text-amber-800/70' : 'text-amber-200/60',
+            esClaro ? 'text-emerald-800/70' : 'text-emerald-700/70',
           )}
         >
           {antetitulo}
@@ -75,7 +76,7 @@ export default function GoldTitle({
         <p
           className={cn(
             'mt-3 text-[11px] font-semibold uppercase tracking-[0.3em]',
-            esClaro ? 'text-amber-800/60' : 'text-amber-200/50',
+            esClaro ? 'text-emerald-800/60' : 'text-emerald-700/60',
           )}
         >
           {pie}

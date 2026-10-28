@@ -32,6 +32,9 @@ jobs:
         run: npm run build
         env:
           NEXT_PUBLIC_BASE_PATH: /radio-monte-alto
+          # Clave del formulario de contacto. Créala en Settings > Secrets and
+          # variables > Actions > New repository secret, con nombre WEB3FORMS_KEY.
+          NEXT_PUBLIC_WEB3FORMS_KEY: ${{ secrets.WEB3FORMS_KEY }}
 
       - uses: actions/configure-pages@v5
 

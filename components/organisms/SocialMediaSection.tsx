@@ -47,7 +47,7 @@ export default function SocialMediaSection() {
             const Icon = red.icon;
             return (
               <a key={red.name} href={red.url} target="_blank" rel="noopener noreferrer" className="group">
-                <div className="bg-white border-2 border-gray-300 rounded-xl p-6 hover:shadow-2xl hover:border-blue-400 transition-all duration-300 h-full text-center">
+                <div className="bg-white border-2 border-gray-300 rounded-xl p-6 hover:shadow-2xl hover:border-blue-400 transition duration-300 h-full text-center">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4 group-hover:scale-110 transition-transform">
                     {red.isCustomIcon ? (
                       <Icon className="w-8 h-8 text-blue-900" />

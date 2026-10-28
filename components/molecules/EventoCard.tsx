@@ -8,6 +8,8 @@ import { getEventoTheme } from '@/lib/utils/eventoTheme';
 import EventoIcono from '@/components/atoms/EventoIcono';
 import { cn } from '@/lib/utils/cn';
 import { publicPath } from '@/lib/utils/publicPath';
+import { useGlowCard } from '@/lib/hooks/useGlowCard';
+import styles from './GlowCard.module.css';
 
 interface EventoCardProps {
   evento: EventoEspecial;
@@ -36,9 +38,15 @@ export default function EventoCard({
   const theme = getEventoTheme(evento.color);
   const esProximo = evento.estado === 'proximo';
   const esAfiche = evento.portadaFormato !== 'foto';
+  const refBoton = useGlowCard<HTMLButtonElement>(styles.animando);
+  const refEnlace = useGlowCard<HTMLAnchorElement>(styles.animando);
 
   const contenido = (
     <>
+      {/* Resplandor del borde (efecto «Colored, Glowing Edges») */}
+      <span className={styles.glow} aria-hidden="true" />
+
+      <span className={styles.interior}>
       {/* Franja de color: identifica el evento de un vistazo */}
       <span className={cn('block h-1.5 w-full bg-gradient-to-r', theme.gradiente)} />
 
@@ -64,7 +72,7 @@ export default function EventoCard({
               : 'border-white/20 bg-slate-950/70 text-slate-200',
           )}
         >
-          {esProximo && <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-300" />}
+          {esProximo && <span className="h-1.5 w-1.5 motion-safe:animate-pulse rounded-full bg-emerald-300" />}
           {esProximo ? 'Próximo' : 'Ya realizado'}
         </span>
       </div>
@@ -121,7 +129,7 @@ export default function EventoCard({
 
         <span
           className={cn(
-            'relative mt-5 inline-flex items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r px-5 py-2.5 text-[13px] font-bold text-white shadow-lg transition-all duration-300 group-hover:gap-3 group-hover:brightness-110',
+            'relative mt-5 inline-flex items-center justify-center gap-2 self-start rounded-full bg-gradient-to-r px-5 py-2.5 text-[13px] font-bold text-white shadow-lg transition-[gap,filter] duration-300 group-hover:gap-3 group-hover:brightness-110',
             theme.gradiente,
           )}
         >
@@ -129,12 +137,14 @@ export default function EventoCard({
           <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" aria-hidden />
         </span>
       </div>
+      </span>
     </>
   );
 
   const clasesContenedor = cn(
-    'group relative flex h-full w-full flex-col overflow-hidden rounded-3xl border border-white/10 bg-slate-900 text-left',
-    'transition-all duration-500 hover:-translate-y-1.5 hover:shadow-2xl',
+    styles.glowCard,
+    'group flex h-full w-full flex-col rounded-3xl text-left',
+    'transition duration-500 hover:shadow-2xl',
     'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
     theme.borde,
     theme.sombra,
@@ -149,6 +159,7 @@ export default function EventoCard({
   if (onAbrir) {
     return (
       <button
+        ref={refBoton}
         type="button"
         onClick={() => onAbrir(evento)}
         aria-label={`Ver detalles de ${evento.titulo}`}
@@ -161,7 +172,7 @@ export default function EventoCard({
   }
 
   return (
-    <Link href={href ?? `/eventos/${evento.slug}`} className={clasesContenedor} style={estilo}>
+    <Link ref={refEnlace} href={href ?? `/eventos/${evento.slug}`} className={clasesContenedor} style={estilo}>
       {contenido}
     </Link>
   );

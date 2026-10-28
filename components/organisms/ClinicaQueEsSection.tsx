@@ -40,7 +40,7 @@ export default function ClinicaQueEsSection() {
               <div className="bg-gradient-to-br from-red-50 to-red-100 p-8 rounded-xl shadow-lg border-2 border-red-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-red-600 rounded-full flex items-center justify-center">
-                    <Heart className="w-7 h-7 text-white" />
+                    <Heart className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-red-900">Sanidad del Alma</h3>
                 </div>
@@ -52,7 +52,7 @@ export default function ClinicaQueEsSection() {
               <div className="bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-xl shadow-lg border-2 border-blue-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-blue-600 rounded-full flex items-center justify-center">
-                    <Shield className="w-7 h-7 text-white" />
+                    <Shield className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-blue-900">Guerra Espiritual</h3>
                 </div>
@@ -64,7 +64,7 @@ export default function ClinicaQueEsSection() {
               <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-xl shadow-lg border-2 border-yellow-200">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 bg-yellow-600 rounded-full flex items-center justify-center">
-                    <Zap className="w-7 h-7 text-white" />
+                    <Zap className="w-7 h-7 text-white" aria-hidden="true" />
                   </div>
                   <h3 className="text-2xl font-bold text-yellow-900">Sanidad Física</h3>
                 </div>

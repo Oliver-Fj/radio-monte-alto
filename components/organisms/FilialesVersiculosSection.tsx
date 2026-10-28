@@ -37,7 +37,7 @@ export default function FilialesVersiculosSection() {
 
           {/* Versículo destacado */}
           <div className="mt-12 bg-gradient-to-br from-green-900 to-green-800 text-white rounded-2xl p-8 md:p-12 text-center shadow-2xl">
-            <TrendingUp className="w-16 h-16 mx-auto mb-6 text-yellow-400" />
+            <TrendingUp className="w-16 h-16 mx-auto mb-6 text-yellow-400" aria-hidden="true" />
             <p className="text-2xl md:text-3xl font-serif italic mb-4 leading-relaxed">
               &ldquo;Y todos los días, en el templo y por las casas, no cesaban de enseñar 
               y predicar a Jesucristo&rdquo;

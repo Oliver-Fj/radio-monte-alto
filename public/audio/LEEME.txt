@@ -1,0 +1,21 @@
+GRABACIONES DE LOS PROGRAMAS
+============================
+Coloca aquí los mp3, en una carpeta por programa. Por ejemplo:
+
+  public/audio/manteniendo-el-candelero-encendido/2026-08-01.mp3
+
+Después agrega la entrada en lib/data/programaDetalle.ts, dentro del
+arreglo `grabaciones` del programa, con la ruta desde la raíz:
+
+  {
+    id: '2026-08-01',
+    fecha: '1 de agosto de 2026',
+    fechaISO: '2026-08-01',
+    tema: 'El temor de Jehová es el principio de la sabiduría',
+    duracion: '58 min',
+    audio: '/audio/manteniendo-el-candelero-encendido/2026-08-01.mp3',
+    resumen: 'Breve descripción de lo que se trató en la emisión.',
+  },
+
+Mientras el campo `audio` esté vacío, la página muestra un aviso en vez
+de un reproductor que no suena.

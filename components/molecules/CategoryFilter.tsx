@@ -46,7 +46,7 @@ export default function CategoryFilter({
             key={categoria.value}
             onClick={() => onCategoryToggle(categoria.value)}
             className={cn(
-              'px-4 py-2 rounded-lg font-medium transition-all',
+              'px-4 py-2 rounded-lg font-medium transition',
               'border-2 flex items-center gap-2',
               isSelected && 'shadow-lg scale-105',
               colorClasses[categoria.color as keyof typeof colorClasses]

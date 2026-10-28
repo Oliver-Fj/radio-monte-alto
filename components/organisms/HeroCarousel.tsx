@@ -153,8 +153,8 @@ const SlideItem = memo(
             <div className={`max-w-5xl text-center ${alignText} ${isSpecialSlide ? 'ml-auto' : ''}`}>
 
               {/* CATEGORÍA */}
-              <div className={`transition-all motion-reduce:transition-none duration-700 delay-300 ease-out transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-                <div className={`inline-flex items-center gap-3 px-5 py-2.5 border-2 backdrop-blur-xl rounded-full transition-all duration-500 ${categoryBoxStyle}`}>
+              <div className={`transition motion-reduce:transition-none duration-700 delay-300 ease-out transform ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+                <div className={`inline-flex items-center gap-3 px-5 py-2.5 border-2 backdrop-blur-xl rounded-full transition duration-500 ${categoryBoxStyle}`}>
                   <span className={`w-2.5 h-2.5 rounded-full motion-safe:animate-pulse bg-gradient-to-r ${slide.accent} shadow-[0_0_15px_currentColor]`} />
                   <span className="text-xs md:text-sm font-extrabold tracking-[0.3em] text-white uppercase drop-shadow-sm leading-none pt-[2px]">
                     {slide.categoria}
@@ -165,7 +165,7 @@ const SlideItem = memo(
               {/* TÍTULO */}
               <TitleTag className="relative mb-2 mt-6 overflow-visible">
                 <span
-                  className={`block font-serif font-medium italic text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-wide transition-all motion-reduce:transition-none duration-700 delay-500 ease-out ${titleColorClass} ${
+                  className={`block font-serif font-medium italic text-[2.5rem] sm:text-5xl md:text-7xl lg:text-[5.5rem] leading-[0.9] tracking-wide transition motion-reduce:transition-none duration-700 delay-500 ease-out ${titleColorClass} ${
                     isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-6'
                   }`}
                   style={!isSpecialSlide ? { textShadow: '0 10px 40px rgba(0,0,0,0.5)' } : undefined}
@@ -175,14 +175,14 @@ const SlideItem = memo(
               </TitleTag>
 
               {/* SUBTÍTULO */}
-              <p className={`text-sm sm:text-lg md:text-xl font-light tracking-[0.2em] uppercase mb-4 md:mb-6 transition-all motion-reduce:transition-none duration-700 delay-700 ease-out ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <p className={`text-sm sm:text-lg md:text-xl font-light tracking-[0.2em] uppercase mb-4 md:mb-6 transition motion-reduce:transition-none duration-700 delay-700 ease-out ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <span className={`${isSpecialSlide ? 'hidden md:hidden' : 'inline'} text-white/60 mr-2`}>—</span>
                 <span className="text-white drop-shadow-md">{slide.subtitulo}</span>
                 <span className={`${isSpecialSlide ? 'hidden md:inline' : 'hidden'} text-white/60 ml-2`}>—</span>
               </p>
 
               {/* DESCRIPCIÓN */}
-              <div className={`transition-all motion-reduce:transition-none duration-700 delay-1000 ease-out ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+              <div className={`transition motion-reduce:transition-none duration-700 delay-1000 ease-out ${isActive ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
                 <p className={`relative text-lg sm:text-2xl md:text-3xl font-black italic tracking-wide uppercase max-w-3xl mx-auto ${isSpecialSlide ? 'md:mr-0 md:ml-auto' : 'md:ml-0'} leading-tight text-transparent bg-clip-text bg-gradient-to-r ${slide.accent} ${slide.textGlow}`}>
                   <Sparkles aria-hidden="true" className="inline-block w-5 h-5 md:w-6 md:h-6 mr-2 -mt-1 text-white fill-white motion-safe:animate-pulse" />
                   {slide.descripcion}
@@ -331,7 +331,7 @@ export default function HeroCarousel() {
   };
 
   const navBtnClass =
-    'flex absolute top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70';
+    'flex absolute top-1/2 -translate-y-1/2 z-40 w-11 h-11 md:w-12 md:h-12 rounded-full border border-white/10 bg-white/5 backdrop-blur-md items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70';
 
   return (
     <section
@@ -405,7 +405,7 @@ export default function HeroCarousel() {
               aria-current={isCurrent ? 'true' : undefined}
               className="group/indicator relative min-h-[44px] flex items-center cursor-pointer flex-1 max-w-[60px] md:max-w-[100px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 rounded-full"
             >
-              <div className={`h-[3px] w-full transition-all duration-500 rounded-full overflow-hidden ${isCurrent ? 'bg-white/20' : 'bg-white/10 group-hover/indicator:bg-white/30'}`}>
+              <div className={`h-[3px] w-full transition duration-500 rounded-full overflow-hidden ${isCurrent ? 'bg-white/20' : 'bg-white/10 group-hover/indicator:bg-white/30'}`}>
                 {isCurrent && (
                   <div
                     className={`h-full bg-gradient-to-r ${slide.accent} rounded-full shadow-[0_0_15px_currentColor] origin-left`}
@@ -428,7 +428,7 @@ export default function HeroCarousel() {
           type="button"
           onClick={() => setUserPaused((p) => !p)}
           aria-label={userPaused ? 'Reanudar carrusel' : 'Pausar carrusel'}
-          className="flex w-11 h-11 shrink-0 rounded-full border border-white/10 bg-white/5 backdrop-blur-md items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+          className="flex w-11 h-11 shrink-0 rounded-full border border-white/10 bg-white/5 backdrop-blur-md items-center justify-center text-white/50 hover:text-white hover:bg-white/20 transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
         >
           {userPaused ? (
             <Play aria-hidden="true" className="w-4 h-4" />

@@ -10,8 +10,9 @@ import {
   MapControls,
   type MapRef,
 } from '@/components/ui/map';
-import { filiales, type Filial } from '@/lib/data/filiales';
-import { MapPin, Phone, User, Clock, Calendar, RadioTower, Church, Star } from 'lucide-react';
+import { filiales, CATEGORIAS_FILIAL, formatearCelular, type CategoriaFilial, type Filial } from '@/lib/data/filiales';
+import { coloresCategoria } from '@/lib/utils/paletaMaterial';
+import { MapPin, Phone, User, Clock, RadioTower, Church, Star } from 'lucide-react';
 
 // Vista inicial: todo el Perú
 const PERU_CENTER: [number, number] = [-75.0, -9.4];
@@ -21,25 +22,28 @@ const PERU_BOUNDS: [[number, number], [number, number]] = [
   [-63.5, 3.0],
 ];
 
-function PinSede() {
+/**
+ * Punto del mapa con el color de la categoría, el mismo de su tarjeta
+ * (p. ej. Siervos → celeste). La sede central conserva su pulso.
+ */
+function PinFilial({ filial }: { filial: Filial }) {
+  const c = coloresCategoria(filial.categoria);
+  const Icono = filial.esMatriz ? RadioTower : Church;
   return (
     <div className="relative flex flex-col items-center cursor-pointer group/pin">
-      <span className="absolute -top-1 w-12 h-12 rounded-full bg-amber-400/30 motion-safe:animate-ping" />
-      <div className="relative w-11 h-11 rounded-full bg-gradient-to-br from-amber-400 to-yellow-600 border-[3px] border-white shadow-[0_4px_14px_rgba(217,119,6,0.5)] flex items-center justify-center transition-transform duration-200 group-hover/pin:scale-110">
-        <RadioTower className="w-5 h-5 text-white" aria-hidden="true" />
+      {filial.esMatriz && (
+        <span className="absolute -top-1 w-12 h-12 rounded-full opacity-30 motion-safe:animate-ping" style={{ backgroundColor: c[500] }} />
+      )}
+      <div
+        className={`relative ${filial.esMatriz ? 'w-11 h-11' : 'w-9 h-9'} rounded-full border-[3px] border-white flex items-center justify-center transition-transform duration-200 group-hover/pin:scale-110`}
+        style={{ backgroundColor: c[500], boxShadow: `0 4px 12px ${c[500]}80` }}
+      >
+        <Icono className={`${filial.esMatriz ? 'w-5 h-5' : 'w-4 h-4'} text-white`} aria-hidden="true" />
       </div>
-      <div className="w-2 h-2 -mt-[3px] rotate-45 bg-yellow-600 border-r-[3px] border-b-[3px] border-white shadow-md" />
-    </div>
-  );
-}
-
-function PinFilial() {
-  return (
-    <div className="relative flex flex-col items-center cursor-pointer group/pin">
-      <div className="relative w-9 h-9 rounded-full bg-gradient-to-br from-emerald-500 to-green-700 border-[3px] border-white shadow-[0_4px_12px_rgba(5,150,105,0.45)] flex items-center justify-center transition-transform duration-200 group-hover/pin:scale-110">
-        <Church className="w-4 h-4 text-white" aria-hidden="true" />
-      </div>
-      <div className="w-2 h-2 -mt-[3px] rotate-45 bg-green-700 border-r-[3px] border-b-[3px] border-white shadow-md" />
+      <div
+        className="w-2 h-2 -mt-[3px] rotate-45 border-r-[3px] border-b-[3px] border-white shadow-md"
+        style={{ backgroundColor: c[500] }}
+      />
     </div>
   );
 }
@@ -47,7 +51,7 @@ function PinFilial() {
 function PopupFilial({ filial }: { filial: Filial }) {
   return (
     <div className="w-72 rounded-2xl bg-white shadow-2xl border border-gray-100 overflow-hidden font-sans">
-      <div className={`h-1.5 ${filial.esMatriz ? 'bg-gradient-to-r from-amber-400 to-yellow-600' : 'bg-gradient-to-r from-emerald-500 to-green-600'}`} />
+      <div className="h-1.5" style={{ backgroundColor: coloresCategoria(filial.categoria)[500] }} />
       <div className="p-4">
         {filial.esMatriz && (
           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 mb-2 bg-amber-100 text-amber-800 rounded-full text-[11px] font-bold uppercase tracking-wide">
@@ -60,38 +64,45 @@ function PopupFilial({ filial }: { filial: Filial }) {
           {filial.ciudad}, {filial.region}
         </p>
 
-        <p className="text-xs text-gray-600 bg-gray-50 rounded-lg p-2.5 mt-3">{filial.direccion}</p>
+        {filial.direccion && (
+          <p className="text-xs text-gray-600 bg-gray-50 rounded-lg p-2.5 mt-3">{filial.direccion}</p>
+        )}
 
-        <div className="flex items-center gap-2 mt-3 text-xs text-gray-700">
-          <User className="w-3.5 h-3.5 text-blue-600 shrink-0" aria-hidden="true" />
-          <span className="font-semibold">{filial.pastor}</span>
-        </div>
-        <div className="flex items-center gap-2 mt-1.5 text-xs text-gray-700">
-          <Calendar className="w-3.5 h-3.5 text-emerald-600 shrink-0" aria-hidden="true" />
-          <span>{filial.dias.join(' · ')}</span>
-        </div>
-        <div className="flex items-start gap-2 mt-1.5 text-xs text-gray-700">
-          <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" aria-hidden="true" />
-          <span>{filial.horario}</span>
-        </div>
+        <p className="text-[11px] font-bold uppercase tracking-wide mt-3" style={{ color: coloresCategoria(filial.categoria)[900] }}>
+          {CATEGORIAS_FILIAL[filial.categoria].nombre}
+        </p>
+        {filial.responsables.map((r) => (
+          <div key={r} className="flex items-center gap-2 mt-1.5 text-xs text-gray-700">
+            <User className="w-3.5 h-3.5 text-blue-600 shrink-0" aria-hidden="true" />
+            <span className="font-semibold">{r}</span>
+          </div>
+        ))}
+        {filial.horario && (
+          <div className="flex items-start gap-2 mt-1.5 text-xs text-gray-700">
+            <Clock className="w-3.5 h-3.5 text-blue-600 shrink-0 mt-0.5" aria-hidden="true" />
+            <span>{filial.horario}</span>
+          </div>
+        )}
 
-        {filial.telefono.includes('X') ? (
+        {filial.contactos.filter((c) => c.numero).map((c) => (
+          <a
+            key={`${c.rol}-${c.numero}`}
+            href={`tel:+51${c.numero}`}
+            className="mt-2 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white py-2 rounded-lg font-bold text-xs transition shadow-md"
+          >
+            <Phone className="w-3.5 h-3.5" aria-hidden="true" />
+            {c.rol}: {formatearCelular(c.numero)}
+          </a>
+        ))}
+        {!filial.contactos.some((c) => c.numero) && (
           <a
             href="https://wa.me/51985796588"
             target="_blank"
             rel="noopener noreferrer"
-            className="mt-3 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white py-2 rounded-lg font-bold text-xs transition-all shadow-md"
+            className="mt-3 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white py-2 rounded-lg font-bold text-xs transition shadow-md"
           >
             <Phone className="w-3.5 h-3.5" aria-hidden="true" />
             Consultar por WhatsApp
-          </a>
-        ) : (
-          <a
-            href={`tel:${filial.telefono.replace(/\s/g, '')}`}
-            className="mt-3 flex items-center justify-center gap-2 w-full bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-600 hover:to-green-700 text-white py-2 rounded-lg font-bold text-xs transition-all shadow-md"
-          >
-            <Phone className="w-3.5 h-3.5" aria-hidden="true" />
-            {filial.telefono}
           </a>
         )}
       </div>
@@ -99,24 +110,44 @@ function PopupFilial({ filial }: { filial: Filial }) {
   );
 }
 
+// Solo los lugares con coordenadas aparecen en el mapa
+const enMapa = filiales.filter(
+  (f): f is Filial & { coordenadas: { lat: number; lng: number } } => Boolean(f.coordenadas),
+);
+
+// Departamentos con al menos un lugar en el mapa, ordenados por cantidad.
+// (Se usa un objeto: `Map` aquí es el componente del mapa.)
+const porRegion: Record<string, typeof enMapa> = {};
+for (const f of enMapa) (porRegion[f.region] ??= []).push(f);
+const DEPARTAMENTOS = Object.entries(porRegion).sort((a, b) => b[1].length - a[1].length);
+
+// Categorías que tienen algún punto en el mapa, en el orden de la lista
+const CATEGORIAS_EN_MAPA = (Object.keys(CATEGORIAS_FILIAL) as CategoriaFilial[]).filter((c) =>
+  enMapa.some((f) => f.categoria === c),
+);
+
 export default function FilialesMapa() {
   const mapRef = useRef<MapRef>(null);
   const [activa, setActiva] = useState<string | null>(null);
 
-  const volarA = (filial: Filial | null) => {
+  const volarA = (region: string | null) => {
     if (!mapRef.current) return;
-    if (filial) {
-      setActiva(filial.id);
-      mapRef.current.flyTo({
-        center: [filial.coordenadas.lng, filial.coordenadas.lat],
-        zoom: 12,
-        duration: 1800,
-        essential: false, // respeta prefers-reduced-motion
-      });
-    } else {
-      setActiva(null);
+    setActiva(region);
+    const lugares = region ? DEPARTAMENTOS.find(([r]) => r === region)?.[1] ?? [] : [];
+    if (lugares.length === 0) {
       mapRef.current.flyTo({ center: PERU_CENTER, zoom: PERU_ZOOM, duration: 1500, essential: false });
+      return;
     }
+    // Encuadra todos los lugares del departamento
+    const lngs = lugares.map((f) => f.coordenadas.lng);
+    const lats = lugares.map((f) => f.coordenadas.lat);
+    mapRef.current.fitBounds(
+      [
+        [Math.min(...lngs) - 0.08, Math.min(...lats) - 0.08],
+        [Math.max(...lngs) + 0.08, Math.max(...lats) + 0.08],
+      ],
+      { padding: 60, maxZoom: 12, duration: 1800, essential: false }, // respeta prefers-reduced-motion
+    );
   };
 
   return (
@@ -127,7 +158,7 @@ export default function FilialesMapa() {
           type="button"
           onClick={() => volarA(null)}
           aria-pressed={activa === null}
-          className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-bold transition-all border ${
+          className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-bold transition border ${
             activa === null
               ? 'bg-gray-900 text-white border-gray-900 shadow-md'
               : 'bg-white text-gray-600 border-gray-200 hover:border-gray-400 hover:text-gray-900'
@@ -135,22 +166,19 @@ export default function FilialesMapa() {
         >
           Todo el Perú
         </button>
-        {filiales.map((f) => (
+        {DEPARTAMENTOS.map(([region, lugares]) => (
           <button
-            key={f.id}
+            key={region}
             type="button"
-            onClick={() => volarA(f)}
-            aria-pressed={activa === f.id}
-            className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-bold transition-all border ${
-              activa === f.id
-                ? f.esMatriz
-                  ? 'bg-gradient-to-r from-amber-400 to-yellow-600 text-white border-transparent shadow-md'
-                  : 'bg-gradient-to-r from-emerald-500 to-green-600 text-white border-transparent shadow-md'
+            onClick={() => volarA(region)}
+            aria-pressed={activa === region}
+            className={`px-4 py-2 min-h-[40px] rounded-full text-xs font-bold transition border ${
+              activa === region
+                ? 'bg-gradient-to-r from-emerald-500 to-green-600 text-white border-transparent shadow-md'
                 : 'bg-white text-gray-600 border-gray-200 hover:border-emerald-400 hover:text-emerald-700'
             }`}
           >
-            {f.esMatriz && <Star className="inline w-3 h-3 -mt-0.5 mr-1" aria-hidden="true" />}
-            {f.ciudad}
+            {region} ({lugares.length})
           </button>
         ))}
       </div>
@@ -175,15 +203,14 @@ export default function FilialesMapa() {
         >
           <MapControls position="top-right" showZoom showFullscreen />
 
-          {filiales.map((filial) => (
+          {enMapa.map((filial) => (
             <MapMarker
               key={filial.id}
               longitude={filial.coordenadas.lng}
               latitude={filial.coordenadas.lat}
               anchor="bottom"
-              onClick={() => setActiva(filial.id)}
             >
-              <MarkerContent>{filial.esMatriz ? <PinSede /> : <PinFilial />}</MarkerContent>
+              <MarkerContent><PinFilial filial={filial} /></MarkerContent>
               <MarkerTooltip>
                 <span className="px-2.5 py-1.5 rounded-lg bg-gray-900 text-white text-xs font-bold shadow-lg whitespace-nowrap">
                   {filial.ciudad} — {filial.region}
@@ -197,20 +224,22 @@ export default function FilialesMapa() {
         </Map>
       </div>
 
-      {/* Leyenda */}
-      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3">
-        <div className="flex items-center gap-2.5">
-          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-amber-400 to-yellow-600 border-2 border-white shadow-md flex items-center justify-center">
-            <RadioTower className="w-4 h-4 text-white" aria-hidden="true" />
-          </span>
-          <span className="text-sm font-semibold text-gray-700">Sede Central — Huancayo</span>
-        </div>
-        <div className="flex items-center gap-2.5">
-          <span className="w-8 h-8 rounded-full bg-gradient-to-br from-emerald-500 to-green-700 border-2 border-white shadow-md flex items-center justify-center">
-            <Church className="w-4 h-4 text-white" aria-hidden="true" />
-          </span>
-          <span className="text-sm font-semibold text-gray-700">Filiales</span>
-        </div>
+      {/* Leyenda: los mismos colores que las tarjetas */}
+      <div className="mt-6 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+        {CATEGORIAS_EN_MAPA.map((categoria) => {
+          const Icono = categoria === 'sede' ? RadioTower : Church;
+          return (
+            <div key={categoria} className="flex items-center gap-2">
+              <span
+                className="w-7 h-7 rounded-full border-2 border-white shadow-md flex items-center justify-center"
+                style={{ backgroundColor: coloresCategoria(categoria)[500] }}
+              >
+                <Icono className="w-3.5 h-3.5 text-white" aria-hidden="true" />
+              </span>
+              <span className="text-sm font-semibold text-gray-700">{CATEGORIAS_FILIAL[categoria].nombre}</span>
+            </div>
+          );
+        })}
         <p className="text-xs text-gray-400 w-full text-center md:w-auto">
           Toca un punto del mapa para ver los detalles de cada filial.
         </p>

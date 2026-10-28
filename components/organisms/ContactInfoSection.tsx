@@ -46,7 +46,7 @@ export default function ContactInfoSection() {
           {CARDS.map(({ icon: Icon, title, info, subInfo, href, accent, ring, destacado }) => {
             const inner = (
               <div
-                className={`group relative h-full bg-white rounded-2xl border-2 p-6 text-center shadow-lg transition-all duration-300 hover:shadow-2xl hover:-translate-y-2 motion-reduce:hover:translate-y-0 ring-4 ring-transparent ${ring} ${
+                className={`group relative h-full bg-white rounded-2xl border-2 p-6 text-center shadow-lg transition duration-300 hover:shadow-2xl hover:-translate-y-2 motion-reduce:hover:translate-y-0 ring-4 ring-transparent ${ring} ${
                   destacado ? 'border-emerald-200' : 'border-gray-100'
                 }`}
               >

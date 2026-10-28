@@ -162,7 +162,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Ester Q.',
     operador: 'Sara Quispe',
-    imagen: '/images/opt/articulo-mision.webp',
+    imagen: '/images/programas/vision-misionera.webp',
     publicoObjetivo: 'Misioneros y evangelistas',
   },
   {
@@ -174,7 +174,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Zacarias',
     operador: 'Sara Quispe',
-    imagen: '/images/opt/articulo-mision.webp',
+    imagen: '/images/programas/vision-misionera.webp',
     publicoObjetivo: 'Misioneros y evangelistas',
   },
   {
@@ -186,7 +186,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Elias Rivera',
     operador: 'Sara Quispe',
-    imagen: '/images/opt/articulo-mision.webp',
+    imagen: '/images/programas/vision-misionera.webp',
     publicoObjetivo: 'Misioneros y evangelistas',
   },
   {
@@ -198,7 +198,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Daniel Contr.',
     operador: 'Debora Quispe',
-    imagen: '/images/opt/articulo-mision.webp',
+    imagen: '/images/programas/vision-misionera.webp',
     publicoObjetivo: 'Misioneros y evangelistas',
   },
   {
@@ -210,7 +210,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Debora',
     operador: 'Debora Quispe',
-    imagen: '/images/opt/articulo-mision.webp',
+    imagen: '/images/programas/vision-misionera.webp',
     publicoObjetivo: 'Misioneros y evangelistas',
   },
 
@@ -226,7 +226,7 @@ export const programas: Programa[] = [
     categoria: 'Ninos',
     locutor: 'Esc. Dominical',
     operador: 'Debora Quispe',
-    imagen: '/images/opt/articulo-gracia.webp',
+    imagen: '/images/programas/joyas-de-cristo.webp',
     publicoObjetivo: 'Ninos de 5 a 12 anos',
   },
 
@@ -240,7 +240,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Cinthia Marcelo',
     operador: 'Taylor Solar',
-    imagen: '/images/opt/articulo-fe.webp',
+    imagen: '/images/programas/forjandonos-vida-eterna.webp',
     publicoObjetivo: 'Jovenes y adultos',
   },
   {
@@ -252,7 +252,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Teodoro',
     operador: 'Taylor Solar',
-    imagen: '/images/opt/articulo-fe.webp',
+    imagen: '/images/programas/forjandonos-vida-eterna.webp',
     publicoObjetivo: 'Jovenes y adultos',
   },
   {
@@ -264,7 +264,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Esther Ezquinio',
     operador: 'Gabriela Davila',
-    imagen: '/images/opt/articulo-fe.webp',
+    imagen: '/images/programas/forjandonos-vida-eterna.webp',
     publicoObjetivo: 'Jovenes y adultos',
   },
   {
@@ -288,7 +288,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Maria Quilca',
     operador: 'Gabriela Davila',
-    imagen: '/images/opt/articulo-fe.webp',
+    imagen: '/images/programas/forjandonos-vida-eterna.webp',
     publicoObjetivo: 'Jovenes y adultos',
   },
   {
@@ -300,7 +300,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Juber D.',
     operador: 'Debora Quispe',
-    imagen: '/images/opt/articulo-fe.webp',
+    imagen: '/images/programas/forjandonos-vida-eterna.webp',
     publicoObjetivo: 'Jovenes y adultos',
   },
 
@@ -388,7 +388,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Maria Guillen',
     operador: 'Taylor Solar',
-    imagen: '/images/opt/articulo-alabanza.webp',
+    imagen: '/images/programas/pesca-milagrosa.webp',
     publicoObjetivo: 'Evangelistas',
   },
   {
@@ -400,7 +400,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Cesar Rivera',
     operador: 'Taylor Solar',
-    imagen: '/images/opt/articulo-alabanza.webp',
+    imagen: '/images/programas/pesca-milagrosa.webp',
     publicoObjetivo: 'Evangelistas',
   },
   {
@@ -412,7 +412,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Samuel P.',
     operador: 'Gabriela Davila',
-    imagen: '/images/opt/articulo-alabanza.webp',
+    imagen: '/images/programas/pesca-milagrosa.webp',
     publicoObjetivo: 'Evangelistas',
   },
   {
@@ -424,7 +424,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Damaris',
     operador: 'Gabriela Davila',
-    imagen: '/images/opt/articulo-alabanza.webp',
+    imagen: '/images/programas/pesca-milagrosa.webp',
     publicoObjetivo: 'Evangelistas',
   },
   {
@@ -436,7 +436,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Ester Quispe',
     operador: 'Gabriela Davila',
-    imagen: '/images/opt/articulo-alabanza.webp',
+    imagen: '/images/programas/pesca-milagrosa.webp',
     publicoObjetivo: 'Evangelistas',
   },
   {
@@ -448,7 +448,7 @@ export const programas: Programa[] = [
     categoria: 'Ensenanza',
     locutor: 'Damaris',
     operador: 'Debora Quispe',
-    imagen: '/images/opt/articulo-oracion.webp',
+    imagen: '/images/programas/tras-las-huellas.webp',
     publicoObjetivo: 'Toda la familia',
   },
 

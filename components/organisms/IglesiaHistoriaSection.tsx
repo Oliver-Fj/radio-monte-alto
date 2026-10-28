@@ -74,7 +74,7 @@ function HitoRow({ h, i, visible }: { h: typeof HITOS[0]; i: number; visible: bo
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(50px)',
-        transition: `all 1s cubic-bezier(0.16,1,0.3,1) ${i * 150}ms`,
+        transition: `opacity 1s cubic-bezier(0.16,1,0.3,1) ${i * 150}ms, transform 1s cubic-bezier(0.16,1,0.3,1) ${i * 150}ms`,
       }}
     >
       {/* ── IMAGEN (orden según paridad) ── */}
@@ -173,9 +173,9 @@ export default function IglesiaHistoriaSection() {
 
         {/* Encabezado */}
         <div className="text-center mb-16"
-          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s' }}>
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.7s, transform 0.7s' }}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-5">
-            <BookMarked className="w-3.5 h-3.5 text-yellow-400" />
+            <BookMarked className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Nuestra Historia</span>
           </div>
           <GoldTitle>Un legado escrito por la mano de Dios</GoldTitle>

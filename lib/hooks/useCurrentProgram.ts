@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { programas } from '@/lib/data/programas';
 import type { Programa } from '@/lib/types';
+import { horaLima } from '@/lib/utils/horaLima';
 
 // Día de la semana de JS (0 = domingo) → letra usada en la parrilla
 const LETRA_DIA = ['D', 'L', 'M', 'X', 'J', 'V', 'S'] as const;
@@ -12,10 +13,11 @@ function aMinutos(hhmm: string) {
   return h * 60 + m;
 }
 
-/** Programa que está al aire ahora mismo, según la parrilla real. */
+/** Programa que está al aire ahora mismo (hora de Lima), según la parrilla real. */
 function programaAhora(ahora: Date): Programa | null {
-  const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
-  const diaHoy = LETRA_DIA[ahora.getDay()];
+  const { horas, minutos, diaSemana } = horaLima(ahora);
+  const minutosAhora = horas * 60 + minutos;
+  const diaHoy = LETRA_DIA[diaSemana];
 
   return (
     programas.find((p) => {

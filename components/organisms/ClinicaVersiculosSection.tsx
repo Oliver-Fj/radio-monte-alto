@@ -37,7 +37,7 @@ export default function ClinicaVersiculosSection() {
 
           {/* Versículo destacado adicional */}
           <div className="mt-12 bg-gradient-to-br from-blue-900 to-blue-800 text-white rounded-2xl p-8 md:p-12 text-center shadow-2xl">
-            <BookOpen className="w-16 h-16 mx-auto mb-6 text-yellow-400" />
+            <BookOpen className="w-16 h-16 mx-auto mb-6 text-yellow-400" aria-hidden="true" />
             <p className="text-2xl md:text-3xl font-serif italic mb-4 leading-relaxed">
               &ldquo;El Espíritu del Señor está sobre mí, por cuanto me ha ungido para dar buenas nuevas a los pobres; 
               me ha enviado a sanar a los quebrantados de corazón; a pregonar libertad a los cautivos&rdquo;

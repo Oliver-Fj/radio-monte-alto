@@ -83,20 +83,20 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
       className={cn(
         // Papel de pergamino con doble filete dorado, en lugar del blanco plano
         'papel-pergamino relative w-full rounded-[28px] p-5 md:p-7 lg:py-9 lg:pl-8 lg:pr-14 xl:pl-10',
-        'border border-amber-700/25 ring-1 ring-inset ring-amber-200/60',
-        'shadow-[0_18px_90px_rgba(120,80,10,0.35)] outline-none',
-        'focus-visible:ring-2 focus-visible:ring-amber-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
+        'border border-emerald-700/20 ring-1 ring-inset ring-emerald-100',
+        'shadow-[0_18px_90px_rgba(11,55,40,0.28)] outline-none',
+        'focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
         className,
       )}
     >
       {/* Filetes dorados superior e inferior */}
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-amber-600/50 to-transparent"
+        className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-emerald-600/50 to-transparent"
       />
       <span
         aria-hidden
-        className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-amber-600/40 to-transparent"
+        className="pointer-events-none absolute inset-x-6 bottom-0 h-px bg-gradient-to-r from-transparent via-emerald-600/40 to-transparent"
       />
       <div className="grid">
         {slides.map((slide, indice) => {
@@ -136,7 +136,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
                   fill
                   sizes="(max-width: 1024px) 90vw, 430px"
                   className={cn(
-                    'transition-all duration-700',
+                    'transition duration-700',
                     esAfiche ? 'object-contain' : 'object-cover',
                     visible ? 'scale-100 opacity-100' : 'scale-105 opacity-0',
                   )}
@@ -150,7 +150,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
               <div className="min-w-0 flex-1">
                 <span
                   className={cn(
-                    'mb-3 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow transition-all duration-500',
+                    'mb-3 inline-flex items-center gap-2 rounded-full bg-gradient-to-r px-3 py-1 text-[11px] font-bold uppercase tracking-[0.16em] text-white shadow transition duration-500',
                     theme.gradiente,
                     visible ? 'translate-y-0 opacity-100 delay-100' : 'translate-y-4 opacity-0',
                   )}
@@ -159,7 +159,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
                 </span>
                 <h4
                   className={cn(
-                    'mb-3 font-serif text-xl font-bold leading-tight text-slate-900 transition-all duration-500 md:text-2xl',
+                    'mb-3 font-serif text-xl font-bold leading-tight text-slate-900 transition duration-500 md:text-2xl',
                     visible ? 'translate-y-0 opacity-100 delay-200' : 'translate-y-4 opacity-0',
                   )}
                 >
@@ -167,7 +167,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
                 </h4>
                 <p
                   className={cn(
-                    'text-[13px] leading-relaxed text-slate-600 transition-all duration-500 md:text-sm',
+                    'text-[13px] leading-relaxed text-slate-600 transition duration-500 md:text-sm',
                     visible ? 'translate-y-0 opacity-100 delay-300' : 'translate-y-4 opacity-0',
                   )}
                 >
@@ -211,7 +211,7 @@ export default function EventoSlider({ slides, color = 'amber', titulo, classNam
                   aria-current={visible}
                   onClick={() => irA(indice)}
                   className={cn(
-                    'rounded-full transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2',
+                    'rounded-full transition-[width,height,background-color,transform] duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900 focus-visible:ring-offset-2',
                     visible
                       ? cn(
                           'h-3 w-10 bg-gradient-to-r lg:h-10 lg:w-3 lg:bg-gradient-to-b',

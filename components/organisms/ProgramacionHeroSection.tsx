@@ -32,18 +32,18 @@ export default function ProgramacionHeroSection() {
 
         {/* Ícono animado */}
         <div className="relative mx-auto w-20 h-20 md:w-24 md:h-24 mb-7 group">
-          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-blue-400/30 rounded-full border-b-transparent animate-[spin_6s_linear_infinite_reverse]" />
+          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
+          <div className="absolute -inset-2 border border-blue-400/30 rounded-full border-b-transparent motion-safe:animate-[spin_6s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.4)]">
-            <Calendar className="w-8 h-8 md:w-10 md:h-10 text-white" />
-            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 animate-pulse" />
+            <Calendar className="w-8 h-8 md:w-10 md:h-10 text-white" aria-hidden="true" />
+            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
           </div>
         </div>
 
         <div className="max-w-4xl mx-auto">
           {/* Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/40 border border-blue-500/30 text-blue-200 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-5 backdrop-blur-md">
-            <Signal className="w-3 h-3 text-yellow-400 animate-pulse" />
+            <Signal className="w-3 h-3 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
             Horarios en Vivo
           </div>
 
@@ -60,11 +60,11 @@ export default function ProgramacionHeroSection() {
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-sm text-blue-100/90 text-sm">
-              <Clock className="w-4 h-4 text-blue-400" />
+              <Clock className="w-4 h-4 text-blue-400" aria-hidden="true" />
               <span>Zona Horaria: Perú (GMT-5)</span>
             </div>
             <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 backdrop-blur-sm text-yellow-200 text-sm">
-              <Radio className="w-4 h-4 text-yellow-400 animate-pulse" />
+              <Radio className="w-4 h-4 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
               <span>Transmisión 24/7</span>
             </div>
           </div>

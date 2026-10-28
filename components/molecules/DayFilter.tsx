@@ -27,7 +27,7 @@ export default function DayFilter({ selectedDays, onDayToggle }: DayFilterProps)
             key={dia.value}
             onClick={() => onDayToggle(dia.value)}
             className={cn(
-              'px-4 py-2 rounded-lg font-medium transition-all',
+              'px-4 py-2 rounded-lg font-medium transition',
               'border-2',
               isSelected
                 ? 'bg-blue-900 text-white border-blue-900 shadow-lg scale-105'

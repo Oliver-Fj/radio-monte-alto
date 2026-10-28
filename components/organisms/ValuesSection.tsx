@@ -48,7 +48,7 @@ const LuxuryValueCard = ({ value, index }: { value: typeof values[0], index: num
       <div className="absolute -inset-0.5 bg-gradient-to-r from-yellow-600 to-yellow-400 rounded-2xl opacity-0 group-hover:opacity-70 transition duration-500 blur"></div>
       
       {/* Contenedor Principal */}
-      <div className="relative h-full bg-[#0f1623] border border-white/10 group-hover:border-transparent rounded-2xl p-8 flex flex-col items-start transition-all duration-300 overflow-hidden">
+      <div className="relative h-full bg-[#0f1623] border border-white/10 group-hover:border-transparent rounded-2xl p-8 flex flex-col items-start transition duration-300 overflow-hidden">
         
         {/* Número de fondo sutil */}
         <span className="absolute -right-4 -top-4 text-9xl font-serif font-bold text-white/[0.02] group-hover:text-yellow-500/[0.05] transition-colors select-none pointer-events-none">
@@ -85,7 +85,7 @@ const LuxuryValueCard = ({ value, index }: { value: typeof values[0], index: num
 // --- SECCIÓN PRINCIPAL ---
 export default function ValuesSection() {
   return (
-    <section className="relative py-24 bg-[#0B1120] overflow-hidden font-sans">
+    <section className="relative py-24 bg-slate-950 overflow-hidden font-sans">
       
       {/* --- FONDO AMBIENTAL --- */}
       <div className="absolute inset-0 pointer-events-none">
@@ -98,7 +98,7 @@ export default function ValuesSection() {
         {/* --- HEADER --- */}
         <div className="text-center mb-20 max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-6 shadow-[0_0_20px_rgba(234,179,8,0.15)]">
-             <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" />
+             <Star className="w-3 h-3 text-yellow-500 fill-yellow-500" aria-hidden="true" />
              <span className="text-xs font-bold tracking-[0.2em] text-yellow-500 uppercase">Nuestra Esencia</span>
           </div>
           

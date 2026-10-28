@@ -12,13 +12,13 @@ export default function PrivacidadPage() {
       <div className="container mx-auto px-4 py-16 max-w-3xl">
 
         <Link href="/" className="inline-flex items-center gap-2 text-slate-400 hover:text-yellow-400 transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4" aria-hidden="true" />
           Volver al inicio
         </Link>
 
         <div className="flex items-center gap-4 mb-10">
           <div className="p-3 rounded-full bg-yellow-500/10 border border-yellow-500/20">
-            <Shield className="w-6 h-6 text-yellow-500" />
+            <Shield className="w-6 h-6 text-yellow-500" aria-hidden="true" />
           </div>
           <h1 className="text-3xl md:text-4xl font-serif font-bold">Política de Privacidad</h1>
         </div>

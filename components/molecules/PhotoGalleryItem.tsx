@@ -14,13 +14,13 @@ export default function PhotoGalleryItem({ src, alt, caption }: PhotoGalleryItem
   const [isLoaded, setIsLoaded] = useState(false);
 
   return (
-    <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 border-gray-200 hover:border-blue-400">
+    <div className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition duration-300 cursor-pointer border-2 border-gray-200 hover:border-blue-400">
       <div className="relative aspect-[4/3] bg-gray-200">
         <Image
           src={publicPath(src)}
           alt={alt}
           fill
-          className={`object-cover transition-all duration-500 ${
+          className={`object-cover transition duration-500 ${
             isLoaded ? 'scale-100 opacity-100' : 'scale-110 opacity-0'
           } group-hover:scale-110`}
           onLoad={() => setIsLoaded(true)}

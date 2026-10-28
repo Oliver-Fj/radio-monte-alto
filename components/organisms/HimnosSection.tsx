@@ -72,24 +72,24 @@ function HimnoViewer({ himno }: { himno: Himno }) {
   };
 
   return (
-    <div className="animate-in fade-in duration-500">
+    <div className="motion-safe:animate-in motion-safe:fade-in duration-500">
       {/* Cabecera del himno */}
-      <header className="mb-8 border-b-[3px] border-double border-amber-700/30 pb-6 text-center">
-        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-amber-700/70">
+      <header className="mb-8 border-b-[3px] border-double border-emerald-700/25 pb-6 text-center">
+        <p className="mb-2 text-[10px] font-bold uppercase tracking-[0.35em] text-emerald-700/70">
           Letra completa
         </p>
-        <h3 className="font-serif text-3xl font-bold leading-tight text-[#2b2013] md:text-4xl">
+        <h3 className="font-serif text-3xl font-bold leading-tight text-[#0B3728] md:text-4xl">
           {himno.titulo}
         </h3>
         {himno.subtitulo && (
-          <p className="mt-1.5 text-sm italic text-[#6b5636]">{himno.subtitulo}</p>
+          <p className="mt-1.5 text-sm italic text-[#3F6D58]">{himno.subtitulo}</p>
         )}
 
         <div className="mt-5 flex flex-wrap justify-center gap-2">
           <button
             type="button"
             onClick={copiarLetra}
-            className="inline-flex items-center gap-2 rounded-full border border-amber-800/25 bg-amber-900/5 px-4 py-2 text-xs font-semibold text-[#6b5636] transition-all duration-300 hover:border-amber-700/40 hover:bg-amber-900/10 hover:text-[#2b2013]"
+            className="inline-flex items-center gap-2 rounded-full border border-emerald-800/25 bg-emerald-900/5 px-4 py-2 text-xs font-semibold text-[#3F6D58] transition duration-300 hover:border-emerald-700/40 hover:bg-emerald-900/10 hover:text-[#0B3728]"
           >
             {copiado ? (
               <Check className="h-3.5 w-3.5 text-emerald-700" aria-hidden />
@@ -101,7 +101,7 @@ function HimnoViewer({ himno }: { himno: Himno }) {
           <button
             type="button"
             onClick={() => descargarPDF(himno)}
-            className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${himno.acento} px-4 py-2 text-xs font-bold text-[#2b2013] shadow-md transition-all duration-300 hover:shadow-lg hover:brightness-105`}
+            className={`inline-flex items-center gap-2 rounded-full bg-gradient-to-r ${himno.acento} px-4 py-2 text-xs font-bold text-[#0B3728] shadow-md transition duration-300 hover:shadow-lg hover:brightness-105`}
           >
             <Download className="h-3.5 w-3.5" aria-hidden />
             Descargar PDF
@@ -119,7 +119,7 @@ function HimnoViewer({ himno }: { himno: Himno }) {
                 <p
                   className={cn(
                     'mb-2 text-[11px] font-black uppercase tracking-[0.35em]',
-                    esCoro ? 'text-red-800/80' : 'text-amber-800/60',
+                    esCoro ? 'text-red-800/80' : 'text-emerald-800/60',
                   )}
                 >
                   {estrofa.titulo}
@@ -130,7 +130,7 @@ function HimnoViewer({ himno }: { himno: Himno }) {
                   key={j}
                   className={cn(
                     'font-serif text-[17px] leading-[1.9] md:text-lg',
-                    esCoro ? 'font-semibold text-[#241a0e]' : 'text-[#33281a]',
+                    esCoro ? 'font-semibold text-[#06281D]' : 'text-[#23503F]',
                   )}
                 >
                   {verso}
@@ -143,13 +143,13 @@ function HimnoViewer({ himno }: { himno: Himno }) {
 
       {/* Cierre ornamental */}
       <div className="mt-9 flex items-center justify-center gap-3" aria-hidden>
-        <span className="h-px w-16 bg-gradient-to-r from-transparent to-amber-700/40" />
-        <span className="text-amber-700/60">&#10022;</span>
-        <span className="h-px w-16 bg-gradient-to-l from-transparent to-amber-700/40" />
+        <span className="h-px w-16 bg-gradient-to-r from-transparent to-emerald-700/40" />
+        <span className="text-emerald-700/60">&#10022;</span>
+        <span className="h-px w-16 bg-gradient-to-l from-transparent to-emerald-700/40" />
       </div>
 
       {himno.nota && (
-        <p className="mt-4 text-center text-[11px] uppercase tracking-[0.25em] text-amber-900/45">
+        <p className="mt-4 text-center text-[11px] uppercase tracking-[0.25em] text-emerald-900/45">
           {himno.nota}
         </p>
       )}
@@ -179,7 +179,7 @@ export default function HimnosSection() {
         {/* Encabezado */}
         <header className="mb-12 text-center">
           <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-yellow-500/20 bg-yellow-500/10 px-4 py-1.5">
-            <Music className="h-3.5 w-3.5 animate-pulse text-yellow-400" aria-hidden />
+            <Music className="h-3.5 w-3.5 motion-safe:animate-pulse text-yellow-400" aria-hidden />
             <span className="text-[11px] font-bold uppercase tracking-[0.25em] text-yellow-300">
               Himnos
             </span>
@@ -203,7 +203,7 @@ export default function HimnosSection() {
               onClick={() => setActivo(i)}
               aria-current={activo === i}
               className={cn(
-                'rounded-full px-5 py-2.5 text-sm font-bold transition-all duration-300',
+                'rounded-full px-5 py-2.5 text-sm font-bold transition duration-300',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950',
                 activo === i
                   ? `scale-105 bg-gradient-to-r ${h.acento} text-slate-900 shadow-lg`
@@ -219,12 +219,12 @@ export default function HimnosSection() {
         <div className="relative mx-auto max-w-3xl">
           <div
             aria-hidden
-            className="absolute -inset-3 rounded-[36px] bg-gradient-to-br from-amber-400/20 via-yellow-600/10 to-transparent blur-2xl"
+            className="absolute -inset-3 rounded-[36px] bg-gradient-to-br from-emerald-400/25 via-emerald-600/10 to-transparent blur-2xl"
           />
-          <div className="papel-pergamino relative rounded-[28px] border border-amber-800/30 p-7 shadow-[0_24px_90px_rgba(120,80,10,0.45)] ring-1 ring-inset ring-amber-100/70 md:p-10">
+          <div className="papel-pergamino relative rounded-[28px] border border-emerald-800/30 p-7 shadow-[0_24px_90px_rgba(11,55,40,0.35)] ring-1 ring-inset ring-emerald-100/70 md:p-10">
             <FileText
               aria-hidden
-              className="pointer-events-none absolute right-6 top-6 h-10 w-10 text-amber-900/10"
+              className="pointer-events-none absolute right-6 top-6 h-10 w-10 text-emerald-900/10"
             />
             <HimnoViewer key={himno?.id ?? activo} himno={himno} />
           </div>

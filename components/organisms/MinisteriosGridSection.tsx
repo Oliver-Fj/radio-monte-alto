@@ -10,11 +10,11 @@ const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 const MINISTERIOS = [
   {
-    icono: <Heart className="w-7 h-7"/>,
+    icono: <Heart className="w-7 h-7" aria-hidden="true" />,
     titulo: 'Clínica Celestial',
     subtitulo: 'Sanidad Espiritual y Física',
     descripcion: 'Un espacio de intercesión, oración y sanidad donde la gracia de Dios opera en la vida de los que vienen quebrantados y necesitados de Su toque sobrenatural.',
-    href: '/nuestra-iglesia/clinica',
+    href: '/clinica-celestial',
     imagen: `${B}/images/hero/slide1-desktop-1366.webp`,
     acento: 'from-red-600/70 to-red-900/80',
     badge: 'bg-red-500/15 border-red-400/30 text-red-200',
@@ -23,11 +23,11 @@ const MINISTERIOS = [
     tag: 'Ministerio de Salud',
   },
   {
-    icono: <Calendar className="w-7 h-7"/>,
+    icono: <Calendar className="w-7 h-7" aria-hidden="true" />,
     titulo: 'Cultos Dominicales',
     subtitulo: 'Encuentro Semanal de Fe',
     descripcion: 'Cada domingo nos congregamos para adorar, escuchar la Palabra predicada y ser edificados juntos como cuerpo de Cristo. Un encuentro transformador cada semana.',
-    href: '/nuestra-iglesia/cultos',
+    href: '/cultos-dominicales',
     imagen: `${B}/images/hero/slide2-desktop-1366.webp`,
     acento: 'from-blue-600/70 to-blue-900/80',
     badge: 'bg-blue-500/15 border-blue-400/30 text-blue-200',
@@ -36,11 +36,11 @@ const MINISTERIOS = [
     tag: 'Culto Principal',
   },
   {
-    icono: <MapPin className="w-7 h-7"/>,
+    icono: <MapPin className="w-7 h-7" aria-hidden="true" />,
     titulo: 'Filiales',
     subtitulo: 'El Evangelio sin Fronteras',
     descripcion: 'Con más de 10 filiales activas en diferentes ciudades, llevamos la presencia de Dios y la sana doctrina a cada comunidad donde Él nos ha abierto puertas.',
-    href: '/nuestra-iglesia/filiales',
+    href: '/filiales',
     imagen: `${B}/images/hero/slide3-desktop-1366.webp`,
     acento: 'from-emerald-600/70 to-emerald-900/80',
     badge: 'bg-emerald-500/15 border-emerald-400/30 text-emerald-200',
@@ -49,7 +49,7 @@ const MINISTERIOS = [
     tag: 'Red de Iglesias',
   },
   {
-    icono: <Radio className="w-7 h-7"/>,
+    icono: <Radio className="w-7 h-7" aria-hidden="true" />,
     titulo: 'Radio Monte Alto',
     subtitulo: 'La Voz del Reino las 24 Horas',
     descripcion: 'Nuestro principal instrumento de alcance. A través de las ondas radiales y el streaming, la Palabra de Dios llega a hogares, hospitales, cárceles y comunidades.',
@@ -62,11 +62,11 @@ const MINISTERIOS = [
     tag: 'Ministerio Radial',
   },
   {
-    icono: <Users className="w-7 h-7"/>,
+    icono: <Users className="w-7 h-7" aria-hidden="true" />,
     titulo: 'Ministerio Juvenil',
     subtitulo: 'Predestinados para Triunfar',
     descripcion: 'Los jóvenes son el futuro de la iglesia. Un ministerio vibrante que forma líderes con identidad en Cristo, propósito divino y un corazón apasionado por el evangelio.',
-    href: '/programacion',
+    href: '/ministerio-juvenil',
     imagen: `${B}/images/hero/slide2-desktop-1366.webp`,
     acento: 'from-purple-600/70 to-purple-900/80',
     badge: 'bg-purple-500/15 border-purple-400/30 text-purple-200',
@@ -75,11 +75,11 @@ const MINISTERIOS = [
     tag: 'Juventud',
   },
   {
-    icono: <BookOpen className="w-7 h-7"/>,
-    titulo: 'Escuela Bíblica',
-    subtitulo: 'Formación en la Sana Doctrina',
-    descripcion: 'Estudio sistemático de las Escrituras para creyentes que desean crecer en el conocimiento de Dios y ser equipados para la obra del ministerio cristiano.',
-    href: '/recursos',
+    icono: <BookOpen className="w-7 h-7" aria-hidden="true" />,
+    titulo: 'Discipulado Cristiano',
+    subtitulo: 'Crecer y ser equipado en la Palabra',
+    descripcion: 'Acompañamiento paso a paso para el nuevo creyente y estudio sistemático de las Escrituras para quienes desean crecer y ser equipados para servir.',
+    href: '/discipulado',
     imagen: `${B}/images/hero/slide3-desktop-1366.webp`,
     acento: 'from-cyan-600/70 to-cyan-900/80',
     badge: 'bg-cyan-500/15 border-cyan-400/30 text-cyan-200',
@@ -92,10 +92,10 @@ const MINISTERIOS = [
 function MinisterioCard({ m, i, visible }: { m: typeof MINISTERIOS[0]; i: number; visible: boolean }) {
   return (
     <div className="group relative"
-      style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(40px)', transition:`all 0.9s cubic-bezier(0.16,1,0.3,1) ${i*100}ms` }}>
-      <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-600 blur-md pointer-events-none"
+      style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(40px)', transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${i*100}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${i*100}ms` }}>
+      <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition duration-600 blur-md pointer-events-none"
         style={{ background:`radial-gradient(ellipse,rgba(${m.glow},0.25),transparent 70%)` }} />
-      <div className="relative h-full rounded-3xl overflow-hidden border border-white/7 group-hover:border-white/15 transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
+      <div className="relative h-full rounded-3xl overflow-hidden border border-white/7 group-hover:border-white/15 transition duration-500 group-hover:-translate-y-1 group-hover:shadow-2xl">
         {/* Imagen */}
         <div className="relative h-44 overflow-hidden">
           <Image src={publicPath(m.imagen)} alt={m.titulo} fill className="object-cover transition-transform duration-[1200ms] group-hover:scale-110" sizes="(max-width:640px)100vw,(max-width:1024px)50vw,33vw" />
@@ -118,7 +118,7 @@ function MinisterioCard({ m, i, visible }: { m: typeof MINISTERIOS[0]; i: number
             <span className="text-slate-500 text-xs">{m.horario}</span>
             <Link href={m.href} className={`inline-flex items-center gap-1.5 text-xs font-bold transition-colors duration-300`}
               style={{ color:`rgba(${m.glow},0.9)` }}>
-              Conocer más <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+              Conocer más <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
           </div>
         </div>
@@ -142,9 +142,9 @@ export default function MinisteriosGridSection() {
         <div className="absolute top-0 w-full h-px bg-gradient-to-r from-transparent via-yellow-500/20 to-transparent" />
       </div>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-14" style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(24px)', transition:'all 0.7s' }}>
+        <div className="text-center mb-14" style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(24px)', transition: 'opacity 0.7s, transform 0.7s' }}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-5">
-            <Sparkles className="w-3.5 h-3.5 text-yellow-400 animate-pulse" />
+            <Sparkles className="w-3.5 h-3.5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Ministerios</span>
           </div>
           <GoldTitle>Áreas de Servicio</GoldTitle>

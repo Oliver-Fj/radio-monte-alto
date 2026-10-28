@@ -56,7 +56,7 @@ export default function ClinicaComoFuncionaSection() {
               return (
                 <div 
                   key={index} 
-                  className={`relative bg-white rounded-xl shadow-lg p-8 border-2 ${paso.borderColor} hover:shadow-2xl hover:-translate-y-1 transition-all duration-300`}
+                  className={`relative bg-white rounded-xl shadow-lg p-8 border-2 ${paso.borderColor} hover:shadow-2xl hover:-translate-y-1 transition duration-300`}
                 >
                   {/* Número decorativo */}
                   <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-gray-100 to-gray-200 rounded-full flex items-center justify-center shadow-lg border-4 border-white">
@@ -80,7 +80,7 @@ export default function ClinicaComoFuncionaSection() {
           <div className="mt-12 bg-gradient-to-r from-red-50 via-orange-50 to-yellow-50 border-l-4 border-red-600 p-6 rounded-r-xl">
             <div className="flex items-start gap-4">
               <div className="w-10 h-10 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                <Flame className="w-6 h-6 text-white" />
+                <Flame className="w-6 h-6 text-white" aria-hidden="true" />
               </div>
               <div>
                 <h4 className="text-xl font-bold text-red-900 mb-2">Requisito Importante</h4>

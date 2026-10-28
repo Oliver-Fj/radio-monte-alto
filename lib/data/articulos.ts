@@ -49,7 +49,7 @@ export const articulos: Articulo[] = [
       { tipo: 'subtitulo', texto: '¿Qué es la fe verdadera?' },
       { tipo: 'parrafo', texto: 'La fe no es un sentimiento. Muchas personas confunden la fe con la emoción, pensando que si no sienten algo intenso en su interior, no tienen fe. Pero la Biblia nos dice que "la fe es la certeza de lo que se espera, la convicción de lo que no se ve" (Hebreos 11:1).' },
       { tipo: 'parrafo', texto: 'La fe es una decisión. Es elegir creer en la Palabra de Dios por encima de lo que ven tus ojos, lo que siente tu corazón o lo que dice el mundo. Es poner todo el peso de tu existencia sobre las promesas de Aquel que no puede mentir.' },
-      { tipo: 'cita', texto: 'La fe no hace que las cosas sean fáciles, las hace posibles.', referencia: 'Luke 1:37' },
+      { tipo: 'cita', texto: 'La fe no hace que las cosas sean fáciles, las hace posibles.' },
       { tipo: 'subtitulo', texto: 'El grano de mostaza' },
       { tipo: 'parrafo', texto: 'Jesús eligió deliberadamente la semilla más pequeña que sus oyentes conocían. No dijo "si tienes fe como un roble" o "si tienes fe como una montaña". Dijo como un grano de mostaza. ¿Por qué? Porque el tamaño de tu fe no es lo que determina el resultado — el objeto de tu fe sí.' },
       { tipo: 'parrafo', texto: 'Una pequeña fe depositada en un gran Dios produce resultados extraordinarios. El problema no es que nuestra fe sea pequeña; el problema es que muchas veces depositamos esa fe pequeña en nosotros mismos, en otras personas, o en las circunstancias.' },

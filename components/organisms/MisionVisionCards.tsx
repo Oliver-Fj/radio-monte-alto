@@ -41,7 +41,7 @@ export default function MisionVisionCards() {
         <div className="absolute bottom-0 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent" />
       </div>
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-14" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'all 0.7s' }}>
+        <div className="text-center mb-14" style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(24px)', transition: 'opacity 0.7s, transform 0.7s' }}>
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/20 mb-5">
             <Compass className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
             <span className="text-yellow-300 text-[11px] font-bold tracking-[0.25em] uppercase">Nuestra Identidad</span>
@@ -55,7 +55,7 @@ export default function MisionVisionCards() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
           {CARDS.map(({ icon: Icon, titulo, texto, theme }, i) => (
             <div key={titulo}
-              style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(40px)', transition: `all 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 130}ms` }}>
+              style={{ opacity: visible ? 1 : 0, transform: visible ? 'translateY(0)' : 'translateY(40px)', transition: `opacity 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 130}ms, transform 0.9s cubic-bezier(0.16,1,0.3,1) ${i * 130}ms` }}>
               <GlassCard3D theme={theme} icon={<Icon className="w-5 h-5" aria-hidden="true" />} className="h-full">
                 <div className="px-7 pb-7 pt-24 md:pt-28">
                   <h3 className="text-2xl font-serif font-bold [color:var(--g3-title)]">{titulo}</h3>

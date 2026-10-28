@@ -47,7 +47,7 @@ export default function ArticleCard({
         {/* Badge de categoria */}
         <div className="absolute top-4 left-4">
           <span className="bg-yellow-500 text-blue-900 px-3 py-1 rounded-full text-xs font-bold shadow-lg flex items-center gap-1">
-            <Tag className="w-3 h-3" />
+            <Tag className="w-3 h-3" aria-hidden="true" />
             {categoria}
           </span>
         </div>
@@ -67,11 +67,11 @@ export default function ArticleCard({
         {/* Meta info - SIN AUTOR, con tiempo de lectura */}
         <div className="flex items-center justify-between text-sm text-gray-500 mb-4 pb-4 border-b border-gray-200">
           <span className="flex items-center gap-1">
-            <Calendar className="w-4 h-4" />
+            <Calendar className="w-4 h-4" aria-hidden="true" />
             {fecha}
           </span>
           <span className="flex items-center gap-1">
-            <Clock className="w-4 h-4" />
+            <Clock className="w-4 h-4" aria-hidden="true" />
             {tiempoLectura} lectura
           </span>
         </div>
@@ -79,10 +79,10 @@ export default function ArticleCard({
         {/* Boton leer mas */}
         <Link
           href={`/recursos/${id}`}
-          className="flex items-center justify-center gap-2 bg-blue-900 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-all group-hover:gap-3"
+          className="flex items-center justify-center gap-2 bg-blue-900 text-white px-4 py-3 rounded-lg font-semibold hover:bg-blue-800 transition-[background-color,gap] group-hover:gap-3"
         >
           Leer mas
-          <ArrowRight className="w-4 h-4" />
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
       </div>
     </Card>

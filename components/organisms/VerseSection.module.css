@@ -1,0 +1,118 @@
+/*
+ * Cita en globo de diálogo (adaptada del blockquote que pasó el usuario):
+ * marco redondeado de 2 px, texto rojo con frases resaltadas en blanco,
+ * cola del globo con h1:after y autor (h4) desplazado a la derecha.
+ *
+ * En el original la cola se abre tapando el borde con una barra del color
+ * del fondo (::before). Aquí el fondo es una foto con degradado, así que
+ * el marco se dibuja en un elemento propio y el hueco se recorta con una
+ * máscara: funciona sobre cualquier fondo y en ambos temas.
+ */
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.blockquote {
+  --rojo: #e74848;
+  position: relative;
+  max-width: 820px;
+  margin: 0 auto 80px;
+  align-self: center;
+}
+
+.blockquote .texto {
+  position: relative;
+  margin: 0;
+  padding: 25px;
+  color: var(--rojo);
+  font-weight: 400;
+  font-size: 1.9rem;
+  line-height: 1.2;
+}
+
+/* Marco de 2 px con el hueco para la cola */
+.marco {
+  position: absolute;
+  inset: 0;
+  border: solid 2px var(--rojo);
+  border-radius: 20px;
+  pointer-events: none;
+  -webkit-mask:
+    linear-gradient(#000 0 0) 50px 100% / 80px 6px no-repeat,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) 50px 100% / 80px 6px no-repeat exclude,
+    linear-gradient(#000 0 0);
+}
+
+/* Cola del globo */
+.blockquote .texto::after {
+  content: '';
+  position: absolute;
+  border: 2px solid var(--rojo);
+  border-radius: 0 50px 0 0;
+  width: 60px;
+  height: 60px;
+  bottom: -60px;
+  left: 50px;
+  border-bottom: none;
+  border-left: none;
+  z-index: 3;
+}
+
+.blockquote .texto .resaltado {
+  color: #ffffff;
+}
+
+/* Textos cortos: tamaño del original; largos: algo menor para que quepan */
+@media all and (min-width: 600px) {
+  .blockquote .texto {
+    font-size: 2.5rem;
+    line-height: 1.2;
+  }
+  .blockquote .texto.largo {
+    font-size: 2rem;
+  }
+}
+
+@media all and (min-width: 1000px) {
+  .blockquote .texto {
+    font-size: 3.4rem;
+  }
+  .blockquote .texto.largo {
+    font-size: 2.4rem;
+  }
+}
+
+.blockquote .autor {
+  position: relative;
+  color: #ffffff;
+  font-size: 1.3rem;
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0;
+  padding-top: 15px;
+  z-index: 1;
+  margin-left: 150px;
+  padding-left: 12px;
+}
+
+.blockquote .autor em {
+  display: block;
+  margin-top: 4px;
+  font-size: 0.8rem;
+  font-style: normal;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* Tema claro: el blanco no se leería sobre el fondo claro */
+:global(html.light) .blockquote .texto .resaltado,
+:global(html.light) .blockquote .autor {
+  color: #0e3f5c;
+}

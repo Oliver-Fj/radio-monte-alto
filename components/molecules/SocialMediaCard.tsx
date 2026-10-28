@@ -22,7 +22,7 @@ export default function SocialMediaCard({
       rel="noopener noreferrer"
       className="group"
     >
-      <div className={`bg-white border-2 border-gray-300 rounded-xl p-6 hover:border-${color} hover:shadow-2xl transition-all duration-300 h-full`}>
+      <div className={`bg-white border-2 border-gray-300 rounded-xl p-6 hover:border-${color} hover:shadow-2xl transition duration-300 h-full`}>
         <div className="flex items-center gap-4">
           <div className={`w-14 h-14 bg-${color} bg-opacity-10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform`}>
             <Icon className={`w-7 h-7 text-${color}`} />

@@ -129,7 +129,7 @@ export default function EventoModal({ evento, onCerrar }: EventoModalProps) {
                   : 'border-white/15 bg-slate-800 text-slate-300',
               )}
             >
-              {esProximo && <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />}
+              {esProximo && <span className="h-1.5 w-1.5 motion-safe:animate-pulse rounded-full bg-emerald-400" />}
               {esProximo ? 'Próximo evento' : 'Evento realizado'}
             </span>
           </div>

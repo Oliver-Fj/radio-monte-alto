@@ -20,7 +20,7 @@ export default function TestimonioCard({
     <Card hover className="border-2 border-gray-300 h-full">
       <div className="flex flex-col h-full">
         {/* Icono de comillas */}
-        <Quote className="w-10 h-10 text-blue-900 mb-4 opacity-50" />
+        <Quote className="w-10 h-10 text-blue-900 mb-4 opacity-50" aria-hidden="true" />
         
         {/* Testimonio */}
         <p className="text-gray-700 italic leading-relaxed mb-6 flex-1">

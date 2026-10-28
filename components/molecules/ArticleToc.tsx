@@ -48,7 +48,7 @@ export default function ArticleToc({ items }: { items: TocItem[] }) {
 
   return (
     <nav aria-label="Índice del artículo" className="lg:sticky lg:top-28">
-      <p className="text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-yellow-500 mb-4">
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-yellow-500 mb-4">
         En este artículo
       </p>
 
@@ -67,14 +67,14 @@ export default function ArticleToc({ items }: { items: TocItem[] }) {
               <a
                 href={`#${item.id}`}
                 aria-current={esActivo ? 'true' : undefined}
-                className={`group flex items-start gap-3 py-2 pl-4 pr-3 rounded-r-lg text-sm transition-all duration-300 ${
+                className={`group flex items-start gap-3 py-2 pl-4 pr-3 rounded-r-lg text-sm transition duration-300 ${
                   esActivo
-                    ? 'bg-yellow-500/10 text-yellow-200 font-semibold'
+                    ? 'toc-activo bg-yellow-500/10 text-yellow-200 font-semibold'
                     : 'text-slate-500 hover:text-slate-200 hover:bg-white/5'
                 }`}
               >
                 <span
-                  className={`font-mono text-[10px] pt-0.5 tabular-nums transition-colors ${
+                  className={`text-[10px] pt-0.5 tabular-nums transition-colors ${
                     esActivo ? 'text-yellow-400' : 'text-slate-600 group-hover:text-slate-400'
                   }`}
                 >
@@ -87,7 +87,7 @@ export default function ArticleToc({ items }: { items: TocItem[] }) {
         })}
       </ol>
 
-      <p className="mt-5 pl-4 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-600">
+      <p className="mt-5 pl-4 text-[10px] uppercase tracking-[0.2em] text-slate-600">
         {String(indiceActivo + 1).padStart(2, '0')} / {String(items.length).padStart(2, '0')} secciones
       </p>
     </nav>

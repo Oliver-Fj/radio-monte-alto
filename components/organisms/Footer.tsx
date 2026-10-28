@@ -41,6 +41,9 @@ const NAV = [
 
 const MINISTERIO = [
   { label: 'Nuestra Iglesia',    href: '/nuestra-iglesia' },
+  { label: 'Discipulado',        href: '/discipulado' },
+  { label: 'Ministerio Juvenil', href: '/ministerio-juvenil' },
+  { label: 'Peticiones de oración', href: '/oracion' },
   { label: 'Clínica Celestial',  href: '/clinica-celestial' },
   { label: 'Cultos Dominicales', href: '/cultos-dominicales' },
   { label: 'Filiales',           href: '/filiales' },
@@ -50,7 +53,7 @@ const MINISTERIO = [
 /* ──────────── BOTÓN SOCIAL (hover fill + rotación 360 — igual que antes) ──────────── */
 function SocialButton({ icon: Icon, href, bg, label }: { icon: ComponentType<{ className?: string }>; href: string; bg: string; label: string }) {
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} data-keep-dark
       className="relative w-11 h-11 rounded-full border-2 border-white bg-white overflow-hidden shadow-lg group mx-1 block">
       <div className="absolute top-full left-0 w-full h-full transition-all duration-500 ease-in-out group-hover:top-0"
         style={{ backgroundColor: bg }} />
@@ -71,7 +74,7 @@ export default function Footer() {
       {/* ── Línea dorada superior animada ── */}
       <div className="relative h-[3px] w-full">
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-500 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-transparent animate-pulse opacity-50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-yellow-200 to-transparent motion-safe:animate-pulse opacity-50" />
       </div>
 
       {/* ── Fondos decorativos ── */}
@@ -124,8 +127,8 @@ export default function Footer() {
                 {NAV.map(link => (
                   <li key={link.label}>
                     <Link href={link.href}
-                      className="group flex items-center gap-2 text-slate-400 hover:text-yellow-300 transition-all duration-300 text-sm py-1">
-                      <span className="w-0 group-hover:w-3 h-[1px] bg-yellow-400 transition-all duration-300 rounded-full" />
+                      className="group flex items-center gap-2 text-slate-400 hover:text-yellow-300 transition duration-300 text-sm py-1">
+                      <span aria-hidden="true" className="w-0 group-hover:w-3 group-focus-visible:w-3 h-[1px] bg-yellow-400 transition-[width] duration-300 rounded-full" />
                       {link.label}
                     </Link>
                   </li>
@@ -141,8 +144,8 @@ export default function Footer() {
                 {MINISTERIO.map(link => (
                   <li key={link.label}>
                     <Link href={link.href}
-                      className="group flex items-center gap-2 text-slate-400 hover:text-yellow-300 transition-all duration-300 text-sm py-1">
-                      <span className="w-0 group-hover:w-3 h-[1px] bg-yellow-400 transition-all duration-300 rounded-full" />
+                      className="group flex items-center gap-2 text-slate-400 hover:text-yellow-300 transition duration-300 text-sm py-1">
+                      <span aria-hidden="true" className="w-0 group-hover:w-3 group-focus-visible:w-3 h-[1px] bg-yellow-400 transition-[width] duration-300 rounded-full" />
                       {link.label}
                     </Link>
                   </li>
@@ -166,7 +169,7 @@ export default function Footer() {
                     <a href="https://wa.me/51985796588"
                       className="group flex items-start gap-3 text-slate-400 hover:text-white transition-colors duration-300 text-sm">
                       <span className="mt-0.5 w-7 h-7 rounded-lg bg-yellow-500/10 border border-yellow-500/15 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-500/20 transition-colors">
-                        <Phone className="w-3.5 h-3.5 text-yellow-400" />
+                        <Phone className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
                       </span>
                       +51 985 796 588
                     </a>
@@ -174,7 +177,7 @@ export default function Footer() {
                   <li>
                     <div className="flex items-start gap-3 text-slate-400 text-sm">
                       <span className="mt-0.5 w-7 h-7 rounded-lg bg-yellow-500/10 border border-yellow-500/15 flex items-center justify-center flex-shrink-0">
-                        <MapPin className="w-3.5 h-3.5 text-yellow-400" />
+                        <MapPin className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
                       </span>
                       <span>Huancayo, Junín<br /><span className="text-slate-500 text-xs">Perú</span></span>
                     </div>
@@ -183,7 +186,7 @@ export default function Footer() {
                     <a href="mailto:contacto@radiomontealto.com"
                       className="group flex items-start gap-3 text-slate-400 hover:text-white transition-colors duration-300 text-sm">
                       <span className="mt-0.5 w-7 h-7 rounded-lg bg-yellow-500/10 border border-yellow-500/15 flex items-center justify-center flex-shrink-0 group-hover:bg-yellow-500/20 transition-colors">
-                        <Mail className="w-3.5 h-3.5 text-yellow-400" />
+                        <Mail className="w-3.5 h-3.5 text-yellow-400" aria-hidden="true" />
                       </span>
                       <span className="break-all">contacto@radiomontealto.com</span>
                     </a>
@@ -223,7 +226,7 @@ export default function Footer() {
               <Link href="/privacidad" className="hover:text-yellow-400 transition-colors">Privacidad</Link>
               <Link href="/terminos" className="hover:text-yellow-400 transition-colors">Términos</Link>
               <span className="flex items-center gap-1 opacity-50">
-                Hecho con <Heart className="w-3 h-3 text-red-500 fill-red-500 mx-0.5" /> por la Gracia de Dios
+                Hecho con <Heart className="w-3 h-3 text-red-500 fill-red-500 mx-0.5" aria-hidden="true" /> por la Gracia de Dios
               </span>
             </div>
           </div>

@@ -45,7 +45,7 @@ export default function FilialesMapaSection() {
             {stats.map(({ icon: Icon, valor, etiqueta, color }) => (
               <div
                 key={etiqueta}
-                className="flex items-center gap-4 bg-white rounded-2xl border-2 border-gray-100 shadow-lg px-6 py-5 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+                className="flex items-center gap-4 bg-white rounded-2xl border-2 border-gray-100 shadow-lg px-6 py-5 hover:shadow-xl hover:-translate-y-1 transition duration-300"
               >
                 <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${color} shadow-md flex items-center justify-center`}>
                   <Icon className="w-6 h-6 text-white" aria-hidden="true" />

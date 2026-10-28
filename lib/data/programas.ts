@@ -5,7 +5,7 @@ const B = process.env.NEXT_PUBLIC_BASE_PATH || '';
 
 // PARA SUBIR TU PROPIA CARÁTULA: coloca el archivo en public/images/programas/
 // y cambia el campo `imagen` del programa a `${B}/images/programas/tu-archivo.webp`.
-// Los programas sin carátula propia usan una imagen provisional del hero.
+// Todas las carátulas son los logos oficiales de cada programa (1080×1080).
 
 export const programas: Programa[] = [
   {
@@ -35,7 +35,7 @@ export const programas: Programa[] = [
     horario: '07:00 - 08:00',
     dias: ['L', 'M', 'X', 'J', 'V'],
     categoria: 'Mision',
-    imagen: `${B}/images/hero/slide3-desktop-1366.webp`,
+    imagen: `${B}/images/programas/vision-misionera.webp`,
     publicoObjetivo: 'Público general',
   },
   {
@@ -45,7 +45,7 @@ export const programas: Programa[] = [
     horario: '15:00 - 16:00',
     dias: ['S'],
     categoria: 'Ninos',
-    imagen: `${B}/images/hero/slide1-desktop-1366.webp`,
+    imagen: `${B}/images/programas/joyas-de-cristo.webp`,
     publicoObjetivo: 'Niños',
   },
   {
@@ -55,7 +55,7 @@ export const programas: Programa[] = [
     horario: '16:00 - 17:00',
     dias: ['L', 'M', 'X', 'J', 'V'],
     categoria: 'Ensenanza',
-    imagen: `${B}/images/hero/slide2-desktop-1366.webp`,
+    imagen: `${B}/images/programas/forjandonos-vida-eterna.webp`,
     publicoObjetivo: 'Público general',
   },
   {
@@ -75,7 +75,7 @@ export const programas: Programa[] = [
     horario: '18:00 - 19:00',
     dias: ['L', 'M', 'X', 'J', 'V'],
     categoria: 'Oracion',
-    imagen: `${B}/images/hero/slide1-desktop-1366.webp`,
+    imagen: `${B}/images/programas/pesca-milagrosa.webp`,
     publicoObjetivo: 'Público general',
   },
   {
@@ -85,7 +85,7 @@ export const programas: Programa[] = [
     horario: '18:00 - 19:00',
     dias: ['S'],
     categoria: 'Ensenanza',
-    imagen: `${B}/images/hero/slide2-desktop-1366.webp`,
+    imagen: `${B}/images/programas/tras-las-huellas.webp`,
     publicoObjetivo: 'Público general',
   },
   {
@@ -95,7 +95,7 @@ export const programas: Programa[] = [
     horario: '19:00 - 20:00',
     dias: ['S'],
     categoria: 'Juventud',
-    imagen: `${B}/images/hero/slide3-desktop-1366.webp`,
+    imagen: `${B}/images/programas/jovenes.webp`,
     publicoObjetivo: 'Jóvenes',
   },
 ];

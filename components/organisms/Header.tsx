@@ -4,15 +4,19 @@ import { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
-import { Menu, X, ChevronDown, Sparkles } from 'lucide-react';
+import { ChevronDown, Sparkles } from 'lucide-react';
+import IconoHamburguesa from '@/components/atoms/IconoHamburguesa';
 import PlayButton from '@/components/molecules/PlayButton';
 import ThemeToggle from '@/components/molecules/ThemeToggle';
+
+// Anillo de foco visible para teclado (no aparece al hacer clic)
+const F = 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/80';
 
 const navLinks = [
   { name: 'Inicio', href: '/' },
   { name: 'Nosotros', href: '/nosotros' },
   { name: 'Eventos', href: '/eventos' },
-  { name: 'Programacion', href: '/programacion' },
+  { name: 'Programación', href: '/programacion' },
   { name: 'Recursos', href: '/recursos' },
   {
     name: 'Nuestra Iglesia',
@@ -20,7 +24,10 @@ const navLinks = [
     submenu: [
       { name: 'Clínica Celestial', href: '/clinica-celestial' },
       { name: 'Cultos Dominicales', href: '/cultos-dominicales' },
+      { name: 'Discipulado Cristiano', href: '/discipulado' },
+      { name: 'Ministerio Juvenil', href: '/ministerio-juvenil' },
       { name: 'Filiales', href: '/filiales' },
+      { name: 'Peticiones de oración', href: '/oracion' },
       { name: 'Contacto', href: '/contacto' },
     ]
   },
@@ -30,6 +37,7 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const pathname = usePathname(); // ✅ Navegación real de Next.js
 
   const handleMouseEnter = () => {
@@ -56,6 +64,19 @@ export default function Header() {
     };
   }, []);
 
+  // El menú móvil se cierra con Escape y devuelve el foco al botón.
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setMobileMenuOpen(false);
+        menuButtonRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileMenuOpen]);
+
   const isActiveLink = (href: string) => pathname === href;
   const isParentActive = (submenu: { href: string }[]) => {
     return submenu.some(sub => pathname === sub.href);
@@ -69,11 +90,11 @@ export default function Header() {
     bg-gradient-to-t from-amber-900/30 to-transparent
     border-b-2 border-amber-400 
     shadow-[0_10px_20px_-5px_rgba(251,191,36,0.3)]
-    font-bold tracking-widest
+    font-bold tracking-[0.14em]
   `;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 border-b border-amber-500/10 shadow-2xl z-50 transition-all duration-300 font-sans ${mobileMenuOpen ? 'bg-slate-950' : 'bg-slate-900/95 backdrop-blur-xl'
+    <header className={`fixed top-0 left-0 right-0 border-b border-amber-500/10 shadow-2xl z-50 transition-colors duration-300 font-sans ${mobileMenuOpen ? 'bg-slate-950' : 'bg-slate-900/95 backdrop-blur-xl'
       }`}>
 
       {/* Línea inferior dorada sutil */}
@@ -84,7 +105,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
 
           {/* --- LOGO --- */}
-          <Link href="/" className="group flex items-center gap-3 transition-transform duration-300 hover:scale-[1.02]">
+          <Link href="/" aria-label="Radio Monte Alto, ir al inicio" className={`group flex items-center gap-3 rounded-xl transition-transform duration-300 hover:scale-[1.02] motion-reduce:hover:scale-100 ${F}`}>
 
             {/* Logo más pequeño proporcionalmente */}
             <div className="relative w-10 h-10 md:w-14 md:h-14 flex-shrink-0">
@@ -104,13 +125,13 @@ export default function Header() {
               </div>
               <div className="text-[10px] md:text-xs text-slate-400 font-serif italic tracking-wide flex items-center gap-1 opacity-80">
                 El Portavoz del Reino
-                <Sparkles className="w-2.5 h-2.5 text-amber-400 animate-pulse" />
+                <Sparkles className="w-2.5 h-2.5 text-amber-400 motion-safe:animate-pulse" aria-hidden="true" />
               </div>
             </div>
           </Link>
 
           {/* --- NAV DESKTOP --- */}
-          <nav className="hidden lg:flex items-center gap-1">
+          <nav aria-label="Navegación principal" className="hidden lg:flex items-center gap-1">
             {navLinks.map((link) => {
               const isDropdownParentActive = link.submenu && isParentActive(link.submenu);
               const isActive = isActiveLink(link.href) || isDropdownParentActive;
@@ -135,8 +156,9 @@ export default function Header() {
                     href={link.href}
                     aria-expanded={dropdownOpen}
                     aria-haspopup="true"
+                    aria-current={isActiveLink(link.href) ? 'page' : undefined}
                     className={`
-                      relative px-5 py-2.5 rounded-t-lg text-xs font-medium tracking-wide uppercase transition-all duration-300 flex items-center gap-1 group
+                      relative px-3 py-2 rounded-t-lg font-serif text-[11px] font-semibold tracking-[0.12em] uppercase whitespace-nowrap transition-colors duration-300 flex items-center gap-1 group ${F}
                       ${(dropdownOpen || isActive)
                         ? activeItemClass
                         : 'text-slate-300 hover:text-amber-200 hover:bg-white/5 border-b-2 border-transparent'
@@ -144,7 +166,7 @@ export default function Header() {
                     `}
                   >
                     {link.name}
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${dropdownOpen ? 'rotate-180 text-amber-400' : ''}`} />
+                    <ChevronDown aria-hidden="true" className={`w-3.5 h-3.5 transition-transform duration-300 ${dropdownOpen ? 'rotate-180 text-amber-400' : ''}`} />
 
                     {/* Destello extra para el activo */}
                     {isActive && (
@@ -156,7 +178,7 @@ export default function Header() {
                   {dropdownOpen && (
                     <div className="absolute top-full left-0 w-60">
                       {/* Fondo sólido: garantiza legibilidad sobre cualquier contenido */}
-                      <div className="bg-slate-950 border border-amber-500/20 rounded-b-xl rounded-tr-xl shadow-[0_20px_50px_-12px_rgba(0,0,0,0.9)] overflow-hidden">
+                      <div className="bg-slate-900 border border-amber-500/25 rounded-b-xl rounded-tr-xl shadow-[0_20px_50px_-12px_rgba(14,63,92,0.35)] overflow-hidden">
                         <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-amber-500 to-transparent" />
 
                         <div className="py-2">
@@ -167,8 +189,9 @@ export default function Header() {
                                 key={sublink.name}
                                 href={sublink.href}
                                 onClick={() => setDropdownOpen(false)}
+                                aria-current={isSubActive ? 'page' : undefined}
                                 className={`
-                                  block px-6 py-3 text-xs transition-all border-l-2 relative
+                                  block px-5 py-2.5 font-serif text-xs tracking-[0.06em] transition-colors border-l-2 relative focus-visible:outline-none focus-visible:bg-white/10 focus-visible:text-white
                                   ${isSubActive
                                     ? 'text-amber-300 bg-amber-900/20 border-amber-400 font-bold tracking-wider'
                                     : 'text-slate-400 hover:text-white hover:bg-white/5 border-transparent hover:border-amber-400/50'
@@ -176,7 +199,7 @@ export default function Header() {
                                 `}
                               >
                                 {sublink.name}
-                                {isSubActive && <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-amber-400" />}
+                                {isSubActive && <Sparkles aria-hidden="true" className="absolute right-4 top-1/2 -translate-y-1/2 w-3 h-3 text-amber-400" />}
                               </Link>
                             );
                           })}
@@ -189,8 +212,9 @@ export default function Header() {
                 <Link
                   key={link.name}
                   href={link.href}
+                  aria-current={isActiveLink(link.href) ? 'page' : undefined}
                   className={`
-                    relative px-5 py-2.5 rounded-t-lg text-xs font-medium tracking-wide uppercase transition-all duration-300
+                    relative px-3 py-2 rounded-t-lg font-serif text-[11px] font-semibold tracking-[0.12em] uppercase whitespace-nowrap transition-colors duration-300 ${F}
                     ${isActiveLink(link.href)
                       ? activeItemClass
                       : 'text-slate-300 hover:text-amber-200 hover:bg-white/5 border-b-2 border-transparent'
@@ -200,7 +224,7 @@ export default function Header() {
                   <span className="relative z-10">{link.name}</span>
                   {/* Luz ambiental para el activo */}
                   {isActiveLink(link.href) && (
-                    <div className="absolute inset-0 bg-amber-400/5 blur-sm z-0" />
+                    <div className="absolute inset-0 bg-amber-400/5 blur-sm z-0" aria-hidden="true" />
                   )}
                 </Link>
               );
@@ -208,20 +232,25 @@ export default function Header() {
           </nav>
 
           {/* --- ACCIONES --- */}
-          <div className="flex items-center gap-2 md:gap-4">
-            <ThemeToggle />
-            <div className="hidden md:block transform hover:scale-105 transition-transform duration-300">
+          <div className="flex items-center gap-2 md:gap-3">
+            {/* Primero la acción principal (escuchar), después el tema */}
+            <div className="hidden md:block transform hover:scale-105 motion-reduce:hover:scale-100 transition-transform duration-300">
               <PlayButton variant="header" />
+            </div>
+            <div className="hidden md:block">
+              <ThemeToggle />
             </div>
 
             <button
+              ref={menuButtonRef}
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               aria-expanded={mobileMenuOpen}
+              aria-controls="menu-movil"
               aria-label={mobileMenuOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
-              className="lg:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-300 hover:text-amber-400 hover:bg-white/10 rounded-full transition-all duration-300"
+              className={`lg:hidden p-1 min-w-[44px] min-h-[44px] flex items-center justify-center text-slate-300 hover:text-amber-400 hover:bg-white/10 rounded-full transition-colors duration-300 ${F}`}
             >
-              {mobileMenuOpen ? <X className="w-6 h-6" aria-hidden="true" /> : <Menu className="w-6 h-6" aria-hidden="true" />}
+              <IconoHamburguesa abierto={mobileMenuOpen} className="w-9 h-9" />
             </button>
           </div>
         </div>
@@ -229,9 +258,11 @@ export default function Header() {
 
       {/* --- MENÚ MÓVIL --- */}
       {mobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full bg-slate-950 border-t border-amber-500/20 shadow-2xl menu-slide-in max-h-[85dvh] overflow-y-auto"
+        <div
+          id="menu-movil"
+          className="lg:hidden absolute top-full left-0 w-full bg-slate-950 border-t border-amber-500/20 shadow-2xl menu-slide-in max-h-[85dvh] overflow-y-auto overscroll-contain"
         >
-          <nav className="container mx-auto px-4 py-6 flex flex-col gap-2">
+          <nav aria-label="Navegación principal" className="container mx-auto px-4 py-6 flex flex-col gap-2">
             {navLinks.map((link) => {
               const isDropdownParentActive = link.submenu && isParentActive(link.submenu);
               const isLinkActive = isActiveLink(link.href);
@@ -240,8 +271,9 @@ export default function Header() {
                 <div key={link.name}>
                   <Link
                     href={link.href}
+                    aria-current={isLinkActive ? 'page' : undefined}
                     className={`
-                      block px-4 py-3 text-center font-medium text-lg rounded-xl transition-all font-serif relative overflow-hidden
+                      block px-4 py-3 text-center font-medium text-lg rounded-xl transition-colors font-serif relative overflow-hidden ${F}
                       ${(isLinkActive || isDropdownParentActive)
                         ? `${goldTextClass} bg-gradient-to-r from-transparent via-amber-900/20 to-transparent font-bold border-y border-amber-500/20`
                         : 'text-slate-300 hover:text-white hover:bg-white/5'
@@ -251,7 +283,7 @@ export default function Header() {
                   >
                     {link.name}
                     {(isLinkActive || isDropdownParentActive) && (
-                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 shadow-[0_0_10px_#f59e0b]" />
+                      <div className="absolute left-0 top-0 bottom-0 w-1 bg-amber-500 shadow-[0_0_10px_#f59e0b]" aria-hidden="true" />
                     )}
                   </Link>
 
@@ -263,8 +295,9 @@ export default function Header() {
                           <Link
                             key={sublink.name}
                             href={sublink.href}
+                            aria-current={isSubActive ? 'page' : undefined}
                             className={`
-                              block px-4 py-3 text-center text-sm transition-colors
+                              block px-4 py-3 text-center text-sm transition-colors rounded-lg ${F}
                               ${isSubActive
                                 ? 'text-amber-300 font-bold bg-white/5'
                                 : 'text-slate-400 hover:text-amber-200'
@@ -282,8 +315,9 @@ export default function Header() {
               );
             })}
 
-            <div className="mt-6 flex justify-center md:hidden pb-4">
+            <div className="mt-6 flex items-center justify-center gap-3 md:hidden pb-4">
               <PlayButton variant="header" />
+              <ThemeToggle />
             </div>
           </nav>
         </div>

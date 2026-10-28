@@ -27,7 +27,7 @@ export default function PlayButton({
       onClick={scrollToPlayer}
       className={`bg-yellow-500 text-blue-900 ${sizeClasses} rounded-lg font-bold hover:bg-yellow-400 transition inline-flex items-center gap-2 shadow-xl hover:shadow-2xl active:scale-95`}
     >
-      <Play className="w-5 h-5 fill-blue-900" />
+      <Play className="w-5 h-5 fill-blue-900" aria-hidden="true" />
       {text}
     </button>
   );

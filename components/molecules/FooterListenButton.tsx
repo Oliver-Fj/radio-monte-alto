@@ -13,14 +13,14 @@ export default function FooterListenButton() {
       onClick={togglePlay}
       disabled={isLoading}
       aria-label={isPlaying ? 'Pausar la radio en vivo' : 'Escuchar la radio en vivo'}
-      className={`group inline-flex items-center gap-3 px-6 py-3 rounded-full font-bold text-sm shadow-lg transition-all duration-300 hover:scale-105 motion-reduce:hover:scale-100 ${
+      className={`group inline-flex items-center gap-3 px-6 py-3 rounded-full font-bold text-sm shadow-lg transition duration-300 hover:scale-105 motion-reduce:hover:scale-100 ${
         isPlaying
           ? 'bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-red-500/25 hover:shadow-red-500/40'
           : 'bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-900 shadow-yellow-500/25 hover:shadow-yellow-500/40'
       } ${isLoading ? 'opacity-75' : ''}`}
     >
       {isLoading ? (
-        <Loader2 className="w-4 h-4 animate-spin" aria-hidden="true" />
+        <Loader2 className="w-4 h-4 motion-safe:animate-spin" aria-hidden="true" />
       ) : isPlaying ? (
         <Pause className="w-4 h-4 fill-current" aria-hidden="true" />
       ) : (

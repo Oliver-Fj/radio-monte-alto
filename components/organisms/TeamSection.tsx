@@ -24,7 +24,7 @@ export default function TeamSection() {
           {/* --- HEADER --- */}
           <div className="text-center mb-16">
             <div className="inline-flex items-center justify-center p-4 mb-6 rounded-full bg-gray-50 border border-yellow-600/20 shadow-[0_0_30px_rgba(202,138,4,0.15)] group">
-              <Users className="w-8 h-8 text-yellow-600 group-hover:scale-110 transition-transform duration-500" />
+              <Users className="w-8 h-8 text-yellow-600 group-hover:scale-110 transition-transform duration-500" aria-hidden="true" />
             </div>
             
             <GoldTitle sobre="claro">Nuestro Equipo</GoldTitle>
@@ -38,9 +38,9 @@ export default function TeamSection() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-16">
             
             {/* Card 1: Sede Central */}
-            <div className="group relative bg-white shadow-xl hover:shadow-2xl hover:shadow-yellow-500/10 border border-gray-100 hover:border-yellow-500/30 rounded-2xl p-8 transition-all duration-500 flex flex-col items-start">
-               <div className="mb-6 p-3 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 group-hover:text-blue-700 group-hover:shadow-lg transition-all">
-                 <Church className="w-8 h-8" />
+            <div className="group relative bg-white shadow-xl hover:shadow-2xl hover:shadow-yellow-500/10 border border-gray-100 hover:border-yellow-500/30 rounded-2xl p-8 transition duration-500 flex flex-col items-start">
+               <div className="mb-6 p-3 rounded-xl bg-blue-50 border border-blue-100 text-blue-600 group-hover:text-blue-700 group-hover:shadow-lg transition">
+                 <Church className="w-8 h-8" aria-hidden="true" />
                </div>
                
                <h3 className="text-xl font-serif text-slate-900 mb-4 group-hover:text-yellow-600 transition-colors">
@@ -60,9 +60,9 @@ export default function TeamSection() {
             </div>
 
             {/* Card 2: Ubicación */}
-            <div className="group relative bg-white shadow-xl hover:shadow-2xl hover:shadow-yellow-500/10 border border-gray-100 hover:border-yellow-500/30 rounded-2xl p-8 transition-all duration-500 flex flex-col items-start">
-               <div className="mb-6 p-3 rounded-xl bg-red-50 border border-red-100 text-red-600 group-hover:text-red-700 group-hover:shadow-lg transition-all">
-                 <MapPin className="w-8 h-8" />
+            <div className="group relative bg-white shadow-xl hover:shadow-2xl hover:shadow-yellow-500/10 border border-gray-100 hover:border-yellow-500/30 rounded-2xl p-8 transition duration-500 flex flex-col items-start">
+               <div className="mb-6 p-3 rounded-xl bg-red-50 border border-red-100 text-red-600 group-hover:text-red-700 group-hover:shadow-lg transition">
+                 <MapPin className="w-8 h-8" aria-hidden="true" />
                </div>
                
                <h3 className="text-xl font-serif text-slate-900 mb-4 group-hover:text-yellow-600 transition-colors">
@@ -100,8 +100,8 @@ export default function TeamSection() {
             <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10 mix-blend-overlay"></div>
             
             <div className="relative z-10 p-8 md:p-12 text-center">
-              <div className="inline-flex items-center justify-center p-3 mb-6 rounded-full bg-white/10 border border-white/20 text-white animate-pulse">
-                <HeartHandshake className="w-6 h-6" />
+              <div className="inline-flex items-center justify-center p-3 mb-6 rounded-full bg-white/10 border border-white/20 text-white motion-safe:animate-pulse">
+                <HeartHandshake className="w-6 h-6" aria-hidden="true" />
               </div>
 
               <h3 className="text-2xl md:text-4xl font-serif text-white mb-4">
@@ -115,19 +115,19 @@ export default function TeamSection() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <a 
                   href="/contacto" 
-                  className="group relative px-8 py-3 bg-yellow-500 text-[#0B1120] rounded-full font-bold text-sm uppercase tracking-widest overflow-hidden hover:shadow-[0_0_20px_rgba(234,179,8,0.4)] transition-all"
+                  className="group relative px-8 py-3 bg-yellow-500 text-[#0B1120] rounded-full font-bold text-sm uppercase tracking-widest overflow-hidden hover:shadow-[0_0_20px_rgba(234,179,8,0.4)] transition"
                 >
                   <span className="relative z-10 flex items-center gap-2">
-                    Contáctanos <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                    Contáctanos <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
                   </span>
                   <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                 </a>
 
                 <a 
                   href="/programacion" 
-                  className="px-8 py-3 bg-transparent border border-white/20 text-white rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:border-white/40 transition-all flex items-center gap-2"
+                  className="px-8 py-3 bg-transparent border border-white/20 text-white rounded-full font-bold text-sm uppercase tracking-widest hover:bg-white/5 hover:border-white/40 transition flex items-center gap-2"
                 >
-                  <Calendar className="w-4 h-4" />
+                  <Calendar className="w-4 h-4" aria-hidden="true" />
                   Ver Programación
                 </a>
               </div>

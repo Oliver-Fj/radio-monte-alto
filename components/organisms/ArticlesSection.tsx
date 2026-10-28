@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { Clock, ArrowRight, BookOpen, Tag } from 'lucide-react';
 import articulos from '@/lib/data/articulos';
 import GoldTitle from '@/components/atoms/GoldTitle';
 import { publicPath } from '@/lib/utils/publicPath';
+import GlowLink from '@/components/molecules/GlowLink';
 
 // Fallback si la imagen del artículo no existe todavía
 // Las rutas se pasan por publicPath(): next/image NO añade el basePath
@@ -21,20 +21,16 @@ function ArticuloCard({ a, index, visible }: { a: typeof articulos[0]; index: nu
   const fallback = FALLBACKS[index % FALLBACKS.length];
 
   return (
-    <Link
+    <GlowLink
       href={`/recursos/${a.slug}`}
-      className="group block"
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(32px)',
-        transition: `all 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 90}ms`,
+        transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 90}ms, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${index * 90}ms, box-shadow .5s`,
       }}
     >
-      {/* Glow exterior */}
-      <div className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-all duration-500 blur-md pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse, rgba(234,179,8,0.18) 0%, transparent 70%)' }} />
-
-      <article className="relative h-full flex flex-col rounded-3xl overflow-hidden border border-white/7 group-hover:border-yellow-500/25 bg-slate-900/50 backdrop-blur-sm transition-all duration-500 group-hover:-translate-y-1 group-hover:shadow-[0_20px_60px_rgba(0,0,0,0.4)]">
+      {/* Borde de colores que sigue al puntero (GlowLink) */}
+      <article className="relative h-full flex flex-col">
 
         {/* Imagen */}
         <div className="relative h-52 flex-shrink-0 overflow-hidden">
@@ -46,30 +42,30 @@ function ArticuloCard({ a, index, visible }: { a: typeof articulos[0]; index: nu
             sizes="(max-width:640px) 100vw,(max-width:1024px) 50vw,33vw"
             onError={() => setImgError(true)}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
 
           {/* Badge categoría */}
           <div className={`absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r ${a.categoriaColor} text-white text-[10px] font-black tracking-wider uppercase shadow-lg`}>
-            <Tag className="w-3 h-3" />
+            <Tag className="w-3 h-3" aria-hidden="true" />
             {a.categoria}
           </div>
 
           {/* Tiempo de lectura */}
           <div className="absolute top-4 right-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-slate-900/70 border border-white/10 backdrop-blur-sm text-slate-300 text-[10px] font-medium">
-            <Clock className="w-3 h-3 text-yellow-400" />
+            <Clock className="w-3 h-3 text-yellow-400" aria-hidden="true" />
             {a.tiempoLectura}
           </div>
         </div>
 
         {/* Contenido */}
         <div className="flex-1 flex flex-col p-6">
-          <p className="text-slate-500 text-[11px] uppercase tracking-widest mb-3">{a.fecha}</p>
+          <p className="text-slate-500 text-[11px] font-semibold uppercase tracking-[0.25em] mb-3">{a.fecha}</p>
 
-          <h3 className="text-white font-serif font-bold text-xl leading-snug mb-2 group-hover:text-yellow-50 transition-colors duration-300 line-clamp-2">
+          <h3 className="text-white font-serif font-bold text-xl leading-snug mb-3 group-hover:text-yellow-50 transition-colors duration-300 line-clamp-2">
             {a.titulo}
           </h3>
 
-          <p className="text-slate-400 text-sm leading-relaxed mb-5 flex-1 line-clamp-3">
+          <p className="text-slate-400 text-[0.95rem] leading-[1.75] mb-5 flex-1 line-clamp-3">
             {a.resumen}
           </p>
 
@@ -85,17 +81,17 @@ function ArticuloCard({ a, index, visible }: { a: typeof articulos[0]; index: nu
           {/* CTA */}
           <div className="flex items-center justify-between pt-4 border-t border-white/6">
             <div className="flex items-center gap-2 text-xs text-slate-500">
-              <BookOpen className="w-3.5 h-3.5 text-yellow-400/60" />
+              <BookOpen className="w-3.5 h-3.5 text-yellow-400/60" aria-hidden="true" />
               {a.autor}
             </div>
             <span className="inline-flex items-center gap-1.5 text-xs font-bold text-yellow-400 group-hover:text-yellow-300 transition-colors">
               Leer artículo
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform duration-300" aria-hidden="true" />
             </span>
           </div>
         </div>
       </article>
-    </Link>
+    </GlowLink>
   );
 }
 

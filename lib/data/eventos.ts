@@ -79,6 +79,70 @@ export interface EventoEspecial {
 
 export const eventos: EventoEspecial[] = [
   // ---------------------------------------------------------------------------
+  // Montaña de Ayuno de Intercesión — afiche: ayuno-matahuasi.webp
+  // ---------------------------------------------------------------------------
+  {
+    slug: 'ayuno-en-montana-matahuasi',
+    titulo: 'Montaña de Ayuno de Intercesión',
+    subtitulo: 'Por todos los perdidos de esta nación y del mundo entero',
+    estado: 'realizado',
+    icono: 'BookOpenCheck',
+    color: 'blue',
+    portada: '/images/eventos/ayuno-matahuasi.webp',
+    portadaAlt: 'Afiche de la Montaña de Ayuno de Intercesión: domingo 11 de octubre, Matahuasi',
+    fechaISO: '2026-10-11',
+    fechaTexto: 'Domingo 11 de octubre de 2026, de 8:30 a. m. a 2:00 p. m.',
+    lugar: 'Matahuasi — Mantaro, sector 2, Huancayo',
+    resumen:
+      'Un tiempo para clamar por los que aún no conocen el amor de Dios, para que puedan escuchar su voz y tener vida en Él.',
+    descripcion:
+      'Una jornada de ayuno e intercesión al aire libre, en el campo de Matahuasi, por todos los perdidos de esta nación y del mundo entero. Un tiempo para clamar por los que aún no conocen el amor de Dios, para que puedan escuchar su voz, ser alcanzados por su gracia y tener vida en Él. Se realizó el domingo 11 de octubre, de 8:30 a. m. a 2:00 p. m., en Mantaro, sector 2. Referencia para llegar: bajarse en el Recreo Campestre La Chacra, Carretera Central, margen izquierda.',
+    dirigidoA: 'Toda la congregación. ¡Todos quedan invitados!',
+    invitacion:
+      '«Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces» (Jeremías 33:3). Las próximas montañas de ayuno se anunciarán por la radio: mantente atento y acompáñanos.',
+    galeria: [
+      {
+        id: 'afiche',
+        imagen: '/images/eventos/ayuno-matahuasi.webp',
+        alt: 'Afiche oficial de la Montaña de Ayuno de Intercesión en Matahuasi',
+        formato: 'afiche',
+        fecha: 'Domingo 11 de octubre · 8:30 a. m. a 2:00 p. m.',
+        titulo: '¡Todos quedan invitados!',
+        texto:
+          'El afiche oficial de la sede central Monte Alto, Huancayo: una montaña de ayuno de intercesión por todos los perdidos de esta nación y del mundo entero.',
+      },
+      {
+        id: 'clama',
+        imagen: '/images/opt/articulo-oracion.webp',
+        alt: 'Manos levantadas en oración',
+        fecha: 'Jeremías 33:3',
+        titulo: 'Clama a mí',
+        texto:
+          '«Clama a mí, y yo te responderé, y te enseñaré cosas grandes y ocultas que tú no conoces.» La promesa que convocó a la congregación a esta jornada de ayuno.',
+      },
+      {
+        id: 'perdidos',
+        imagen: '/images/opt/articulo-mision.webp',
+        alt: 'Biblia abierta en el campo',
+        fecha: 'Romanos 10:14',
+        titulo: 'Por los que no han oído',
+        texto:
+          '«¿Cómo, pues, invocarán a aquel en el cual no han creído? ¿Y cómo creerán en aquel de quien no han oído? ¿Y cómo oirán sin haber quien les predique?»',
+      },
+      {
+        id: 'lugar',
+        imagen: '/images/eventos/ayuno-matahuasi.webp',
+        alt: 'Detalle del afiche con fecha, hora y lugar',
+        formato: 'afiche',
+        fecha: 'Matahuasi — Mantaro, sector 2',
+        titulo: 'Cómo llegar',
+        texto:
+          'En Matahuasi, Mantaro, sector 2, Huancayo. Referencia: bajarse en el Recreo Campestre La Chacra, Carretera Central, margen izquierda.',
+      },
+    ],
+  },
+
+  // ---------------------------------------------------------------------------
   // Encuentro Matrimonial — afiche: retiro-matrimonio.png
   // ---------------------------------------------------------------------------
   {

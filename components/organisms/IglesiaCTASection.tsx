@@ -22,13 +22,13 @@ export default function IglesiaCTASection() {
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-3xl mx-auto text-center"
-          style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(32px)', transition:'all 0.9s cubic-bezier(0.16,1,0.3,1)' }}>
+          style={{ opacity:visible?1:0, transform:visible?'translateY(0)':'translateY(32px)', transition: 'opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1)' }}>
 
           {/* Ícono central */}
           <div className="relative mx-auto w-20 h-20 mb-8">
-            <div className="absolute inset-0 bg-yellow-500/20 blur-[30px] rounded-full animate-pulse" />
+            <div className="absolute inset-0 bg-yellow-500/20 blur-[30px] rounded-full motion-safe:animate-pulse" />
             <div className="relative w-full h-full rounded-full bg-gradient-to-br from-yellow-500/20 to-amber-600/20 border border-yellow-500/30 flex items-center justify-center">
-              <Church className="w-9 h-9 text-yellow-400" />
+              <Church className="w-9 h-9 text-yellow-400" aria-hidden="true" />
             </div>
           </div>
 
@@ -48,14 +48,14 @@ export default function IglesiaCTASection() {
           {/* Botones */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/contacto"
-              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-900 font-bold text-sm shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 hover:scale-105 transition-all duration-300">
-              <Heart className="w-4 h-4 fill-slate-900" />
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-900 font-bold text-sm shadow-xl shadow-yellow-500/25 hover:shadow-yellow-500/40 hover:scale-105 transition duration-300">
+              <Heart className="w-4 h-4 fill-slate-900" aria-hidden="true" />
               Contáctanos
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
             </Link>
             <a href="https://wa.me/51985796588" target="_blank" rel="noopener noreferrer"
-              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/15 hover:border-yellow-500/40 text-white hover:text-yellow-300 font-bold text-sm transition-all duration-300 hover:bg-yellow-500/5">
-              <Phone className="w-4 h-4" />
+              className="group inline-flex items-center gap-3 px-8 py-4 rounded-full border border-white/15 hover:border-yellow-500/40 text-white hover:text-yellow-300 font-bold text-sm transition duration-300 hover:bg-yellow-500/5">
+              <Phone className="w-4 h-4" aria-hidden="true" />
               Escríbenos por WhatsApp
             </a>
           </div>

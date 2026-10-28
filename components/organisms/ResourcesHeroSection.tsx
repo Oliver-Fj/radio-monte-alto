@@ -29,17 +29,17 @@ export default function RecursosHeroSection() {
 
         {/* Ícono */}
         <div className="relative mx-auto w-20 h-20 md:w-24 md:h-24 mb-7">
-          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent animate-[spin_4s_linear_infinite]" />
-          <div className="absolute -inset-2 border border-blue-400/25 rounded-full border-b-transparent animate-[spin_7s_linear_infinite_reverse]" />
+          <div className="absolute inset-0 border-2 border-yellow-500/50 rounded-full border-t-transparent motion-safe:animate-[spin_4s_linear_infinite]" />
+          <div className="absolute -inset-2 border border-blue-400/25 rounded-full border-b-transparent motion-safe:animate-[spin_7s_linear_infinite_reverse]" />
           <div className="absolute inset-0 bg-white/5 backdrop-blur-sm rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(59,130,246,0.35)]">
-            <Library className="w-8 h-8 md:w-10 md:h-10 text-white" />
-            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 animate-pulse" />
+            <Library className="w-8 h-8 md:w-10 md:h-10 text-white" aria-hidden="true" />
+            <Sparkles className="absolute -top-2 -right-2 w-5 h-5 text-yellow-400 motion-safe:animate-pulse" aria-hidden="true" />
           </div>
         </div>
 
         <div className="max-w-3xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-blue-900/40 border border-blue-500/30 text-blue-200 text-[10px] md:text-xs font-bold tracking-[0.2em] uppercase mb-5 backdrop-blur-md">
-            <BookOpen className="w-3 h-3 text-yellow-400" />
+            <BookOpen className="w-3 h-3 text-yellow-400" aria-hidden="true" />
             Alimento Espiritual
           </div>
 

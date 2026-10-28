@@ -8,13 +8,77 @@
     box-sizing: border-box;
   }
 
+  /* Títulos en Cinzel (la letra de las inscripciones clásicas) */
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-titulos), Georgia, serif;
+  }
+
   html,
   body {
     margin: 0;
     padding: 0;
-    scroll-behavior: smooth;
     overflow-x: hidden;
   }
+
+  /* Tema noche por defecto en el CSS; el tema claro lo cambia. Así las
+     barras de desplazamiento y los campos nativos siguen el tema. */
+  html {
+    color-scheme: dark;
+    /* El header fijo (arriba) y el reproductor fijo (abajo) no deben tapar
+       el elemento enfocado ni los anclajes al saltar con el teclado. */
+    scroll-padding-top: 6rem;
+    scroll-padding-bottom: 9rem;
+    -webkit-tap-highlight-color: rgba(29, 124, 178, 0.18);
+  }
+  html.light {
+    color-scheme: light;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+
+  /* Evita el retardo del doble toque en controles táctiles */
+  a, button, input, select, textarea, label, summary, [role='button'] {
+    touch-action: manipulation;
+  }
+
+  /* Títulos sin palabras huérfanas */
+  h1, h2, h3, h4 {
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+
+  /* <select> nativo: colores explícitos (modo oscuro de Windows) */
+  select {
+    background-color: #ffffff;
+    color: #0f172a;
+  }
+
+}
+
+/* Enlace "Saltar al contenido": invisible hasta que recibe el foco */
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -100px;
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  background: #facc15;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-decoration: none;
+}
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid #0f172a;
+  outline-offset: 2px;
 }
 
 @layer utilities {
@@ -41,6 +105,20 @@
 .bar-2 { animation: music-bar 1.2s ease-in-out infinite 0.1s; }
 .bar-3 { animation: music-bar 0.9s ease-in-out infinite 0.2s; }
 .bar-4 { animation: music-bar 1.1s ease-in-out infinite 0.3s; }
+
+/* Ondas de la maqueta del teléfono (AppDownloadSection): solo transform */
+@keyframes onda {
+  0%, 100% { transform: scaleY(0.55); }
+  50% { transform: scaleY(1); }
+}
+.onda-barra {
+  transform-origin: center;
+  animation: onda 1.2s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .onda-barra { animation: none; }
+  .bar-1, .bar-2, .bar-3, .bar-4 { animation: none; height: 60%; }
+}
 
 @keyframes shimmer {
   0% { background-position: -200% center; }
@@ -175,55 +253,71 @@
 }
 
 /* ============================================================
-   MODO CLARO (html.light)
-   El tema por defecto es oscuro. Estas reglas remapean las
-   utilidades oscuras más comunes. Los bloques con [data-keep-dark]
-   (heros con fotografía, carrusel, reproductor) conservan su
-   diseño oscuro porque sus imágenes lo requieren.
+   TEMA CLARO — azul cielo (html.light)
+
+   El tema base es el azul noche del hero: la escala `slate` está
+   redefinida en tailwind.config.ts. Aquí esos mismos tonos pasan
+   a su versión clara —azul muy suave, nunca blanco plano— para
+   que el sitio cambie de tema sin tocar ni una clase.
+
+   Los bloques con [data-keep-dark] (heros con fotografía,
+   carrusel, reproductor) conservan el azul profundo porque sus
+   imágenes lo necesitan.
    ============================================================ */
-html.light .bg-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #f3f5f9; }
+html.light .bg-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #E9F4FD; }
 html.light .bg-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #ffffff; }
+html.light .bg-slate-800:not([data-keep-dark]):not([data-keep-dark] *) { background-color: #D2E8F8; }
 html.light .bg-slate-900\/95:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(255,255,255,0.94); }
-html.light .bg-black\/40:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.05); }
-html.light .bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.05); }
-html.light .bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(15,23,42,0.08); }
+html.light .bg-slate-900\/60:not([data-keep-dark]):not([data-keep-dark] *),
+html.light .bg-slate-900\/50:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(255,255,255,0.88); }
+html.light .bg-black\/40:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(14,63,92,0.06); }
+html.light .bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(29,124,178,0.05); }
+html.light .bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *) { background-color: rgba(29,124,178,0.09); }
 
 /* text-white solo se oscurece cuando el elemento NO tiene fondo propio
    (botones, pines y chips con fondo de color conservan su texto blanco) */
-html.light .text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *) { color: #0f172a; }
-html.light .text-slate-300:not([data-keep-dark]):not([data-keep-dark] *) { color: #334155; }
-html.light .text-slate-400:not([data-keep-dark]):not([data-keep-dark] *) { color: #475569; }
-html.light .text-blue-200:not([data-keep-dark]):not([data-keep-dark] *) { color: #1e40af; }
-html.light .text-blue-100:not([data-keep-dark]):not([data-keep-dark] *) { color: #1e3a8a; }
+html.light .text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *) { color: #0E3F5C; }
+html.light .text-slate-300:not([data-keep-dark]):not([data-keep-dark] *) { color: #154F73; }
+html.light .text-slate-400:not([data-keep-dark]):not([data-keep-dark] *) { color: #256684; }
+html.light .text-slate-500:not([data-keep-dark]):not([data-keep-dark] *) { color: #3A7C99; }
+html.light .text-slate-600:not([data-keep-dark]):not([data-keep-dark] *) { color: #256684; }
+html.light .text-blue-200:not([data-keep-dark]):not([data-keep-dark] *) { color: #15628F; }
+html.light .text-blue-100:not([data-keep-dark]):not([data-keep-dark] *) { color: #134E70; }
 
 html.light .border-white\/5:not([data-keep-dark]):not([data-keep-dark] *),
-html.light .border-white\/10:not([data-keep-dark]):not([data-keep-dark] *) { border-color: rgba(15,23,42,0.12); }
+html.light .border-white\/10:not([data-keep-dark]):not([data-keep-dark] *),
+html.light .border-white\/20:not([data-keep-dark]):not([data-keep-dark] *) { border-color: rgba(29,124,178,0.18); }
 
-html.light .from-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #f3f5f9 var(--tw-gradient-from-position); --tw-gradient-to: rgb(243 245 249 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+/* Degradados que arrancan o terminan en el fondo */
+html.light .from-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #E9F4FD var(--tw-gradient-from-position); --tw-gradient-to: rgb(233 244 253 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
 html.light .from-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #ffffff var(--tw-gradient-from-position); --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-html.light .via-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #f8fafc var(--tw-gradient-via-position), var(--tw-gradient-to); }
-html.light .via-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #f3f5f9 var(--tw-gradient-via-position), var(--tw-gradient-to); }
-html.light .to-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-to: #f3f5f9 var(--tw-gradient-to-position); }
+html.light .via-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #F3FAFE var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light .via-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-stops: var(--tw-gradient-from), #E9F4FD var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light .to-slate-950:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-to: #E9F4FD var(--tw-gradient-to-position); }
 html.light .to-slate-900:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-to: #ffffff var(--tw-gradient-to-position); }
-html.light .from-\[\#0B1120\]:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: #f3f5f9 var(--tw-gradient-from-position); --tw-gradient-to: rgb(243 245 249 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
 
-/* --- Modo claro: dorados del header y estados activos --- */
-html.light .text-amber-300:not([data-keep-dark]):not([data-keep-dark] *) { color: #92400e; }
-html.light .hover\:text-amber-200:not([data-keep-dark]):not([data-keep-dark] *):hover { color: #92400e; }
-html.light .hover\:text-amber-300:not([data-keep-dark]):not([data-keep-dark] *):hover { color: #92400e; }
-html.light header .from-amber-200 { --tw-gradient-from: #b45309 var(--tw-gradient-from-position); --tw-gradient-to: rgb(180 83 9 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-html.light header .via-yellow-400 { --tw-gradient-stops: var(--tw-gradient-from), #a16207 var(--tw-gradient-via-position), var(--tw-gradient-to); }
-html.light header .to-amber-600 { --tw-gradient-to: #78350f var(--tw-gradient-to-position); }
-html.light .from-amber-900\/30:not([data-keep-dark]):not([data-keep-dark] *) { --tw-gradient-from: rgba(245,158,11,0.18) var(--tw-gradient-from-position); --tw-gradient-to: rgba(245,158,11,0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
-html.light .text-slate-500:not([data-keep-dark]):not([data-keep-dark] *) { color: #52606f; }
-html.light .text-slate-600:not([data-keep-dark]):not([data-keep-dark] *) { color: #46505c; }
+/* Dorados del sol: en tema claro se oscurecen para poder leerlos */
+html.light .text-yellow-400:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *),
+html.light .text-yellow-300:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *),
+html.light .text-amber-300:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *),
+html.light .text-amber-400:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *) { color: #B45309; }
+html.light .hover\:text-amber-200:not([data-keep-dark]):not([data-keep-dark] *):hover,
+html.light .hover\:text-amber-300:not([data-keep-dark]):not([data-keep-dark] *):hover,
+html.light .hover\:text-yellow-300:not([data-keep-dark]):not([data-keep-dark] *):hover { color: #15628F; }
+html.light header .from-amber-200 { --tw-gradient-from: #15628F var(--tw-gradient-from-position); --tw-gradient-to: rgb(29 78 216 / 0) var(--tw-gradient-to-position); --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to); }
+html.light header .via-yellow-400 { --tw-gradient-stops: var(--tw-gradient-from), #1D7CB2 var(--tw-gradient-via-position), var(--tw-gradient-to); }
+html.light header .to-amber-600 { --tw-gradient-to: #0E3F5C var(--tw-gradient-to-position); }
 
-/* Modo claro: estados hover que apuntaban a blanco */
-html.light .hover\:text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *):hover { color: #0f172a; }
-html.light .group:hover .group-hover\:text-white:not([class*="bg-"]):not([data-keep-dark] *) { color: #0f172a; }
-html.light .hover\:bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.05); }
-html.light .hover\:bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.08); }
-html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(15,23,42,0.10); }
+/* Estados hover que apuntaban a blanco */
+html.light .hover\:text-white:not([class*="bg-"]):not([data-keep-dark]):not([data-keep-dark] *):hover { color: #0E3F5C; }
+html.light .group:hover .group-hover\:text-white:not([class*="bg-"]):not([data-keep-dark] *) { color: #0E3F5C; }
+html.light .hover\:bg-white\/5:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(29,124,178,0.06); }
+html.light .hover\:bg-white\/10:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(29,124,178,0.10); }
+html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):hover { background-color: rgba(29,124,178,0.14); }
+
+/* El cuerpo acompaña al tema: evita franjas al hacer scroll de rebote */
+body { background-color: #1B5578; }
+html.light body { background-color: #E9F4FD; }
 
 /* ============================================================
    Tarjetas 3D de cristal (adaptado de DepthFold / Uiverse)
@@ -416,16 +510,16 @@ html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):ho
 }
 
 .texto-dorado {
-  /* Degradado repetido: al desplazarlo el brillo recorre el texto sin cortes */
+  /* Tema claro: solo azules profundos, para que se lean sobre el papel. */
   background-image: repeating-linear-gradient(
     108deg,
-    #7a5c12 0%,
-    #b8912a 6%,
-    #edd489 12%,
-    #fffdf0 16%,
-    #edd489 20%,
-    #b8912a 26%,
-    #7a5c12 34%
+    #0E4A6E 0%,
+    #15628F 7%,
+    #1D7CB2 13%,
+    #3E9BD1 18%,
+    #1D7CB2 23%,
+    #15628F 28%,
+    #0E4A6E 34%
   );
   background-size: 200% auto;
   background-repeat: repeat;
@@ -433,31 +527,43 @@ html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):ho
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
-  /* Acelera la animación por GPU y evita parpadeos al repintar */
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
   animation: relleno-dorado 5s linear infinite;
   will-change: background-position;
 }
 
-/* Variante para secciones de fondo claro: oros más profundos, sin brillos
-   casi blancos que se perderían contra el papel. */
+/* Tema noche: el mismo azul, pero encendido, con un destello dorado */
+html:not(.light) .texto-dorado {
+  background-image: repeating-linear-gradient(
+    108deg,
+    #7FC4E8 0%,
+    #A8D8F0 6%,
+    #D6ECF9 11%,
+    #FDE68A 15%,
+    #D6ECF9 19%,
+    #A8D8F0 26%,
+    #7FC4E8 34%
+  );
+}
+
+/* Variante para paneles claros (pergamino, marfil): más contraste */
 .texto-dorado-claro {
   background-image: repeating-linear-gradient(
     108deg,
-    #6b4d0c 0%,
-    #9a7318 6%,
-    #caa02c 12%,
-    #e8c766 16%,
-    #caa02c 20%,
-    #9a7318 26%,
-    #6b4d0c 34%
+    #06281D 0%,
+    #144E38 6%,
+    #256B4E 12%,
+    #3B8A68 16%,
+    #256B4E 20%,
+    #144E38 26%,
+    #06281D 34%
   );
 }
 
 /* Resplandor detrás del texto, sin ensuciar el recorte del degradado */
 .texto-dorado-halo {
-  text-shadow: 0 0 60px rgba(212, 175, 55, 0.35);
+  text-shadow: 0 0 60px rgba(47, 158, 99, 0.30);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -468,11 +574,11 @@ html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):ho
    Papel de pergamino (tarjeta del carrusel de eventos e himnos)
    ───────────────────────────────────────────────────────────── */
 .papel-pergamino {
-  background-color: #f6ecd8;
+  background-color: #F7FAFF;
   background-image:
-    radial-gradient(ellipse at 12% 8%, rgba(255, 255, 255, 0.9) 0%, transparent 55%),
-    radial-gradient(ellipse at 88% 92%, rgba(196, 154, 63, 0.18) 0%, transparent 60%),
-    linear-gradient(160deg, #fdf7ea 0%, #f4e8d0 45%, #ead9ba 100%);
+    radial-gradient(ellipse at 12% 8%, rgba(255, 255, 255, 0.95) 0%, transparent 55%),
+    radial-gradient(ellipse at 88% 92%, rgba(37, 99, 235, 0.12) 0%, transparent 60%),
+    linear-gradient(160deg, #FFFFFF 0%, #F2F7FF 45%, #E4EEFF 100%);
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -480,12 +586,12 @@ html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):ho
    Sustituye los bloques planos en blanco sin tocar el color del texto.
    ───────────────────────────────────────────────────────────── */
 .fondo-marfil {
-  background-color: #f8f5ef;
+  background-color: #E9F4FD;
   background-image:
-    radial-gradient(ellipse 60% 45% at 12% 0%, rgba(234, 179, 8, 0.16) 0%, transparent 70%),
-    radial-gradient(ellipse 55% 50% at 88% 100%, rgba(30, 64, 175, 0.12) 0%, transparent 70%),
-    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.85) 0%, transparent 75%),
-    linear-gradient(165deg, #fdfbf6 0%, #f5f0e6 55%, #ece5d8 100%);
+    radial-gradient(ellipse 60% 45% at 12% 0%, rgba(37, 99, 235, 0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 55% 50% at 88% 100%, rgba(245, 179, 1, 0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(255, 255, 255, 0.92) 0%, transparent 75%),
+    linear-gradient(165deg, #FFFFFF 0%, #F3F8FF 55%, #E2ECFF 100%);
 }
 
 /* Filete dorado para separar las secciones claras de las oscuras */
@@ -499,12 +605,335 @@ html.light .hover\:bg-white\/20:not([data-keep-dark]):not([data-keep-dark] *):ho
   background: linear-gradient(
     90deg,
     transparent 0%,
-    rgba(202, 138, 4, 0.35) 25%,
-    rgba(234, 179, 8, 0.6) 50%,
-    rgba(202, 138, 4, 0.35) 75%,
+    rgba(37, 99, 235, 0.30) 25%,
+    rgba(245, 179, 1, 0.55) 50%,
+    rgba(37, 99, 235, 0.30) 75%,
     transparent 100%
   );
   pointer-events: none;
 }
 .filete-dorado::before { top: 0; }
 .filete-dorado::after { bottom: 0; }
+
+
+/* ============================================================
+   BOTONES — un solo estilo para todo el sitio
+   Tres variantes: principal (acción), secundaria (alternativa)
+   y fantasma (terciaria). Misma altura, mismo radio, mismo foco.
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 700;
+  line-height: 1;
+  text-decoration: none;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease,
+    border-color 0.25s ease, color 0.25s ease;
+}
+.btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #E9F4FD, 0 0 0 4px #1D7CB2;
+}
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+.btn-primario {
+  background-image: linear-gradient(135deg, #3E9BD1 0%, #1D7CB2 55%, #15628F 100%);
+  color: #ffffff;
+  box-shadow: 0 8px 22px rgba(37, 99, 235, 0.32);
+}
+.btn-primario:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px rgba(37, 99, 235, 0.45);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  border-color: rgba(37, 99, 235, 0.45);
+  color: #15628F;
+}
+.btn-secundario:hover:not(:disabled) {
+  background-color: rgba(37, 99, 235, 0.09);
+  border-color: rgba(37, 99, 235, 0.75);
+  transform: translateY(-2px);
+}
+
+.btn-fantasma {
+  background-color: transparent;
+  color: #15628F;
+}
+.btn-fantasma:hover:not(:disabled) { background-color: rgba(37, 99, 235, 0.09); }
+
+/* Botón de ancho completo en móvil */
+.btn-bloque { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .btn:hover:not(:disabled) { transform: none; }
+}
+
+/* Botones sobre el tema noche */
+html:not(.light) .btn:focus-visible { box-shadow: 0 0 0 2px #1B5578, 0 0 0 4px #7FC4E8; }
+html:not(.light) .btn-secundario { color: #A8D8F0; border-color: rgba(168, 216, 240, 0.45); }
+html:not(.light) .btn-secundario:hover:not(:disabled) { background-color: rgba(168, 216, 240, 0.14); }
+html:not(.light) .btn-fantasma { color: #C4E4F6; }
+html:not(.light) .btn-fantasma:hover:not(:disabled) { background-color: rgba(196, 228, 246, 0.14); }
+
+/* ============================================================
+   FONDO DEGRADADO DE LA PÁGINA
+   Un solo color plano se ve pobre. Estos degradados toman los
+   colores del escudo —celeste del cielo, dorado del sol, verde
+   de las hojas— y los funden muy suavemente. El fondo va fijo,
+   así que al hacer scroll la luz parece quedarse en su sitio.
+   ============================================================ */
+body {
+  background-color: #1B5578;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(62, 155, 209, 0.55) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 15%, rgba(245, 179, 1, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 0% 55%, rgba(5, 150, 105, 0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 90% 55% at 50% 105%, rgba(14, 63, 92, 0.75) 0%, transparent 60%),
+    linear-gradient(175deg, #22688F 0%, #1B5578 45%, #164863 100%);
+  background-attachment: fixed;
+}
+
+html.light body {
+  background-color: #E9F4FD;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% -10%, rgba(255, 255, 255, 0.95) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 100% 12%, rgba(245, 179, 1, 0.13) 0%, transparent 65%),
+    radial-gradient(ellipse 55% 45% at 0% 50%, rgba(5, 150, 105, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 85% 50% at 50% 105%, rgba(29, 124, 178, 0.16) 0%, transparent 60%),
+    linear-gradient(175deg, #F5FBFF 0%, #E9F4FD 45%, #DCEDF9 100%);
+  background-attachment: fixed;
+}
+
+/* Las secciones dejan ver el degradado del cuerpo. Las que necesitan
+   un fondo propio (heros con foto, reproductor) llevan data-keep-dark. */
+section.bg-slate-950:not([data-keep-dark]),
+footer.bg-slate-950:not([data-keep-dark]) {
+  background-color: transparent;
+}
+
+/* ============================================================
+   COSTURA ENTRE SECCIONES
+   Un hilo de luz con un rombo dorado al centro. Se aplica sola
+   entre secciones consecutivas, sin tocar el marcado.
+   ============================================================ */
+.costura-seccion {
+  position: relative;
+  height: 0;
+}
+.costura-seccion::before {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 179, 1, 0.15) 20%,
+    rgba(245, 179, 1, 0.55) 50%,
+    rgba(245, 179, 1, 0.15) 80%,
+    transparent 100%
+  );
+}
+.costura-seccion::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -4px;
+  width: 9px;
+  height: 9px;
+  transform: translateX(-50%) rotate(45deg);
+  background: linear-gradient(135deg, #F5B301 0%, #B45309 100%);
+  box-shadow: 0 0 12px rgba(245, 179, 1, 0.55);
+}
+
+/* ============================================================
+   TARJETAS QUE SE DISTINGUEN DEL FONDO
+
+   Al volver transparentes las secciones, las tarjetas escritas
+   con `bg-white/5` quedaban invisibles sobre el degradado. Aquí
+   se les da cuerpo real:
+
+   · Superficie propia, no una transparencia mínima.
+   · Borde de un tono más claro que el fondo (teoría de color:
+     el borde separa por luminancia, no por matiz).
+   · Filete superior de luz, que da volumen.
+   · Hover: sube, el borde se enciende en dorado y crece la sombra.
+   ============================================================ */
+
+/* Tema noche: la tarjeta es más clara que el fondo */
+html:not(.light) .bg-white\/5:not([data-keep-dark] *),
+html:not(.light) .bg-white\/\[0\.03\]:not([data-keep-dark] *),
+html:not(.light) .bg-white\/\[0\.04\]:not([data-keep-dark] *),
+html:not(.light) .bg-white\/\[0\.02\]:not([data-keep-dark] *) {
+  background-color: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(2px);
+}
+html:not(.light) .border-white\/10:not([data-keep-dark] *),
+html:not(.light) .border-white\/5:not([data-keep-dark] *) {
+  border-color: rgba(190, 226, 247, 0.30);
+}
+
+/* Tema claro: la tarjeta es blanca y el borde, celeste */
+html.light .bg-white\/\[0\.03\]:not([data-keep-dark] *),
+html.light .bg-white\/\[0\.04\]:not([data-keep-dark] *),
+html.light .bg-white\/\[0\.02\]:not([data-keep-dark] *) {
+  background-color: rgba(255, 255, 255, 0.92);
+}
+
+/* Sombra y relieve para cualquier bloque con borde redondeado grande */
+.rounded-2xl.border,
+.rounded-3xl.border,
+.rounded-\[28px\].border,
+.rounded-\[32px\].border {
+  box-shadow: 0 2px 4px rgba(14, 63, 92, 0.06), 0 10px 26px -12px rgba(14, 63, 92, 0.28);
+}
+html:not(.light) .rounded-2xl.border,
+html:not(.light) .rounded-3xl.border {
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 12px 30px -14px rgba(0, 0, 0, 0.55);
+}
+
+/* ── Tarjeta con estados, para lo que se pueda pulsar ── */
+.tarjeta {
+  position: relative;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(190, 226, 247, 0.32);
+  background-color: rgba(255, 255, 255, 0.10);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 12px 30px -14px rgba(0, 0, 0, 0.5);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease,
+    background-color 0.3s ease;
+}
+html.light .tarjeta {
+  border-color: rgba(29, 124, 178, 0.28);
+  background-color: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 2px 4px rgba(14, 63, 92, 0.06), 0 10px 26px -12px rgba(14, 63, 92, 0.25);
+}
+
+/* Filete de luz en el borde superior */
+.tarjeta::before {
+  content: '';
+  position: absolute;
+  inset-inline: 12%;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(245, 179, 1, 0.65), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tarjeta:hover,
+.tarjeta:focus-within {
+  transform: translateY(-3px);
+  border-color: rgba(245, 179, 1, 0.55);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 18px 40px -16px rgba(245, 179, 1, 0.4);
+}
+html.light .tarjeta:hover,
+html.light .tarjeta:focus-within {
+  background-color: #ffffff;
+  border-color: rgba(245, 179, 1, 0.6);
+  box-shadow: 0 4px 8px rgba(14, 63, 92, 0.08), 0 20px 44px -18px rgba(180, 83, 9, 0.35);
+}
+.tarjeta:hover::before,
+.tarjeta:focus-within::before {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tarjeta:hover,
+  .tarjeta:focus-within { transform: none; }
+}
+
+/* ============================================================
+   FRANJAS DE SECCIÓN
+   Una web de radio no puede ser un solo bloque de color. Cada
+   sección se envuelve en una franja y el fondo va alternando:
+   claro → celeste → claro → dorado. Así se lee el ritmo de la
+   página y cada bloque se separa del anterior sin líneas duras.
+   ============================================================ */
+.franja {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Clara — el respiro entre bloques de color */
+.franja-clara { background: linear-gradient(180deg, #FFFFFF 0%, #F6FBFF 100%); }
+html:not(.light) .franja-clara { background: linear-gradient(180deg, #1E5F84 0%, #1B5578 100%); }
+
+/* Celeste — el color de la marca, para las secciones protagonistas */
+.franja-celeste {
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 0%, rgba(255, 255, 255, 0.35) 0%, transparent 60%),
+    linear-gradient(160deg, #1D7CB2 0%, #17699A 55%, #135680 100%);
+  color: #F2FAFF;
+}
+html:not(.light) .franja-celeste {
+  background:
+    radial-gradient(ellipse 70% 60% at 15% 0%, rgba(255, 255, 255, 0.14) 0%, transparent 60%),
+    linear-gradient(160deg, #23709E 0%, #1A5C84 55%, #144B6C 100%);
+}
+
+/* Dorada — solo para lo que debe llamar la atención (eventos, ofrendas) */
+.franja-dorada {
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(245, 179, 1, 0.22) 0%, transparent 65%),
+    linear-gradient(170deg, #FFFDF6 0%, #FFF7E4 55%, #FDEFD2 100%);
+}
+html:not(.light) .franja-dorada {
+  background:
+    radial-gradient(ellipse 60% 50% at 85% 0%, rgba(245, 179, 1, 0.20) 0%, transparent 65%),
+    linear-gradient(170deg, #23628A 0%, #1C5679 55%, #164A69 100%);
+}
+
+/* Verde — el de las hojas del escudo, para la vida de la iglesia */
+.franja-verde {
+  background:
+    radial-gradient(ellipse 65% 55% at 20% 100%, rgba(5, 150, 105, 0.16) 0%, transparent 65%),
+    linear-gradient(170deg, #F5FCF8 0%, #EAF7F0 60%, #DDF0E6 100%);
+}
+html:not(.light) .franja-verde {
+  background:
+    radial-gradient(ellipse 65% 55% at 20% 100%, rgba(5, 150, 105, 0.22) 0%, transparent 65%),
+    linear-gradient(170deg, #1C5E7B 0%, #17566F 60%, #124860 100%);
+}
+
+/* Sobre las franjas de color fuerte el texto se aclara */
+.franja-celeste .text-slate-300,
+.franja-celeste .text-slate-400,
+.franja-celeste .text-slate-500 { color: #DCEEFA !important; }
+.franja-celeste .text-white:not([class*="bg-"]) { color: #FFFFFF !important; }
+.franja-celeste .tarjeta {
+  background-color: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ============================================================
+   PIE DE PÁGINA — azul pizarra profundo, nunca negro
+   ============================================================ */
+footer {
+  background:
+    radial-gradient(ellipse 60% 60% at 50% 0%, rgba(29, 124, 178, 0.28) 0%, transparent 65%),
+    linear-gradient(180deg, #103C55 0%, #0C3145 60%, #092838 100%) !important;
+  color: #DCEEFA;
+}
+footer .text-slate-400,
+footer .text-slate-300,
+footer .text-slate-500 { color: #B4D4E8 !important; }
+footer .text-white:not([class*="bg-"]) { color: #FFFFFF !important; }
+
+/* Índice del artículo: la sección activa legible también en el tema claro */
+html.light .toc-activo { color: #92400E; background-color: rgba(245, 179, 1, 0.16); }

@@ -18,7 +18,7 @@ export default function ResetFiltersButton({
       onClick={onReset}
       className="flex items-center gap-2 px-4 py-2 bg-red-100 text-red-700 rounded-lg hover:bg-red-200 transition-colors font-medium"
     >
-      <X className="w-4 h-4" />
+      <X className="w-4 h-4" aria-hidden="true" />
       Limpiar Filtros
     </button>
   );

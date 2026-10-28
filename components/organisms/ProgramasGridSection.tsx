@@ -1,8 +1,10 @@
 import type { CSSProperties } from 'react';
 import SectionTitle from '@/components/atoms/SectionTitle';
 import { programas } from '@/lib/data/programas';
-import { Clock, CalendarDays } from 'lucide-react';
+import { Clock, CalendarDays, ArrowRight, Headphones } from 'lucide-react';
 import { publicPath } from '@/lib/utils/publicPath';
+import Link from 'next/link';
+import { getDetallePorProgramaId } from '@/lib/data/programaDetalle';
 
 /**
  * Todos los programas como Magic Cards con borde de gradiente giratorio y
@@ -38,27 +40,46 @@ function formatoDias(dias: string[]) {
   return dias.map((d) => DIAS_LARGOS[d] ?? d).join(' · ');
 }
 
-export default function ProgramasGridSection() {
+interface ProgramasGridSectionProps {
+  /** Cuántos programas mostrar. Sin valor, se muestran todos. */
+  limite?: number;
+  titulo?: string;
+  subtitulo?: string;
+  /** Enlace a la parrilla completa (útil cuando hay límite). */
+  mostrarEnlaceATodos?: boolean;
+}
+
+export default function ProgramasGridSection({
+  limite,
+  titulo = 'Todos Nuestros Programas',
+  subtitulo = 'Toda nuestra parrilla, de lunes a domingo',
+  mostrarEnlaceATodos = false,
+}: ProgramasGridSectionProps = {}) {
+  const lista = limite ? programas.slice(0, limite) : programas;
+
   return (
     <section className="relative py-16 md:py-24 bg-slate-950 overflow-hidden">
       <div className="container mx-auto px-4 relative z-10">
-        <SectionTitle centered subtitle="Toda nuestra parrilla, de lunes a domingo" dark>
-          Todos Nuestros Programas
+        <SectionTitle centered subtitle={subtitulo} dark>
+          {titulo}
         </SectionTitle>
 
         <div className="mt-14 grid gap-8 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
-          {programas.map((p) => {
+          {lista.map((p) => {
             const [c1, c2, c3] = PALETAS[p.id] ?? PALETA_DEFECTO;
-            return (
-              <article
-                key={p.id}
-                className="mk-card"
-                style={{ '--mk-c1': c1, '--mk-c2': c2, '--mk-c3': c3 } as CSSProperties}
-              >
-                <div className="mk-inner">
+            // Solo los programas con ficha ampliada son enlazables.
+            const detalle = getDetallePorProgramaId(p.id);
+            const estilo = { '--mk-c1': c1, '--mk-c2': c2, '--mk-c3': c3 } as CSSProperties;
+            const clases = `mk-card group ${detalle ? 'cursor-pointer transition-transform duration-300 hover:-translate-y-1' : ''}`;
+            const interior = (
+                // data-keep-dark: la tarjeta es oscura también en el tema claro,
+                // así que sus textos no deben pasar a tinta oscura.
+                <div className="mk-inner" data-keep-dark>
                   <img
                     src={publicPath(p.imagen ?? '/images/opt/programacion.webp')}
                     alt={`Carátula del programa ${p.nombre}`}
+                    width={600}
+                    height={600}
                     loading="lazy"
                     decoding="async"
                     className="w-full aspect-square object-cover"
@@ -68,7 +89,7 @@ export default function ProgramasGridSection() {
                     className="h-[2px] w-full"
                     style={{ background: `linear-gradient(to right, transparent, ${c1}, ${c2}, ${c3}, transparent)` }}
                   />
-                  <div className="flex flex-col flex-1 px-5 pt-4 pb-5 text-center text-white">
+                  <div className="flex flex-1 flex-col px-5 pt-4 pb-5 text-center text-white">
                     <span
                       className="text-[10px] font-bold uppercase tracking-[0.3em]"
                       style={{ color: c1 }}
@@ -92,12 +113,53 @@ export default function ProgramasGridSection() {
                         {formatoDias(p.dias)}
                       </span>
                     </div>
+
+                    {/* Acción explícita: que se vea que la tarjeta lleva a algún lado */}
+                    <span className="mt-auto pt-4">
+                      {detalle ? (
+                        <span
+                          className="inline-flex w-full items-center justify-center gap-2 rounded-full px-4 py-2.5 text-[13px] font-bold text-white shadow-lg transition-[gap,filter] duration-300 group-hover:gap-3 group-hover:brightness-110"
+                          style={{ backgroundImage: `linear-gradient(135deg, ${c1}, ${c2} 55%, ${c3})` }}
+                        >
+                          <Headphones className="h-4 w-4" aria-hidden="true" />
+                          Ver programa y grabaciones
+                          <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
+                        </span>
+                      ) : (
+                        <span className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-[13px] font-semibold text-slate-300">
+                          Solo en vivo, en su horario
+                        </span>
+                      )}
+                    </span>
                   </div>
                 </div>
+            );
+
+            return detalle ? (
+              <Link
+                key={p.id}
+                href={`/programacion/${detalle.slug}`}
+                aria-label={`Ver el programa ${p.nombre}`}
+                className={clases}
+                style={estilo}
+              >
+                {interior}
+              </Link>
+            ) : (
+              <article key={p.id} className={clases} style={estilo}>
+                {interior}
               </article>
             );
           })}
         </div>
+
+        {mostrarEnlaceATodos && (
+          <div className="mt-12 text-center">
+            <Link href="/programacion" className="btn btn-primario">
+              Ver la parrilla completa
+            </Link>
+          </div>
+        )}
       </div>
     </section>
   );

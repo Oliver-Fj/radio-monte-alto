@@ -109,7 +109,7 @@ export default async function EventoPage({ params }: PageProps) {
                   )}
                 >
                   {esProximo && (
-                    <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-400" />
+                    <span className="h-1.5 w-1.5 motion-safe:animate-pulse rounded-full bg-emerald-400" />
                   )}
                   {esProximo ? 'Próximo evento' : 'Evento realizado'}
                 </span>

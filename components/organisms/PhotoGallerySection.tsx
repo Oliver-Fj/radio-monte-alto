@@ -111,6 +111,8 @@ function FotoCard({ foto }: { foto: Foto }) {
       <img
         src={publicPath(src)}
         alt={foto.alt}
+        width={800}
+        height={600}
         loading="lazy"
         decoding="async"
         onError={() => setSrc(`${B}/images/opt/galeria-radio-1.webp`)}
@@ -127,7 +129,7 @@ function FotoCard({ foto }: { foto: Foto }) {
 
 export default function PhotoGallerySection() {
   return (
-    <section className="relative py-24 bg-[#0B1120] overflow-hidden font-sans">
+    <section className="relative py-24 bg-slate-950 overflow-hidden font-sans">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-blue-900/10 rounded-full blur-[120px]" />
       </div>
